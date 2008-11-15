@@ -1,0 +1,26 @@
+<%- if logged_in? %>
+<ul>
+	<%- if current_user.has_privilege?('clerk', @article.community) %>
+	<li><%= link_to_function "Add Action", visual_effect(:appear, :new_action) %></li>
+	<%- end %>
+	<%- if @article.draft? && !@article.article_type.concern? && has_privilege?('edit article', @article) %>
+	<li><%= link_to 'Finalize your Motion and move it to the Priority section', { :controller => 'articles', :action => 'finalize', :id => @article }, :confirm => "Are you sure? After Finalizing your motion, you will not be able to edit it further.", :help => "Finalizing your Motion moves it into the Priority section where other community members may focus on your draft as their top priority." %></li>
+	<%- end %>
+	<%- if @article.focus? && current_user.has_privilege?('move into session', current_district) %>
+	<li><%= link_to 'Move this Motion into Legislature', :controller => 'articles', :action => 'move_into_session', :id => @article %></li>
+	<%- end %>
+	<%- if @article.in_comite? && current_user.has_privilege?('move to vote', current_community) %>
+	<li><%= link_to 'Open Motion for Vote', :controller => 'articles', :action => 'move_to_vote', :id => @article %></li>
+	<%- end %>
+	<%- if !@article.dead? && (current_user.has_privilege?('kill article', @article) || current_user.has_privilege?('kill article', @article.community)) %>
+	<li><%= link_to 'Kill Motion', article_path(@article), :confirm => "Are you sure you want to Kill this Motion?", :method => :delete %></li>
+	<%- end %>
+</ul>
+<div id="new_action" style="display:none">
+	<%- form_tag do%>
+	<p>new action <%= text_field_tag 'action' %> <%= submit_tag 'create' %></p>
+	<%- end %>
+</div>
+
+<%- end %>
+<%= render :partial => '/shared/action', :locals => { :actions => @article.actions } %>

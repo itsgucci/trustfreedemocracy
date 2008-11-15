@@ -1,0 +1,17 @@
+<div>
+	<%- if @user == current_user %>
+		<%=  
+		editable_content( :content => { :text => @page.content.blank? ? "Click here start building your personal website" : textile( @page.content ), 
+		:options => { :id => "user_disclosure#{@page.id}", :onkeyup => "grow_text_area(this);" } },
+		:url => { :controller => 'users', :action => 'update_disclosure', :id => @page.id },
+		:ajax => { :loadTextURL => "'#{ url_for :controller => 'users', :action => 'get_disclosure', :id => @page.id }'", :rows => 13 }
+		)
+		%>
+	<%- else %>
+		<%- if @page.content.blank? %>
+			<p class="larger"><%= @user.name %> has not created a website yet</p>
+		<%- else %>
+			<%= textile @page.content %>
+		<%- end %>
+	<%- end %>
+</div>

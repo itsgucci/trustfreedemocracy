@@ -1,0 +1,1 @@
+<p>Presently this <%= h @article.article_type.name %> is your Top Priority, if this is no longer the case, <%= link_to_remote 'remove your Top Priority', :url => { :controller => 'articles', :action => 'unendorse', :id => @article.id } %>.</p>

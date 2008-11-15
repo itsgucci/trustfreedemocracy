@@ -1,0 +1,7 @@
+<%- content_for :page_help do %>
+	<%= render :partial => 'help_overview' %>
+<%- end %>
+
+<%= render :partial => 'summary' %>
+<%= render :partial => 'list' %>
+<%#= javascript_tag "var ep = EndlessPage(#{@list.total_pages}, '#{url_for :controller => :laws}', encodeURIComponent('#{form_authenticity_token}'));" %>

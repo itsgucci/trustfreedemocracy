@@ -1,0 +1,49 @@
+<%- top_focuses = current_district.articles.focuses.sort { |a,b| b.focus_count <=> a.focus_count } %>
+<%- ratios = []; labels = "" %>
+<%- for focus in top_focuses#[0..4] %>
+	<%- ratios << (focus.focus_count.to_f / current_district.population) * 100 %>
+	<%- labels << focus.number << "|" %>
+<%- end %>
+<%- rest = ratios.sum - ratios[0..3].sum %>
+<%- remainder = 100 - ratios.sum %>
+<div class="box inset summary">
+	<div class="header">
+		<h2>Focus Summary</h2>
+	</div>
+	<div class="body" style='background: url(<%= "http://chart.apis.google.com/chart?cht=p&chs=320x200&chd=t:" + ratios.join(",") + "," + remainder.to_s +  "&chl=" + labels + "indecisive&chf=bg,s,00000000" %>) center no-repeat'>
+		<div class="two_columns">
+			<div class="left_column golden_small">
+				<h3>Your Focus</h3>
+				<%- if logged_in? && current_user.focus %>
+				<p>You are focused on <%= link_to @current_user.focus.article.number, :controller => 'articles', :action => 'show', :id => current_user.focus.article %></p>
+				<%- elsif !logged_in? %>
+				<p>You are not logged in</p>
+				<%- else %>
+				<p>You do not have a focus!</p>
+				<%- end %>
+				<%- if current_district.representative %>
+				<h3>Representative Activity</h3>
+				<p><%= h current_district.representative.name %> will sponsor next article in four days. <%= h current_district.representative.name %> moves articles from focus to legislation once a week on Tuesdays.</p>
+				<%- end %>
+			</div>
+			<div class="right_column golden_big">
+				<h3>Popular Focus in <%= h current_district.name %></h3>
+				
+				<%# image_tag "http://chart.apis.google.com/chart?cht=p&chs=320x200&chd=t:" + ratios.join(",") + "," + remainder.to_s +  "&chl=" + labels + "indecisive&chf=bg,s,00000000", :style => "float:left" %>
+				<table>
+					<tr><th>rank</th><th>article</th><th>count</th><th>percentage</th></tr>
+					<%- n = 0 %>
+					<%- for focus in top_focuses[0..3] %>
+					<tr><td><%= n = n.succ %></td><td class="orangelist"><%= link_to focus.number, :action => 'show', :id => focus %></td><td><%= focus.focus_count %></td><td><%= number_to_percentage ((focus.focus_count.to_f / current_district.population) * 100), :precision => 2 %></td></tr>
+					<%- end %>
+					<tr><td></td><td>other</td><td></td><td><%= number_to_percentage rest, :precision => 2 %></td></tr>
+					<tr><td></td><td>indecisive</td><td></td><td><%= number_to_percentage remainder, :precision => 2 %></td></tr>
+				</table>
+			</div>
+		</div>
+		<%= clear_both %>
+	</div>
+	<div class="footer">
+		&nbsp;
+	</div>
+</div>

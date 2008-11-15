@@ -1,0 +1,19 @@
+--- 
+votes_000001: 
+  id: "1"
+  legislation_id: "1"
+  user_id: "1"
+  for: "1"
+  created_at: 0000-00-00 00:00:00
+votes_000002: 
+  id: "2"
+  legislation_id: "1"
+  user_id: "1"
+  for: "1"
+  created_at: 0000-00-00 00:00:00
+votes_000003: 
+  id: "3"
+  legislation_id: "2"
+  user_id: "1"
+  for: "1"
+  created_at: 2007-10-28 00:33:54

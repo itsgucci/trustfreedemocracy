@@ -1,0 +1,49 @@
+<div class="box rounded">
+	<div class="header">
+		<h2>Articles awaiting Committee</h2>
+	</div>
+	<div class="body">
+		<ul>
+		<%- for article in @unassigned_articles %>
+			<li>
+				<%= link_to article.number, :controller => "proposals", :action => 'show', :id => article %>
+				<%- if has_privilege? 'assign to comite', current_district %>
+					<%- form_tag( {:action => 'assign', :id => article} ) do %>
+					<%= select_tag :comite, options_from_collection_for_select(current_district.parent.comites - article.comites, "id", "name") %>
+					<%= submit_tag 'assign' %>
+					<%- end %>
+				<%- end %>
+			</li>
+		<%- end %>
+		</ul>
+	</div>
+	<div class="footer">
+		
+	</div>
+</div>
+
+each comite and the articles in front of them
+show major and minor action
+show reports
+show amendments
+show discussion
+show votes
+
+<% for comite in @comites %>
+	<div class="box">
+		<div class="header">
+			<h2><%= link_to comite.name, comite %></h2>
+		</div>
+		<div class="body">
+			<ul>
+			<%- for article in comite.articles %>
+				<li><%= link_to article.number, :controller => 'proposals', :action => 'show', :id => article %></li>
+			<%- end %>
+			</ul>
+		</div>
+	</div>
+<% end %>
+
+<br />
+
+<%= link_to 'New comite', new_comite_path %>

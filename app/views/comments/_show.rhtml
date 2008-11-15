@@ -1,0 +1,10 @@
+<div id="comments_body" class="comments">
+<%- if comments.empty? %>
+	<p>Nothing has been said</p>
+<%- end %>
+<% for comment in comments %>
+	<div class="comment_and_reply">
+		<%= render :partial => 'comments/comment_display', :locals => { :comment => comment } %>
+	</div>
+<% end %>
+</div>	

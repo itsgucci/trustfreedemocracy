@@ -1,0 +1,37 @@
+<%- current = current_district || current_community %>
+<div class="left_column golden_big">
+	<p class="larger">There are <%= number_with_delimiter current.articles.size %> Motions available</p>
+	<p>To find legislation you may search to the right, or you may:</p>
+	<ol>
+		<li><%= link_to "Propose an Idea", new_article_path %> - introduce a new idea to the community</li>
+		<li><%= link_to "Develop Legislation", :controller => :ideas %> - work with the community to develop ideas into complete legislation</li>
+		<li><%= link_to "Corroborate the Agenda", :controller => :proposals %> - select your top priority from the collection of community generated legislation</li>
+		<li><%= link_to "Control Legislature", :controller => :comites %> - watch motions progress through the legislative process</li>
+		<li><%= link_to "Vote", :controller => :legislations %> - recommend directly to your legislator how to vote on your behalf</li>
+		<li><%= link_to "Promulgate", :controller => :laws %> - find the status of motions after they have gone through legislature</li>
+	</ol>
+</div>
+<div class="right_column golden_small">
+	<div class="box">
+		<h2 class="header">Search</h2>
+		<div class="body">
+			<%- form_tag '/articles', :method => 'get' do %>
+			<div class="p_padding">
+				Motion's titles and content <br />
+				<%= text_field_tag "search", "Keywords", :onblur => "if(this.value == '') this.value = 'Keywords';", :onclick => "if(this.value == 'Keywords') this.value = '';", :size => "15" %><%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
+				<%= submit_tag 'Search' %>
+			</div>
+			<%- end %>
+		</div>
+	</div>
+	<div class="box">
+		<h2 class="header">Popular</h2>
+		<div class="body">
+			<ul class="orangelist">
+				<%- current.articles.most_supported(7).each do |article| %>
+				<li><%= link_to truncate(article.name, 32), article %></li>
+				<%- end %>
+			</ul>
+		</div>
+	</div>
+</div>

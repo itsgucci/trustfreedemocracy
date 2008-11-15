@@ -1,0 +1,180 @@
+--- 
+pages_000013: 
+  title: interests
+  id: "13"
+  version: "1"
+  content: |-
+    i like a lot of chocolate.
+    
+    other than that, i am rather boring.
+pages_000002: 
+  title: music
+  id: "2"
+  version: "2"
+  content: |-
+    h1. music rocks my world.
+    
+    it allows me to make really obvious cliches.
+    
+    
+    p>. i listen to horrible music.
+    i just like it.
+pages_000014: 
+  title: yeah baby
+  id: "14"
+  version: 
+  content: cheese burger
+pages_000003: 
+  title: about
+  id: "3"
+  version: 
+  content: |-
+    *Orange* is the solution to a broken political system. Our founding fathers revolutionized the world with a grand experiment, replacing monarchies and dictators with a representative republic. Orange uses the technology of the internet to revoltutionize the world again by rejecting corrupt self serving representatives and replacing them with instantaneous democracy by the people. All without revising the US Constitution.
+    
+    *Orange* software changes any representative republic into a true democracy, at any level of government. Citizens can now vote as if they were the elected representative. Orange representatives pledge to cast their vote according to the majority will of their constituents.
+pages_000015: 
+  title: zest
+  id: "15"
+  version: "1"
+  content: pagan empiricist
+pages_000004: 
+  title: core
+  id: "4"
+  version: 
+  content: "# Orange believes in the Constitution of the United States of America.\r\n\
+    # Orange believes every eligble voter has the right to cast his/her vote on every issue and should be able to make laws.\r\n\
+    # Orange believes in equality of all citizens in the process,allowing every citizens voice to be heard and giving no preference to any citizen regardless of their wealth, position or status.\r\n\
+    # Orange believes in the right of law and that we shall abide by the laws duly made my the majority of our fellow citizens.\r\n\
+    # Orange trusts that citizens can govern themselves if given the means and power to do so. "
+pages_000016: 
+  title: todos
+  id: "16"
+  version: "5"
+  content: |-
+    ajaxify pages. they should load dynamically without refreshing the rest of the page.
+    
+    h3. build modules
+    * news
+    * discussion board
+    * events
+    
+    allow organizations to found chapters and localized subgroups. information should cascade down and communication should flow both ways. allow parent groups to empower subgroups to operate on their own, but with good diligence. 
+    
+    add support/oppose/debate functionality to items
+    
+    turn tags into interests/descriptions. make them a place to meet. ie group on an interest without a stance or any defined leadership. 
+    
+    make the page editor in place ajax?
+    
+    fix permissions with creating and editing pages.
+    
+    make ideas versionable until they are made public. they can not gain support until made public. once an idea is public it may not be made private again.
+pages_000005: 
+  title: goals
+  id: "5"
+  version: 
+  content: "Absolute power to the voters. One vote per citizen on every congressional vote. Majority of votes decide how the vote of the representative will be cast on the House/Senate/Council floor.\r\n\
+    \r\n\
+    Money won't buy influence, because the vote of the majority of the citizen voters can't be purchased.\r\n\
+    \r\n\
+    No special treatment. No preference to special interests or special favors to anyone. Every citizen must go through the same process regardless of the wealth or status.\r\n\
+    \r\n\
+    Complete open book insuring total honesty. All financial records, all source code, all vote counts will be open to public inspection. Security and integrety are essential.\r\n\
+    \r\n\
+    The people will make the laws by proposing their own legislation and getting support from their fellow citizens. This ensures all new laws have the support of the voters.\r\n\
+    \r\n\
+    This system will evolve. As things progress, this system will progress with them. The goal is to have a functional system that continues to serve the will of the people. "
+pages_000017: 
+  title: ppg
+  id: "17"
+  version: "1"
+  content: powered paragliding is great
+pages_000006: 
+  title: trust
+  id: "6"
+  version: 
+  content: |-
+    i know what you are thinking to yourself. and it is that this idea is great, but how can we trust you?
+    
+    the answer is simple. don't.
+    in fact we do not want you to trust us. we want to be under constant scrutiny. audits, third party ones, often.
+    
+    we are going to try to win your trust by making everything public. 
+    the only thing we are keeping private is the way you vote. why? there are two very compelling arguments about a public vote. 
+    1. it may lead to discrimination and threats. "oh i see here you voted for the legalization of marijuana, i can't hire you". and even though the guy probably goes home and blazes a bowl, you didn't get the job. not cool. if you support pot, you should be able to privately in a vote.
+    2. i want to be cool. so before i vote, i look and see how brad pitt voted, and vote the way he does and tell chicks about it. they can go and look at how brad pitt voted and how i voted. the chicks think i am so cool. no. actually we want you to have your own vote. you can't just copy someone else. you can speak out about issues and tell people that you voted one way, but we, orange, will not officially show the way you voted.
+    
+    we want to make everything available to you.
+    
+    orange enables you. we will not vote for you. we just make it easy for you to control yourself within society. true liberty.
+    
+    don't listen to some other asshole if you don't want to. the only thing we want is that you trust yourself to make a responsible decision. you are governing yourself, but you are not alone. you are governing society. everyone is free to pick their own path. but the consequences are real. there is no reset button. choose wisely.
+    
+    everything we know, you know.
+    every tool we use, you can use.
+    we are you.
+    better yet, you are us. we. together can create liberty.
+pages_000018: 
+  title: blah
+  id: "18"
+  version: "1"
+  content: blah
+pages_000007: 
+  title: f you
+  id: "7"
+  version: 
+  content: yeah. you heard me
+pages_000008: 
+  title: about
+  id: "8"
+  version: 
+  content: |-
+    *Orange* is the solution to a broken political system. Our founding fathers revolutionized the world with a grand experiment, replacing monarchies and dictators with a representative republic. Orange uses the technology of the internet to revoltutionize the world again by rejecting corrupt self serving representatives and replacing them with instantaneous democracy by the people. All without revising the US Constitution.
+    
+    *Orange* software changes any representative republic into a true democracy, at any level of government. Citizens can now vote as if they were the elected representative. Orange representatives pledge to cast their vote according to the majority will of their constituents.
+pages_000010: 
+  title: music
+  id: "10"
+  version: 
+  content: |-
+    h1. i really like music
+    
+    textile is pretty cool too.
+pages_000009: 
+  title: music
+  id: "9"
+  version: 
+  content: |-
+    h1. i really like music
+    
+    textile is pretty cool too.
+pages_000011: 
+  title: music
+  id: "11"
+  version: 
+  content: |-
+    h1. i really like music
+    
+    textile is pretty cool too.
+pages_000012: 
+  title: liberty
+  id: "12"
+  version: 
+  content: |-
+    "Give me liberty or give me death"
+    -Patrick Henry
+    
+    &nbsp;
+    
+    *bold*
+    
+    &nbsp;
+    
+    i dig it
+pages_000001: 
+  title: about
+  id: "1"
+  version: 
+  content: |-
+    Drake grew up in Hawaii.
+    He is the chief architect of *Orange*.

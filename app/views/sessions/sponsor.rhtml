@@ -1,0 +1,29 @@
+<div class="box">
+	<h1 class="header">Ensure a Bright Future for Democracy</h1>
+	<div class="body">
+		<div class="box">
+			<h2 class="header">We Are Ad-Free</h2>
+			<p>Part of being a free democracy is letting you choose. We will not accept money in exchange for promoting propaganda.</p>
+		</div>
+		<div class="left_column golden_big">
+			<div class="box">
+				<h2 class="header">About Donations</h2>
+				<p>A monetary contribution to TrustFreeDemocracy will inscribe your name on this page. We only accept donations from individuals. Your donation will be made public and is not tax-deductible.</p>
+			</div>
+		</div>
+		<div class="right_column golden_small">
+			<p style="border:#ccc 2px solid"><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=drakew%40gmail%2ecom&item_name=Orange%20Project&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8" target="_blank" help="Click here to Donate money to TrustFreeDemocracy via Paypal. Donating is sexy and it motivates developers." style="font-size: 200%;line-height:normal;padding:0.5em">Donate via Paypal</a></p>
+		</div>
+		<%= clear_both %>
+		<div class="box">
+			<h3 class="header">Contributors</h3>
+			<table class="ruler">
+			<%- user = User.find 2 %>
+				<tr><td><%= link_to user.name, user %></td><td><%= number_to_currency user.contribution_total %></td></tr>
+			<%- user = User.find 2 %>
+				<tr><td><%= link_to user.name, user %></td><td><%= number_to_currency user.contribution_total %></td></tr>
+			</table>
+		</div>
+	</div>
+</div>
+

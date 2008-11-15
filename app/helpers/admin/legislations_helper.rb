@@ -1,0 +1,2 @@
+module Admin::LegislationsHelper
+end

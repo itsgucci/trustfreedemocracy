@@ -1,0 +1,14 @@
+orange_group:
+  id:           1
+  name:         orange
+  tagline:      we enable liberty through democracy
+  district_id:  1
+  created_on:   2001-09-11 08:46:00
+  
+liberty_group:
+  id:           2
+  name:         liberty
+  tagline:      give us us, or give us death
+  district_id:  1
+  created_on:   2007-11-09 00:00:00
+  

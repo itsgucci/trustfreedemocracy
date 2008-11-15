@@ -1,0 +1,31 @@
+<p class="the_truth">security is obscurity and no security at all</p>
+<div class="box">
+	<h1 class="header">Login to TrustFreeDemocracy</h1>
+	<div class="body">
+		<div class="left_column golden_big">
+			<div class="box">
+				<h2 class="header">Facebook</h2>
+				<div class="body">
+					<%- if facebook_user %>
+					<p style="float:left"><%= image_tag facebook_user.pic %></p>
+					<p><%= facebook_user.name %></p>
+					<p>ID <%= facebook_user.id %></p>
+						<%- if User.find_by_facebook_id facebook_user.id %>
+						<p>Valid</p>
+						<p style="clear:both"><%= link_to "Login with this facebook account", '/sessions/create', :method => :post %></p>
+						<%- else %>
+						<p>You can associate your account with facebook by <%= link_to "clicking here", '/facebook' %></p>
+						<%- end %>
+					<%- else %>
+					<p>You can login via facebook by <%= link_to "clicking here", '/facebook' %></p>
+					<%- end %>
+				</div>
+			</div>
+		</div>
+		<div class="right_column golden_small">
+			<%= render :partial => 'sessions/login' %>
+		</div>
+	</div>
+	
+	<%= clear_both %>
+</div>

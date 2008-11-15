@@ -1,0 +1,41 @@
+--- 
+memberships_000005: 
+  role: 
+  group_id: "5"
+  id: "10"
+  user_id: "1"
+memberships_000006: 
+  role: 
+  group_id: "1"
+  id: "12"
+  user_id: "1"
+memberships_000007: 
+  role: 
+  group_id: "6"
+  id: "13"
+  user_id: "1"
+memberships_000008: 
+  role: 
+  group_id: "7"
+  id: "14"
+  user_id: "1"
+memberships_000001: 
+  role: 
+  group_id: "2"
+  id: "2"
+  user_id: "2"
+memberships_000002: 
+  role: 
+  group_id: "1"
+  id: "3"
+  user_id: "2"
+memberships_000003: 
+  role: 
+  group_id: "3"
+  id: "5"
+  user_id: "3"
+memberships_000004: 
+  role: 
+  group_id: "3"
+  id: "6"
+  user_id: "1"

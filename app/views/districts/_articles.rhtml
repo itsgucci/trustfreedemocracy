@@ -1,0 +1,12 @@
+<%- articles = @district.articles %>
+<table class="ruler">
+	<thead>
+	<tr><th>Article</th><th>Title</th><th>Stage</th></tr>
+	</thead>
+	<tbody>
+	<%- n = 0 %>
+	<%- articles.each do |article| %>
+	<tr><td class="orangelist"><%= link_to article.number, :controller => 'articles', :action => 'show', :id => article %></td><td class="orangelist"><%= link_to article.title, :controller => 'articles', :action => 'show', :id => article %></td><td><%= article.stage_name %></td></tr>
+	<%- end %>
+	</tbody>
+</table>

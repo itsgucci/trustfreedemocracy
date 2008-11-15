@@ -1,0 +1,28 @@
+<div class="box rounded about">
+	<div class="header">
+		<div class="">
+			<h1 class="inline"><%= h @user.name %></h1>
+			<%- if false && @current_user == @user %>
+				<div class="inline discreet"><%= link_to( 'edit', { :action => 'edit', :id => @user } ) %></div>
+			<%- end %>	
+		</div>
+		<%= clear_both %>
+	</div>
+	
+	<%- tabs = [
+			["Website", "disclosure", render(:partial => 'users/disclosure')],
+			["Blog", "blog", url_for(:controller => 'users', :action => 'show_blog', :id => @user)],
+		#	["Notifications", "notify", url_for(:controller => 'users', :action => 'show_notifications', :id => @user)],
+			["Support", "support", url_for(:controller => 'users', :action => 'show_support', :id => @user)],
+		    ["Memberships", "membership", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]
+		#	["Authored", "author", url_for(:controller => 'users', :action => 'show_articles', :id => @user)],
+		#	["Comments", "comment", url_for(:controller => 'users', :action => 'show_comments', :id => @user)]
+		#	["Certifications", "certs", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]
+			]
+			 %>
+	<%- if logged_in? && (@user == current_user || current_user.has_privilege?('edit users') )%>
+	<%- tabs += [["Manage", "manage", url_for(:controller => 'users', :action => 'show_manage', :id => @user)]] %>
+	<%- end %>
+	
+	<%= tabs @user.id.to_s, tabs %>
+</div>

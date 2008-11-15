@@ -1,0 +1,35 @@
+<div class="header support_accordion_toggle">
+	<h4>Vote on Legislation</h4>
+</div>
+<div id="support_body" class="body support_accordion_content">
+	<% if logged_in? %>
+		<% if not object.closed? %>
+			<% if object.has_voted? @current_user %>
+				<%= pluralize(object.support - 1, "person") %> <br />+ you<br />---------------<br /><%= pluralize(object.support, "vote") %> have been cast<br /><br />
+				view results in <%= time_left object.closing_time %>
+			<% else %>
+				<!--><div class="time_remaining"><%# time_left object.closing_time %> until closed</div><-->
+				<div id="support_body_upper" class="count"><%= pluralize(object.votes_count, "person") %> have voted</div>
+				<div class="actions" style="font-size: 40px;">
+				<% form_remote_tag :url => { :action => :vote, :id => object } do %>
+					<div id="div_for<%= object.id %>">
+						<%= check_box :checkbox, :for, :id => "for" + object.id.to_s, :onclick => "vote_check_helper(for#{object.id});", :style => "width:40px;height:40px;" %> 
+						<label for="for<%= object.id %>">for</label>
+					</div>
+					<div id="div_against<%= object.id %>">
+						<%= check_box :checkbox, :against, :id => "against" + object.id.to_s, :onclick => "vote_check_helper(against#{object.id});", :style => "width:40px;height:40px;" %>
+						<label for="against<%= object.id %>">against</label>
+					</div>
+					<%= submit_tag 'Vote', :disabled => true, :id => "submit" + object.id.to_s %>
+					<%= link_to_function "clear", "vote_check_clear(#{object.id})", :style => "font-size:small;" %>
+				<% end %>
+				</div>
+			<% end %>
+		<% else %>
+			This legislation closed <%= time_left object.closing_time %> ago. You can only vote on open items!
+		<% end %>
+	<% else %>
+	you must be <%= link_to 'logged in', '/login' %> to support items!
+	<% end %>
+</div>
+<%= render :partial => 'ideas/body', :locals => { :object => object } %>

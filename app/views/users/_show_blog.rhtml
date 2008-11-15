@@ -1,0 +1,7 @@
+<%- if @user.blog.empty? %>
+	<p class="larger"><%= h @user.name %> has no blog entries!</p>
+<%- else %>
+	<%- @user.blog.each do |blog| %>
+		<%= render :partial => 'blog_entry', :locals => { :blog_entry => blog } %>
+	<%- end %>
+<%- end %>

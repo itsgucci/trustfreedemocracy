@@ -1,0 +1,8 @@
+<div class='inner_tree_element' id='new_tree_div'>
+	<img src='/images/drag.gif' style='cursor:move' id='new_drag_image' align='absmiddle' class='drag_image' /> 
+	<span id='new_tree_item'>
+		<%= object.name %>
+	</span>
+</div>
+
+<%= draggable_element 'new_tree_div', :revert => true, :snap => false, :handle => "'new_drag_image'" %>

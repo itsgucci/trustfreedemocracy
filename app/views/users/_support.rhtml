@@ -1,0 +1,20 @@
+<h3>Top Priority: </h3>
+<%- if @user.top_priorities.empty? %>
+<p><%= @user.name %> has no Top Priorities.</p>
+<%- else %>
+<ul class="orangelist">
+	<%- for item in @user.top_priorities %>
+	<li><%= item.article.district.full_name %>: <%= link_to h(item.article.title), item.article %></li>
+	<%- end %>
+</ul>
+<%- end %>
+<h3>Motions Publicly Supported: </h3>
+<%- if @user.supported_articles.empty? %>
+<p><%= @user.name %> has not supported any Motions.</p>
+<%- else %>
+<ul class="orangelist">
+	<%- for item in @user.supported_articles %>
+	<li><%= item.community.name %><%= " - " + item.district.name if item.district %>: <%= link_to h(item.title.blank? ? "No Title" : item.title), item %></li>
+	<%- end %>	
+</ul>
+<%- end %>

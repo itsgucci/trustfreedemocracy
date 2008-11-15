@@ -1,0 +1,33 @@
+<h3 style="text-align: center; color: red; margin-bottom: 0.5em">The action you are performing can be enhanced by accountability</h3>
+<div class="two_columns">
+	<div class="left_column half" style="">
+		<div class="box rounded">
+		<% form_remote_tag :url => {:controller => 'sessions', :action => 'create'}, :success => "try{ $(accountable_form).onsubmit(); } catch(e){ $(accountable_form).submit(); } finally{ hideBox(); }" do %>
+			<div class="header">
+				<h2>Login to <%= current_district ? current_district.name : "TrustFreeDemocracy" %></h2>
+			</div>
+			<div class="body pretty_form">
+				<!--[form:login]-->
+				<p><label for="user_login" help="This is the login name provided to you, typically your email address. If you do not have a login, click Sign Up below">Username</label><%= text_field_tag :login, nil, :size => 14 %></p>
+
+				<p><label for="user_password" help="This is your password. If you forgot your password, email democracy@hungrychild.org">Password</label><%= password_field_tag 'password', nil, :size => 14  %></p>
+				<!--[eoform:login]-->
+				<!-- Uncomment this if you want this functionality
+				<p><label for="remember_me">Remember me:</label>
+				<%= check_box_tag 'remember_me' %></p>
+				-->
+			</div>
+			<div class="footer">
+				<%= submit_tag "Submit Accountably" %> <%# link_to "sign up", :controller => "users", :action => "new" %>
+			</div>
+		<% end %>
+		</div>		
+	</div>
+	<div class="right_column half">
+		<p>If you do not have an account <%= link_to "Create an Account", new_user_path %> now</p>
+		<p>or</p>
+		<p>Anonymous submission may be filtered out by other users when viewing this article. We recommend submitting comments accountably so that your voice is heard.</p>
+		<p><%= link_to_function "Submit Anonymously", "try{ $(accountable_form).onsubmit(); } catch(e){ $(accountable_form).submit(); } finally{ hideBox(); }" %></p>
+	</div>
+</div>
+

@@ -1,0 +1,24 @@
+body {
+  font-size:   13px;
+  line-height: 18px;
+}
+
+.facebook_hidden {
+  display:none;
+}
+
+#mantra {
+  font-size: 1.74em;
+}
+
+.pretty_form label {
+  width:auto;
+}
+
+p, .p_padding {
+  padding: 3px;
+}
+
+#site_navigation {
+  margin-top: 3px;
+}

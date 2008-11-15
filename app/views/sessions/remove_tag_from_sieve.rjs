@@ -1,0 +1,1 @@
+page.replace "tag" + @tag.id.to_s, :partial => 'shared/tag'

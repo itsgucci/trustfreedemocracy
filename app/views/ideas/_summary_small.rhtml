@@ -1,0 +1,42 @@
+<div class="box rounded" style="background-image: url()">
+	<div class="header">
+		<h2>Draft Summary</h2>
+	</div>
+	<div class="body">
+		<div class="two_columns">
+			<div class="left_column half">
+				<h3>Your Drafts</h3>
+				<%- if logged_in? %>
+				<table class="orangelist">
+					<tr><th>Number</th><th>Stage</th><th>Support</th><th>Popularity</th></tr>
+					<%- for article in @current_user.articles_authored %>
+					<tr>
+						<td><%= link_to article.number, :action => 'show', :id => article %></td>
+						<td><%= article.stage_name %></td>
+						<td><%= article.support_count %></td>
+					</tr>
+					<%- end %>
+				</table>
+				<%- else %>
+				<p>You are not <%= link_to 'logged in', :controller => '/' %>.</p>
+				<%- end %>
+			</div>
+			<div class="right_column half">
+				<h3>Popular Drafts</h3>
+				<table class="orangelist">
+					<tr><th>Number</th><th>Support</th><th>Popularity</th></tr>
+				<%# todo this should not be [0..3]. it should be a limit in the database query. but it needs to order it by support count, so there needs to be some kind of join here. figure that out! %>
+				<%- for article in current_district.articles.drafts.sort {|a,b| b.support_count <=> a.support_count}[0..3] %>
+					<tr>
+						<td><%= link_to article.number, :action => 'show', :id => article %></td>
+						<td><%= article.support_count %></td>
+					</tr>
+				<%- end %>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		
+	</div>
+</div>

@@ -1,0 +1,12 @@
+<div class="box tags">
+	<div class="header"><h2>Descriptions</h2></div>
+	<div class="body" id="t<%= tag_box.id %>">
+	<%= render :partial => 'filters/list_tags', :object => tag_box %>
+	<div id="new_tag">
+	<% form_remote_tag :url => { :action => 'add_tag', :id => tag_box }, :update => "t#{tag_box.id}" do %>
+		<%= text_field_tag 'tag', nil, :size => "10" %>
+		<%= submit_tag "Describe" %>
+	<% end %>
+	</div>
+	</div>
+</div>

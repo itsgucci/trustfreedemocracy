@@ -1,0 +1,18 @@
+<%- if @article.rolls.empty? %>
+<p class="larger">This Motion has no official votes on it</p>
+<%- else %>
+	<%- @article.rolls.each do |roll| %>
+		<div class="box">
+			<h3 class="header"><span class="dull"><%= roll.created_at.strftime("%B %d, %Y") %></span> Roll <%= h roll.number %></h3>
+			<div class="body">
+				<p class="enourmous" style="float:right"><%= roll.result %></p>
+				<div style="float:left">
+					<p class="huge"><%= roll.aye_count %> approve</p>
+					<p class="huge"><%= roll.nay_count %> oppose</p>
+				</div>
+				<p class="huge"><%= roll.present_count %> present</p>
+				<p class="huge"><%= roll.novote_count %> non-voting</p>
+			</div>
+		</div>
+	<%- end %>
+<%- end %>

@@ -1,0 +1,80 @@
+<%- if help_enabled? %>
+<div class="container rounded help">
+	<p>Determining which piece of legislation should enter legislature next is simple. This section's purpose is to determine which Motion should be introduced into <%= h current_community.name %> next</p>
+	<p>To participate you may choose one Motion from the list below to be your Top Priority. You may change your Top Priority at any time. While you may support many Motions, you may only have one Top Priority at a time. </p>
+</div>
+<%- end %>
+<%- if current_district %>
+<div class="box rounded summary">
+	<h2 class="header"><%= h current_district.name %>'s Agenda for <%= h current_district.community.name %></h2>
+	<div class="body">
+		<div class="two_columns">
+			<div class="left_column golden_big">
+				<div class="two_columns">
+					<div class="left_column half">
+						<%- top_focuses = current_district.articles.focuses.sort { |a,b| b.focus_count <=> a.focus_count } %>
+						<%- ratios = []; labels = "" %>
+						<%- for article in top_focuses#[0..4] %>
+							<%- ratios << (article.focus_count.to_f / current_district.population) * 100 %>
+							<%- labels << article.number << "|" %>
+						<%- end %>
+						<%- rest = ratios.sum - ratios[0..2].sum %>
+						<%- remainder = 100 - ratios.sum %>
+						<%= image_tag "http://chart.apis.google.com/chart?cht=p&chs=320x200&chd=t:" + ratios.join(",") + "," + rest.to_s + "," + remainder.to_s + "&chl=" + labels + "et cetera|indecisive&chf=bg,s,00000000", :style => "float:left" %>
+					</div>
+					<div class="right_column half">
+						<table class="ruler">
+							<thead>
+							<tr><th>Motion</th><th>Top Priority for</th></tr>
+							</thead>
+							<tbody>
+							<%- for article in top_focuses[0..2] %>
+							<tr style="cursor:pointer" onclick="document.location.href='<%= article_url(article) %>'">
+								<td><%= article.number %></td>
+								<td><%= pluralize article.focus_count, "person" %></td>
+							</tr>
+							<%- end %>
+							<tr><td>et cetera</td><td><%= number_to_percentage rest, :precision => 2 %></td></tr>
+							<tr><td>indecisive</td><td><%= number_to_percentage remainder, :precision => 2 %></td></tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="right_column golden_small">
+				<div class="box">
+					<h2 class="header">Your Top Priority</h2>
+					<div class="body">
+						<%- if logged_in? && current_user.focus(current_district) %>
+						<p style="margin-bottom: 15px">Your top priority is <%= link_to (current_user.focus(current_district).article.number + " - " + current_user.focus(current_district).article.title), current_user.focus(current_district).article %></p>
+						<%- else %>
+						<p style="margin-bottom: 15px">Choose your Top Priority from the available priorities.</p>
+						<%- end %>		
+					</div>
+				</div>
+				<%- if logged_in? && current_user.has_privilege?('move into session', current_district) %>
+				<div class="box">
+					<h2 class="header">Move to Session</h2>
+					<div class="body">
+						<%- if current_district.top_priority %>
+						<p><%= pluralize current_district.top_priority.focus_count, "person" %> want you to sponsor <%= link_to "Move #{ current_district.top_priority.number + "- " + current_district.top_priority.title } into Session", { :controller => 'districts', :action => 'move_top_priority_into_session', :id => current_district }, :confirm => "Are you sure?" %> next</p>
+						<%- else %>
+						<p>Your constituents do not want you to sponsor any new Legislation, Lucky you.</p>
+						<%- end %>	
+					</div>
+				</div>
+				<%- elsif current_district.representative %>
+				<div class="box">
+					<h2 class="header">Representative Activity</h2>
+					<div class="body">
+						<p><%= link_to h(current_district.representative.name), current_district.representative %> should introduce <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> into legislature next.</p>
+						<p class="smaller dull">* the agenda is determined by constituent's Top Priority and is subject to change at any time.</p>	
+					</div>
+				</div>
+				<%- end %>	
+			</div>	
+			<%= clear_both %>
+		</div>
+	</div>
+</div>
+<%- end %>

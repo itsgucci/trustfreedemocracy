@@ -1,0 +1,11 @@
+<%= error_messages_for 'district' %>
+
+<!--[form:district]-->
+<%- if @parent %>
+New Sub-District of <%= @parent.name %>
+<%- end %>
+
+<p><label for="district_state">Name</label><br/>
+<%= text_field 'district', 'name'  %></p>
+<!--[eoform:district]-->
+

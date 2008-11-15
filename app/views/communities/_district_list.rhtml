@@ -1,0 +1,26 @@
+<%- if logged_in? && current_user.has_privilege?('manage districts', @community) %>
+<div class="right_column golden_small">
+	<div style="position:fixed" class="box" id="district_management">
+		<h2 class="header">New District</h2>
+		<div class="body">
+			<% form_remote_for :district, District.new, :url => { :controller => 'districts', :action => 'create' } do |f| %>
+				<%= hidden_field_tag "district[community_id]", @community.id  %>
+				<p><label for="district_name">District Name</label><br /><%= f.text_field :name, :size => 26 %></p>
+				<%= submit_tag 'Create'%>
+			<% end %>
+		</div>
+	</div>
+</div>
+<%- end %>
+<div class="">
+<%- if @community.districts.empty? %>
+	<p>There are no Districts in <%= h @community.name %>.</p>
+<%- else %>
+	<ul id="district_list" class="orangelist">
+	<%- admin = current_user.has_privilege?('manage districts', @community) if logged_in? %>
+	<%- @community.districts.sort_by{ |district| district.name }.each do |district| %>
+		<%= link_to_district_or_manage district, admin %>
+	<%- end %>
+	</ul>
+<%- end %>
+</div>

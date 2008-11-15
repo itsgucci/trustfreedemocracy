@@ -1,0 +1,53 @@
+<%- content_for :header_scripts do %>
+Event.observe(window, 'load', loadAccordions, false);
+function loadAccordions() {
+	var mainAccordion = new accordion('accordion_container');
+	mainAccordion.activate($$('#accordion_container .accordion_toggle')[0]);
+}
+<%- end %>
+<div class="two_columns">
+	<div class="left_column golden_big">
+		<div class="box">
+			<div class="header">
+				<h1 id="interests"><%= @interest.name %></h1>
+			</div>
+			<div id="accordion_container" class="body">
+				
+				<h4 class="accordion_toggle">Descriptions</h4>
+				<ul class="accordion_content">
+					<% for tag in @tags %>
+					<li><%= link_to tag.name, :action => 'show', :id => tag %></li>
+					<% end %>
+				</ul>
+				
+				<h4 class="accordion_toggle">Legislations</h4>
+				<ul class="accordion_content">
+					<%- items = Legislation.find_by_interest(@interest) %>
+					<%- for item in items.uniq %>
+					<li><%= link_to item.number, { :controller => item.class.to_s + "s", :action => 'show', :id => item }, { :title => item.title } %></li>
+					<%- end %>
+				</ul>
+				
+				<h4 class="accordion_toggle">Proposals</h4>
+				<ul class="accordion_content">
+					<%- items = Proposal.find_by_interest(@interest) %>
+					<%- for item in items.uniq %>
+					<li><%= link_to item.number, { :controller => item.class.to_s + "s", :action => 'show', :id => item }, { :title => item.title } %></li>
+					<%- end %>
+				</ul>
+				
+				<h4 class="accordion_toggle">Ideas</h4>
+				<ul class="accordion_content">
+					<%- items = Idea.find_by_interest(@interest) %>
+					<%- for item in items.uniq %>
+					<li><%= link_to item.number, { :controller => item.class.to_s + "s", :action => 'show', :id => item }, { :title => item.title } %></li>
+					<%- end %>
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+	<div class="right_column golden_small">
+		<%= render :partial => 'shared/ad_gs' %>
+	</div>
+</div>

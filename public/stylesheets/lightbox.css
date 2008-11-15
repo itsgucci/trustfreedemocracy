@@ -1,0 +1,24 @@
+#overlay {
+    position: fixed;
+    z-index:80;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color:#000;
+    filter:alpha(opacity=38);
+    -moz-opacity: 0.38;
+    opacity: 0.38;
+}
+
+.lightbox{
+    background:url('/images/fff-84.png');
+    width: 47em;
+}
+
+.lightbox .close{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    cursor:pointer;
+}

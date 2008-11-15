@@ -1,0 +1,37 @@
+<%= error_messages_for 'legislation' %>
+
+<!--[form:legislation]-->
+<p><label for="legislation_number">Number</label><br/>
+<%= text_field 'legislation', 'number'  %></p>
+
+<p><label for="legislation_title">Title</label><br/>
+<%= text_area 'legislation', 'title'  %></p>
+
+<p><label for="legislation_summary">Summary</label><br/>
+<%= text_area 'legislation', 'summary'  %></p>
+
+<p><label for="legislation_full_text">Full Text of Bill</label><br/>
+<%= text_area 'legislation', 'full_text'  %></p>
+
+<p><label for="legislation_sponsor">Sponsor</label><br/>
+<%= text_area 'legislation', 'sponsor'  %></p>
+
+<p><label for="legislation_cosponsors">Cosponsors</label><br/>
+<%= text_area 'legislation', 'cosponsors'  %></p>
+
+<p><label for="legislation_actions">Actions</label><br/>
+<%= text_area 'legislation', 'actions'  %></p>
+
+<p><label for="legislation_committees">Committees</label><br/>
+<%= text_area 'legislation', 'committees'  %></p>
+
+<p><label for="legislation_related_bills">Related Bills</label><br/>
+<%= text_area 'legislation', 'related_bills'  %></p>
+
+<p><label for="legislation_amendments">Amendments</label><br/>
+<%= text_area 'legislation', 'amendments'  %></p>
+
+<p><label for="legislation_closing_time">Closing Time</label><br />
+<%= date_select 'legislation', 'closing_time' %></p>
+<!--[eoform:legislation]-->
+

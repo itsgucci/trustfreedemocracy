@@ -1,0 +1,13 @@
+<%- if logged_in? && current_user.has_privilege?('manage community', @community)%>
+<div>
+		<p><%=  
+		editable_content( :content => { :text => @community.calendar_page.content.blank? ? "Click here edit your treasurers report" : textile( @community.pages.first.content ), 
+		:options => { :id => "community_calendar#{@community.id}" } },
+		:url => { :controller => 'communities', :action => 'update_calendar', :id => @community.id },
+		:ajax => { :loadTextURL => "'#{ url_for :controller => 'communities', :action => 'get_calendar', :id => @community.id }'", :rows => 5}
+		)
+		%></p>
+</div>
+<%- else %>
+<%= textile @community.calendar_page.content %>
+<%- end %>

@@ -1,0 +1,83 @@
+<div class="box rounded">
+	<h1 id="mantra" class="header">TrustFreeDemocracy:<span style="font-weight:normal;"> software that helps you make laws</span></h1>
+	<div class="body">
+		<div class="two_columns">
+			<div class="left_column golden_big">
+			<%- if false && logged_in? && !current_user.districts.empty? %>
+				<%- @user = current_user %>
+				<div class="box">
+					<h2 class="header">Recent Progress</h2>
+					<div class="body">
+						<%# todo: known bug. actions should be displaying actions from all districts a user is a member, merged and displaying the most recent 13 %>
+						<%= render( :partial => '/shared/action', :locals => { :actions => current_user.actions } ) %>
+					</div>
+				</div>
+			<%- else %>
+				<div class="box">
+					<h2 class="header">There is Hope</h2>
+					<p>I can actively control <%= link_to current_community.name, current_community %> via virtual democracy</p>
+					<p class="facebook_hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
+					<p class="the_truth">Trust Free Democracy encapsulates the legislative process and provides a usable interface for mere mortals</p>
+					<p>More simply, I can use this website to <%= link_to "propose ideas", new_article_path, :title => "Do something about it, now. Click here to create and introduce a new Motion to the People of #{current_name}. This is where the process starts" %>, <%= link_to "develop legislation", '/ideas', :title => "Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of #{current_name}. Contribute your strengths" %>, <%= link_to "corroborate the agenda", '/proposals', :title => "Have it our way. Click here to choose your Top Priority and establish the Agenda of #{current_full_name}. What is your Priority?" %>, <%= link_to "control legislature", "/comites", :title => "Watch democracy work. Click here to track Motions traveling through the legislative process of #{h current_community.name}. Monitor your legislator's behavior, know the decisions made on your behalf" %>, <%= link_to "vote", '/legislations', :title => "Yes or No, you decide. Click here to Vote on Motions in #{h current_community.name}. Register your vote to enable accountable representation" %>, and <%= link_to "promulgate", "/laws", :title => "Don't be scared, knowledge is power. Promulgation is the publication and proclamation of laws. Click here to view the laws that govern" %> in <%= h current_community.name %> with equal influence and ease</p>
+					<p class="the_truth">TrustFreeDemocracy's paramount principle is the mere speculation that when every constituent publicly ensures de jure liberty online, then establishing legitimate communal liberty is, in reality, as trivially de facto as publishing the collected consensus</p>
+					<p>TrustFreeDemocracy helps me express concerns, share information with the community, track representatives, and get real results</p>
+					<p>TrustFreeDemocracy's free copy of <%= h current_community.name %> enables me to register my voice and elect legislators accountable for representation</p>
+					<p>Find more <%= link_to "about Trust Free Democracy", "/about" %>, <%= link_to "why Trust Free Democracy", "/why" %>, or instantly govern new world democracy, right now 5&gt;</p>
+					<p class="the_truth">When the people lead, the leaders will follow<span>, so let's have beans at every meal!</span></p>
+					<p class="larger"></p>
+					<p class="larger"></p>
+				</div>
+			<%- end %>
+			</div>
+			<div class="right_column golden_small">
+				<%- if logged_in? %>
+				<div class="box">
+					<h2 class="header">My Memberships</h2>
+					<div class="body">
+						<%- if current_user.district_memberships.empty? %>
+						<p class="notice">To get started, join your government</p>
+						<%- else %>
+						<ul class="orangelist scroll_box">
+							<%- current_user.district_memberships.each do |district| %>
+							<li><%= link_to( district.full_name, district ) %></li>
+							<%- end %>
+						</ul>
+						<%- end %>
+					</div>
+				</div>
+				<%- else %>
+				<%#= render :partial => 'sessions/login' %>
+				<div class="box">
+					<h2 class="header">Get Started</h2>
+					<div class="body">
+						<p><%= link_to "Create a new Account", "/signup", :class => "larger" %> <br />or <%= link_to "Sign In", "/login", :class => "larger" %></p>	
+					</div>
+				</div>
+				<%- end %>
+				<div class="box">
+					<h2 class="header">Available Democracy</h2>
+					<div class="body">
+						<ul class="orangelist scroll_box">
+							<%- Community.visible(:order => 'name ASC').each do |community| %>
+							<li><%= link_to community.name, community %></li>
+							<%- end %>
+						</ul>
+					</div>
+				</div>
+				<div class="box">
+					<h2 class="header">Get Certified</h2>
+					<div class="body pretty_form">
+						<% form_tag SSL_ROOT + 'certification/redeem' do %>
+						<%# form_tag redeem_certification_url do %>
+							<p><label for="certificate">Certificate:</label><%= text_field_tag :certificate, nil, :size => 13 %></p>
+							<p><label for="keycode">Keycode:</label><%= password_field_tag 'keycode', nil, :size => 13  %></p>
+							<p><label for="spacer">&nbsp;</label><%= submit_tag "Certify Me" %></p>
+						<% end %>
+						<p class="hidden">Obtain a certificate and keycode from <%= link_to "Registarr.com", "http://registarr.com" %></p>
+					</div>
+				</div>
+			</div>
+			<%= clear_both %>
+		</div>
+	</div>
+</div>

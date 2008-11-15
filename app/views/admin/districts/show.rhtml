@@ -1,0 +1,32 @@
+<div class="box">
+	<div class="header">
+		<h1>Manage Communities</h1>
+	</div>
+	<div class="body">
+		<div class="left_column golden_big">
+			<div id="ajaxtree">
+				<%= render :partial=>"ajax_tree", :object=>[@item,@items] %>
+			</div>
+		</div>
+		<div class="right_column golden_small">
+			<div id="selected_item" class="">
+				
+			</div>
+			<div class="box">
+				<h2 class="header">New Community</h2>
+				<div class="body">
+					<% form_remote_for :community, Community.new, :url => { :controller => 'districts', :action => 'create_community' } do |f| %>
+					<p><label for="community_parent_id">Parent ID</label><br /><%= f.text_field :parent_id, :style => "width: 90%" %></p>
+					<p><label for="community_name">Community Name</label><br /><%= f.text_field :name, :style => "width: 90%" %></p>
+					<p><label for="community_tax_population">Taxable Population</label><br /><%= f.text_field :tax_population, :style => "width: 90%" %></p>
+					<%= submit_tag 'Create'%>
+					<% end %>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		&nbsp;
+		<%# todo render :partial => 'ajax_new', :locals => { :object => District.new } %>
+	</div>
+</div>

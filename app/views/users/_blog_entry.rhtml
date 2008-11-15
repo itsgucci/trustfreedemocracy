@@ -1,0 +1,5 @@
+<div id="blog<%= blog_entry.id %>" class="box" style="border-top: 1px #ccc solid">
+	<p class="smaller dull" style="padding:0"><%= blog_entry.created_at.strftime('%m/%d/%y %I:%M%p').downcase %></p>
+	<h4><%= h blog_entry.title %></h4>
+	<%= textile( blog_entry.comment ) %>
+</div>

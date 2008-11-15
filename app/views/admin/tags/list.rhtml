@@ -1,0 +1,10 @@
+<ul>
+<% for tag in @tags %>
+	<li><%= link_to tag.name, :action => 'show', :id => tag %></li>
+<% end %>
+</ul>
+
+<%- form_for :tag, Tag.new, :url => { :action => 'create' } do |f| %>
+	<%= f.text_field :name %>
+	<%= submit_tag 'add' %>
+<%- end %>

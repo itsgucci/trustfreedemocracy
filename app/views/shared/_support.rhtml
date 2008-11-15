@@ -1,0 +1,40 @@
+<div class="two_columns">
+	<%- if help_enabled? %>
+	<div class="help">
+		<p>Support illuminates Motions, and by supporting this Motion, you make it easier for others to find it</p>
+		<p>Many search and sort functions order Motions by most supported, so more supported items are naturally more visible</p>
+		<p>You may support many Motions simultaneously and support may be withdrawn at any time</p>
+	</div>
+	<%- end %>
+	<div class="left_column golden_big">
+		<div class="two_columns">
+			<div class="left_column half">
+				<div class="center">
+					<div id="support_image<%= @article.id %>">
+						<%= render :partial => 'articles/support_image' %>
+					</div>
+					<div id="support_summary<%= @article.id %>">
+						<%= render :partial => 'articles/support_summary' %>
+					</div>
+				</div>
+			</div>
+			<div class="right_column half" style="">
+				<ul id="user_supporter_list<%= @article.id %>" class="scrolling_box orangelist" style='<%= "height: 10em;" if @article.supporters.size > 10 %>'>
+					<%- for user in @article.supporters %>
+						<li id="user_supporter<%= @article.id.to_s + '_' + user.id.to_s %>"><%= link_to user.name, user %></li>
+					<%- end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="right_column golden_small">
+		<div id="support_area<%= @article.id %>">				
+		<% unless @article.supported_by? current_user %>
+			<%= render :partial => 'articles/add_support' %>
+		<%- else %>
+			<%= render :partial => 'articles/withdraw_support' %>
+		<% end %>
+		</div>
+	</div>
+	<%= clear_both %>
+</div>

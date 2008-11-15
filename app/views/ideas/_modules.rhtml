@@ -1,0 +1,16 @@
+<div class="box">
+	<div class="tabs">
+		<ul>
+			<li>
+				<%= link_to_remote 'describe',
+				 	:url => { :controller => '/modules', :action => 'load_module', :type => object.class, :type_id => object.id, :module => "describe" } %>
+			</li>
+			<li>support</li>
+			<li>debate</li>
+			<li>oppose</li>
+		</ul>
+	</div>
+	<div id="module_area" class="body">
+		<%= render_module 'describe', object %>
+	</div>
+</div>

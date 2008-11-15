@@ -1,0 +1,70 @@
+<table>
+	<thead>
+		<tr><th>Representative</th><th>District</th><th>Location</th></tr>
+	</thead>	
+<%- @community.districts.each do |dist| %>
+	<tr>
+		<%- if logged_in? && current_user.has_privilege?('manage districts', @community) %>
+		<td>
+			<%= in_place_select_editor( :content => {
+			       :element => 'span',
+			       :text => dist.representative ? dist.representative.name : "none",
+			   	:options => {
+			   		:id => "repselect#{ dist.id }",
+			   		:class => 'editable-content'
+			   	}
+			      },
+			     :url => {
+			       :controller => '/districts',
+			       :action => "update_representative",
+			       :id => dist.id
+			      },
+			      :collection => potential_reps_collection
+			   ) 
+			%>
+			<%= link_to( "i", :controller => 'sessions', :action => 'impersonate_user', :id => dist.representative) if dist.representative && current_user.has_privilege?('impersonate users') %>
+			<%= link_to( ">", dist.representative ) if dist.representative %>
+		</td>
+		<td>
+			<%= editable_content( :content => {
+			      :element => 'span',
+			      :text => dist.name,
+			  	:options => {
+			  		:id => "namechange#{ dist.id }",
+			  		:class => 'editable-content'
+			  	}
+			     },
+			    :url => {
+			      :controller => '/districts',
+			      :action => "update_name",
+			      :id => dist.id
+			     }
+			  ) 
+			%>
+			<%= link_to ">", dist %>
+		</td>
+		<td class="golden_big">
+			<%= editable_content( :content => {
+		      :element => 'span',
+		      :text => dist.description.blank? ? "none" : dist.description,
+		  		:options => {
+		  			:id => "locationchange#{ dist.id }",
+		  			:class => 'editable-content'
+		  		}
+		   	  },
+			    :url => {
+			      :controller => '/districts',
+			      :action => "update_description",
+			      :id => dist.id
+			     }
+			  ) 
+			%>
+		</td>
+		<%- else %>
+		<td><%= dist.representative ? link_to( dist.representative.name, dist.representative ) : "unknown" %></td>
+		<td class=""><%= link_to dist.name, dist %></td>
+		<td class="golden_big"><%= dist.description.blank? ? "No Description" : h(dist.description) %></td>
+		<%- end %>
+	</tr>
+<%- end %>
+</table>

@@ -1,0 +1,25 @@
+<h3 style="text-align: center; color: red; margin-bottom: 0.5em">Login to Contribute</h3>
+<div class="two_columns">
+	<div class="right_column golden_big">
+		<div class="box rounded">
+		<% form_remote_tag :url => '/sessions/create', :success => "try{ window.parent.accountable_form.onsubmit(); } catch(e){ window.parent.accountable_form.submit(); } finally{ window.parent.hideBox(); }", :failure => "$('ajax_login_result').innerHTML = 'error'" do %>
+			<div class="header">
+				<h2>Login to TrustFreeDemocracy</h2>
+			</div>
+			<div class="body">
+				<div class="pretty_form">
+					<p><label for="user_login" help="This is the login name provided to you, typically your email address. If you do not have a login, click Sign Up below">Email</label><%= text_field_tag :login, nil, :size => 14 %></p>
+					<p><label for="user_password" help="This is your password. If you forgot your password, email democracy@hungrychild.org">Password</label><%= password_field_tag 'password', nil, :size => 14  %></p>
+				</div>
+				<p style="float:left"><%= check_box_tag 'remember_me' %> <label for="remember_me" class="smaller">remember me</label></p>
+				<p class="" style="font-size: large"><%= submit_tag "Login and Contribute" %></p>
+			</div>
+		<% end %>
+		</div>		
+	</div>
+	<div class="left_column golden_small">
+		<p>I must claim my voice</p>
+		<p>To do so, I can either login --><br /> or <%= link_to_function "create a new account", "window.parent.location = '/users/new'" %></p>
+		<p class="hidden">Otherwise I must <%= link_to_function "cancel my participation", "window.parent.hideBox()" %></p>
+	</div>
+</div>

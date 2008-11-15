@@ -1,0 +1,12 @@
+<%- if @user == current_user %>
+<div id="new_blog" class="golden_big">
+	<h2>Create a Blog entry</h2>
+	<% form_remote_for(:comment, Comment.new, :url => { :controller => 'users', :action => 'new_blog', :id => @user }) do |f| %>
+		<p>Title <%= f.text_field :title %></p>
+		<p><%= f.text_area :comment, :rows => 3, :onkeyup => "grow_text_area(this)" %></p>
+		<p><%= accountable_submit_tag "Post" %></p>
+	<% end %>
+</div>
+<p id="new_blog_entry"></p>
+<%- end %>
+<%= render :partial => "show_blog" %>

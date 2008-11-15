@@ -1,0 +1,22 @@
+<%- if logged_in? %>
+<div class="box square">
+	<div class="header">
+		<p class="dull" style="float:right; padding: 0"><%= link_to_function "x", visual_effect(:shrink, :bookmarks, :direction => 'top-right') %></p>
+		<h4>Instant Portals</h4>
+	</div>
+	<ul id="bookmark_list" class="orangelist" style="overflow:auto;height: 10em;">
+	<%- current_user.bookmarks.each do |bookmark| %>
+		<li id="bookmark<%= bookmark.id %>"><%= link_to bookmark.object.name, bookmark.object %>&nbsp;<%= link_to_remote "x", :url => bookmark_url(bookmark), :method => :delete, :html => {:class => "dull"} %></li>
+	<%- end %>	
+	</ul>
+	<%- if request.path_parameters['controller'] && request.path_parameters['id'] %>
+		<p><%= link_to_remote "Add this Page", :url => {:controller => 'bookmarks', :action => 'create', :object_type => request.path_parameters['controller'], :id => request.path_parameters['id']} %></p>
+	<%- end %>
+	<div class="body">
+		<%- form_tag '/articles', :method => 'get' do %>
+			<%= text_field_tag "search", "Keywords", :onblur => "if(this.value == '') this.value = 'Keywords';", :onclick => "if(this.value == 'Keywords') this.value = '';", :size => "15" %><%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
+			<%= submit_tag 'Search' %>
+		<%- end %>
+	</div>
+</div>
+<%- end %>

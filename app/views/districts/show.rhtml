@@ -1,0 +1,32 @@
+<div class="box rounded">
+	<div class="header">
+		<h1 style="float:left"><%= h @district.full_name %></h1>
+		<p style="float:right">
+			<%- if @district.certified? current_user %>
+			<%= link_to "Certified Member", certify_district_path, :help => "This is your present status with this Government. Click here to leave #{h @district.name}" %>
+			<%- elsif @district.member? current_user %>
+			<span help="This is your present status with this Government. Click here to become a certified member or leave <%= h @district.name %>"><%= link_to "Member", certify_district_path %></span>
+			<%- else %>
+				<%- if help_enabled? %>
+				<span class="help" style="padding: 0.38em">Join Here -></span>
+				<%- end %>
+				<%= link_to "Non-Member", certify_district_path, :help => "This is your present status with this Government. Click here to become a member of #{ h @district.full_name }" %>
+			<%- end %>
+		</p>
+		<%= clear_both %>
+		<h4 class="dull">Representative: <%= @district.representative ? !@district.representative.login.blank? ? link_to( h(@district.representative.name), @district.representative) : @district.representative.name : "Unassigned" %> - <%= pluralize @district.population, "Constituent" %></h4>
+	</div>
+	
+	<%#- join_text = @district.certified?(current_user) ? "Manage" : @district.member?(current_user) ? "Certify" : "Join" %>
+	
+	<%= tabs @district.id.to_s, [
+		["Find", "find", render( :partial => 'shared/find' )],
+		["Progress", "action", url_for(:controller => 'districts', :action => 'show_actions', :id => @district)],
+		["Website", "rep", url_for(:controller => 'districts', :action => 'show_representative', :id => @district)],
+		["Blog", "rep_blog", url_for(:controller => 'districts', :action => 'show_rep_blog', :id => @district)],
+			#["Support", "support", url_for(:controller => 'districts', :action => 'show_support', :id => @district)],
+			["Members", "people", url_for(:controller => 'districts', :action => 'show_members', :id => @district)]
+			#[join_text, "join", url_for(:controller => 'districts', :action => 'show_join', :id => @district)]
+			] %>
+	
+</div>

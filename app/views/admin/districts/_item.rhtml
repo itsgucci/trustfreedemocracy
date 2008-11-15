@@ -1,0 +1,65 @@
+<div class="box">
+	<h2 class="header"><%= editable_content( :content => {
+	                                :element => 'span',
+	                                :text => h( @item.name ),
+									:options => {
+										:id => "name#{ @item.id }",
+										:class => 'editable-content'
+									}
+	                               },
+	                              :url => {
+	                                :controller => '/communities',
+	                                :action => "update_name",
+	                                :id => @item.id
+	                               }
+	                            ) %> </h2>
+	<div class="body">
+		<table class="ruler">
+			<tbody>
+				<tr><td>Community ID</td><td><%= @item.id %></td></tr>
+				<tr><td>ChairPerson:</td><td>
+					<%= in_place_select_editor( :content => {
+					                                :element => 'span',
+					                                :text => @item.chairperson ? @item.chairperson.name : "none",
+													:options => {
+														:id => "chair#{ @item.id }",
+														:class => 'editable-content'
+													}
+					                               },
+					                              :url => {
+					                                :controller => '/communities',
+					                                :action => "update_chairperson",
+					                                :id => @item.id
+					                               },
+					                               :collection => User.find(:all).map {|user| [user.id, user.name] }.to_json
+					                            ) %>
+					</td></tr>
+				<tr><td>Population:</td><td><%= @item.population %></td></tr>
+				<tr><td>TaxPopulation:</td><td><%= editable_content( :content => {
+				                                :element => 'span',
+				                                :text => @item.tax_population,
+												:options => {
+													:id => "tax-population#{ @item.id }",
+													:class => 'editable-content'
+												}
+				                               },
+				                              :url => {
+				                                :controller => '/communities',
+				                                :action => "update_tax_population",
+				                                :id => @item.id
+				                               }
+				                            ) %></td></tr>
+				<tr>
+					<td>Visible:</td>
+					<td>
+						<%- form_remote_tag :url => { :controller => '/communities', :action => 'visibility_toggle', :id => @item }, :html => {:id => 'visibility_form'} do %>
+							<%= check_box_tag 'visible', true, @item.visible, :onchange => "$('visibility_form').onsubmit()" %>
+						<%- end %>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p><%= link_to 'Show Community', @item %></p>
+	</div>
+	
+</div>

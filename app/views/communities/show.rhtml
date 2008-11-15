@@ -1,0 +1,52 @@
+<div class="box">
+	<div class="header">
+		<h1 style="float:left"><%= h( @community.name ) %>: All Districts</h1>
+		<p style="float:right">
+			<%- if @community.certified? current_user %>
+			<span help="This is your present status with this Government. Click here to leave <%= h @community.name %>"><%= link_to "Certified Member", certify_community_path %></span>
+			<%- elsif @community.member? current_user %>
+			<span help="This is your present status with this Government. Click here to become a certified member or leave <%= h @community.name %>"><%= link_to "Member", certify_community_path %></span>
+			<%- else %>
+				<%- if help_enabled? %>
+				<span class="help" style="padding: 0.38em">Join Here -></span>
+				<%- end %>
+				<%= link_to "Non-Member", certify_community_path, :help => "If you constitute #{ h @community.name }, click here to become a member." %>
+			<%- end %>
+		</p>
+		<%= clear_both %>
+		<h4 class="dull">
+			<%- if logged_in? && current_user.has_privilege?('manage communities') %>
+			Chairperson: <%= in_place_select_editor( :content => {
+			       :element => 'span',
+			       :text => @community.chairperson ? @community.chairperson.name : "none",
+			   	:options => {
+			   		:id => "chairselect#{ @community.id }",
+			   		:class => 'editable-content'
+			   	}
+			      },
+			     :url => {
+			       :controller => '/communities',
+			       :action => "update_chairperson",
+			       :id => @community.id
+			      },
+			      :collection => potential_reps_collection
+			   ) 
+			%> <%= link_to ">", @community.chairperson %>
+			<%- else %>
+			Chairperson: <%= @community.chairperson ? !@community.chairperson.login.blank? ? link_to( h(@community.chairperson.name), @community.chairperson) : @community.chairperson.name : "Unassigned" %>
+			<%- end %>
+			- <%= pluralize @community.population, "Constituent" %>
+		</h4>
+	</div>
+	<%- tabs = [
+			["Find", "find", render( :partial => 'shared/find' )],
+			["Progress", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
+			["Minutes", "minutes", url_for(:controller => 'communities', :action => 'show_minutes', :id => @community)],
+			["Treasurers Report", "info", url_for(:controller => 'communities', :action => 'show_calendar', :id => @community)],
+			["Representatives", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)],
+			["Members", "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]
+			#["Charter", "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
+			] %>
+	
+	<%= tabs @community.id.to_s, tabs %>
+</div>

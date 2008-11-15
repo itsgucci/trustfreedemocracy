@@ -1,0 +1,47 @@
+<%- if help_enabled? %>
+<div class="help">
+	<p>Voting enables your Legislator to make a conscious decision on your behalf</p>
+	<p>This page acts as a window into the voting realm</p>
+</div>
+<%- end %>
+<div class="left_column golden_big">
+	<div id="tally_container">
+		<%= render :partial => 'tally' %>
+	</div>
+</div>
+<div class="right_column golden_small">
+	<div class="box">
+		<h3>My Vote</h3>
+		<div class="left_column golden_small">
+		<% form_remote_tag :url => { :controller => 'articles', :action => 'vote', :id => @article.id } do %>			
+			<p><%= radio_button_tag 'vote', "aye", @article.ratified_by?(current_user) %> <label for="vote_aye">Approve</label></p>
+			<p><%= radio_button_tag 'vote', "nay", @article.opposed_by?(current_user) %> <label for="vote_nay">Oppose</label></p>
+			<p><%= radio_button_tag 'vote', "present", @article.present_by?(current_user) %> <label for="vote_present">Present</label></p>
+			<p><%= radio_button_tag 'vote', "novote", !@article.voted?(current_user) %> <label for="vote_novote">Abstain</label></p>
+			<p><%= accountable_submit_tag 'Cast Ballot' %></p>
+		<% end %>
+		</div>
+		<div id="vote_return" class="right_column golden_big">
+			<%= render :partial => 'receipt', :locals => {:vote => Vote.first(:conditions => {:voteable_type => 'Article', :voteable_id => @article.id, :user_id => current_user.id})} %>
+		</div>
+	</div>
+</div>
+<div class="box">
+	<h3 class="header">Official Vote</h3>
+	<div class="body">
+		<%- if @article.rolls.empty? %>
+		<p class="larger">This Motion has no official votes on it</p>
+		<%- else %>
+			<%- @article.rolls.each do |roll| %>
+				<h3 class=""><span class="dull"><%= roll.created_at.strftime("%B %d, %Y") %></span> Roll <%= h roll.number %></h3>
+				<p class="enourmous" style="float:right"><%= roll.result %></p>
+				<div style="float:left">
+					<p class="huge"><%= roll.aye_count %> approve</p>
+					<p class="huge"><%= roll.nay_count %> oppose</p>
+				</div>
+				<p class="huge"><%= roll.present_count %> present</p>
+				<p class="huge"><%= roll.novote_count %> non-voting</p>
+			<%- end %>
+		<%- end %>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+<%- if @user.districts.empty? %>
+<p class="larger"><%= @user.name %> does not belong to any districts</p>
+<%- else %>
+<ul class="orangelist">
+	<%- for district in @user.district_memberships %>
+	<li><%= link_to district.full_name, district %></li>
+	<%- end %>
+</ul>
+<%- end %>

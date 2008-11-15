@@ -1,0 +1,22 @@
+<%- if help_enabled? %>
+<div class="container rounded help">
+	<p>Determining which legislation enters <%= h current_community.name %> can be straightforward</p>
+	<p>This is the overall Agenda of <%= h current_community.name %> as determined by each individual District</p>
+	<p>The Motion desired for sponsorship and the number of constituents supporting this agenda are on display below. Click on the individual districts to view a more comprehensive breakdown</p>
+</div>
+<%- end %>
+<div class="box">
+	<h1 class="header">Agenda for <%= @community.name %></h1>
+	<div class="body">
+		<table class="ruler">
+			<thead><tr><th>District</th><th>Affirmers</th><th>Priority</th></tr></thead>
+			<%- @community.districts.all(:include => :top_priority).each do |district| %>
+			<tr style="cursor:pointer" onclick="document.location.href='<%= agenda_district_path(district) %>'">
+				<td><%= h district.name %></td>
+				<td><%= district.top_priority ? district.top_priority.focus_count : "0" %></td>
+				<td class="golden_big"><%= district.top_priority ? link_to( h( district.top_priority.title.blank? ? "Untitled" : district.top_priority.title ), district.top_priority) : "Nothing" %></td>
+			</tr>
+			<%- end %>
+		</table>
+	</div>
+</div>

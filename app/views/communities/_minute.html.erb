@@ -1,0 +1,16 @@
+<div id="minute<%= minute.id %>" class="box">
+	<h3 class="header"><%= minute.created_at.strftime("%b %e, %G") %></h3>
+	<div class="body">
+		<%- if logged_in? && current_user.has_privilege?('edit minutes', minute.commentable) %>
+			<%=  
+				editable_content( :content => { :text => minute.comment.blank? ? "Click here to edit minute" : textile( minute.comment ), 
+				:options => { :id => "minute_comment#{minute.id}" } },
+				:url => { :controller => 'communities', :action => 'update_minutes', :id => minute.id },
+				:ajax => { :loadTextURL => "'#{ url_for :controller => 'communities', :action => 'get_minutes', :id => minute.id }'", :rows => 5}
+				)
+			%>
+		<%- else %>
+			<%= textile minute.comment %>		
+		<%- end %>
+	</div>
+</div>

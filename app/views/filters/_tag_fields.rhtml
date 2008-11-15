@@ -1,0 +1,6 @@
+<div id="new_tag">
+<% form_remote_tag :url => { :action => 'add_tag', :id => object }, :update => "t#{object.id}" do %>
+	<%= text_field_tag 'tag', nil, :size => "10" %>
+	<%= submit_tag "Describe" %>
+<% end %>
+</div>

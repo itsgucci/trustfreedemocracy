@@ -1,0 +1,61 @@
+<%- if @district.certified?(current_user) %>
+<div class="box">
+	<h2 class="header">I am Certified in <%= h @district.name %></h2>
+	<div class="body">
+		<div class="box">
+			<h4 class="header">End My Membership</h4>
+			<div class="body">
+				<p>Click here to <%= link_to "Secede", leave_district_path(@district), :method => :post %></p>
+			</div>
+		</div>
+	</div>
+</div>
+<%- elsif @district.member?(current_user) %>
+<div class="box">
+	<h2 class="header">I Belong to <%= h @district.full_name %></h2>
+	<div class="body">
+		<div class="left_column golden_big">
+			<p>You are presently a Member of <%= h @district.name %></p>
+			<p>You can certify you membership by obtaining a certificate and keycode from <%= link_to "Registarr.com", "http://registarr.com" %></p>
+		</div>
+		<div class="right_column golden_small">
+			<div class="box pretty_form">
+				<h4 class="header">Certify My Membership</h4>
+				<div class="body">
+					<% form_tag :controller => 'certification', :action => 'redeem' do %>
+						<p><label for="certificate">Certificate:</label><%= text_field_tag :certificate, nil, :size => 13 %></p>
+						<p><label for="keycode">Keycode:</label><%= password_field_tag 'keycode', nil, :size => 13  %></p>
+						<p><label for="spacer">&nbsp;</label><%= accountable_submit_tag "Certify" %></p>
+					<% end %>
+				</div>
+			</div>
+			<div class="box">
+				<h4 class="header">End My Membership</h4>
+				<div class="body">
+					<p>Click here to <%= link_to "Secede", leave_district_path(@district), :method => :post %></p>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+<%- else %>
+<div class="box">
+	<h2 class="header">Join <%= h @district.name %></h2>
+	<div class="body">
+		<div class="left_column golden_big">
+			<p>You are attempting to join <%= h @district.full_name %></p>
+			<p>If you have a certificate and keycode, you can simultaneously certify your membership</p>
+			<p>Certificates and keycodes are not requisites for membership and can be obtained at <%= link_to "Registarr.com", "http://registarr.com" %></p>
+			<p>Click "Join" to complete the membership process</p>
+		</div>
+		<div class="right_column golden_small">
+			<% form_tag :controller => 'districts', :action => 'join', :id => @district do %>
+				<p><label for="certificate" help="Enter your Certificate here if you have one.">Optional Certificate:</label><%= text_field_tag :certificate, nil, :size => 14 %></p>
+				<p><label for="keycode" help="Enter your Keycode here if you have one.">Optional Keycode:</label><%= password_field_tag 'keycode', nil, :size => 14  %></p>
+				<p><%= accountable_submit_tag "Join" %></p>
+			<% end %>
+		</div>
+	</div>
+</div>
+<%- end %>
+

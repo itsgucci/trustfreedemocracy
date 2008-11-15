@@ -1,0 +1,20 @@
+<%- if logged_in? && current_user.has_privilege?('edit minutes', @community) %>
+<div class="box">
+	<h3 class="header">Record New Minutes</h3>
+	<div class="body">
+		<%- form_remote_for :comment, Comment.new, :url => {:controller => 'communities', :action => 'create_minutes', :id => @community}, :html => {:id => "minutes_form"} do |f| %>
+			<p>Date Recorded: <%= date_select :comment, :created_at %></p>
+			<p><%= f.text_area :comment, :rows => 5, :onkeyup => "grow_text_area(this);", :value => "Content...", :onblur => "if(this.value == '') this.value = 'Content...';", :onfocus => "if(this.value == 'Content...') this.value = '';" %></p>
+		
+			<p><%= submit_tag 'Submit Minutes' %></p>
+		<%- end %>	
+	</div>
+</div>
+<div id="create_minutes_return"></div>
+<%- end %>
+<%- if @community.minutes.empty? %>
+<p class="larger"><%= h @community.name %> has no Minutes on record</p>
+<%- end %>
+<%- @community.minutes.each do |entry| %>
+	<%= render :partial => 'minute', :object => entry %>
+<%- end %>

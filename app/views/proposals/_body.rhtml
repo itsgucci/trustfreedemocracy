@@ -1,0 +1,35 @@
+<div class="header support_accordion_toggle">
+	<h4>Focus</h4>
+</div>
+<div id="endorsement_area" class="body support_accordion_content">
+	<% if logged_in? %>
+		<% if object.endorsed_by? @current_user %>
+			<p><%= number_to_percentage( (object.focus_count.to_f / object.district.population) * 100, :precision => 2 ) %> of <%= object.district.name %> is focused on this article, including you.</p>
+			<p class="discreet"><%= link_to 'withdraw your focus', :action => 'unendorse', :id => object.id %>
+		<% else %>
+			<div class="count"><%= pluralize(object.focus_count, "person") %> focusing on this article</div>
+			<div class="actions" style="font-size: 40px;">
+			<% form_remote_tag :url => {:action => :endorse, :id => object} do %>
+				<div id="div_for<%= object.id %>">
+					<%= check_box_tag :checkbox, "1", false, :id => "for" + object.id.to_s, :style => "width:40px;height:40px;" %> 
+					<label for="checkbox[for]">My Focus</label>
+				</div>
+				<%= submit_tag 'Focus', :id => "submit" + object.id.to_s %>
+			<% end %>
+			</div>
+		<% end %>
+	<% else %>
+	<p>you must be <%= link_to 'logged in', '/login' %> to focus on articles!</p>
+	<% end %>
+</div>
+<%= render :partial => 'ideas/body', :locals => { :object => object } %>
+<% if_privilege('advance to committee', current_district) do -%>
+<div class="header support_accordion_toggle">
+	<h4>Move to Legislation</h4>
+</div>
+<div id="support_body" class="body support_accordion_content">
+	<ul>
+		<li><%= link_to 'move', :action => 'move_forward', :id => object %></li>
+	</ul>
+</div>
+<% end -%>

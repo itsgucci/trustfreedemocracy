@@ -1,0 +1,5 @@
+config/
+private_config/
+log/
+db/sphinx/
+id_rsa-gsg-keypair

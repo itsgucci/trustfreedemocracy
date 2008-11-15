@@ -1,0 +1,180 @@
+--- 
+page_versions_000002: 
+  updated_at: 2007-11-21 00:58:22
+  title: interests
+  page_id: "13"
+  id: "2"
+  version: "1"
+  content: |-
+    i like a lot of chocolate.
+    
+    other than that, i am rather boring.
+page_versions_000003: 
+  updated_at: 2007-11-21 01:14:55
+  title: todos
+  page_id: "16"
+  id: "3"
+  version: "1"
+  content: |-
+    ajaxify pages. they should load dynamically without refreshing the rest of the page.
+    
+    h3. build modules
+    * news
+    * discussion board
+    * events
+    
+    allow organizations to found chapters and localized subgroups. information should cascade down and communication should flow both ways. allow parent groups to empower subgroups to operate on their own, but with good diligence. 
+    
+    add support/oppose/debate functionality to items
+    
+    turn tags into interests/descriptions. make them a place to meet. ie group on an interest without a stance or any defined leadership. 
+    
+    make the page editor in place ajax?
+page_versions_000004: 
+  updated_at: 2007-11-21 01:17:45
+  title: ppg
+  page_id: "17"
+  id: "4"
+  version: "1"
+  content: powered paragliding is great
+page_versions_000005: 
+  updated_at: 2007-11-21 01:18:49
+  title: todos
+  page_id: "16"
+  id: "5"
+  version: "2"
+  content: |-
+    ajaxify pages. they should load dynamically without refreshing the rest of the page.
+    
+    h3. build modules
+    * news
+    * discussion board
+    * events
+    
+    allow organizations to found chapters and localized subgroups. information should cascade down and communication should flow both ways. allow parent groups to empower subgroups to operate on their own, but with good diligence. 
+    
+    add support/oppose/debate functionality to items
+    
+    turn tags into interests/descriptions. make them a place to meet. ie group on an interest without a stance or any defined leadership. 
+    
+    make the page editor in place ajax?
+    
+    fix permissions with creating and editing pages.
+page_versions_000006: 
+  updated_at: 2007-11-21 01:23:03
+  title: todos
+  page_id: "16"
+  id: "6"
+  version: "3"
+  content: |-
+    ajaxify pages. they should load dynamically without refreshing the rest of the page.
+    
+    h3. build modules
+    * news
+    * discussion board
+    * events
+    
+    allow organizations to found chapters and localized subgroups. information should cascade down and communication should flow both ways. allow parent groups to empower subgroups to operate on their own, but with good diligence. 
+    
+    add support/oppose/debate functionality to items
+    
+    turn tags into interests/descriptions. make them a place to meet. ie group on an interest without a stance or any defined leadership. 
+    
+    make the page editor in place ajax?
+    
+    fix permissions with creating and editing pages.
+    
+    make ideas versionable until they are made public. they can not gain support until made public. once an idea is public it may not be made private again.
+page_versions_000007: 
+  updated_at: 2007-11-25 11:55:34
+  title: todos
+  page_id: "16"
+  id: "7"
+  version: "4"
+  content: |-
+    ajaxify pages. they should load dynamically without refreshing the rest of the page.
+    
+    h3. build modules
+    * news
+    * discussion board
+    * events
+    
+    allow organizations to found chapters and localized subgroups. information should cascade down and communication should flow both ways. allow parent groups to empower subgroups to operate on their own, but with good diligence. 
+    
+    add support/oppose/debate functionality to items
+    
+    turn tags into interests/descriptions. make them a place to meet. ie group on an interest without a stance or any defined leadership. 
+    
+    make the page editor in place ajax?
+    
+    fix permissions with creating and editing pages.
+    
+    make ideas versionable until they are made public. they can not gain support until made public. once an idea is public it may not be made private again.
+    a
+page_versions_000008: 
+  updated_at: 2007-11-25 11:55:46
+  title: todos
+  page_id: "16"
+  id: "8"
+  version: "5"
+  content: |-
+    ajaxify pages. they should load dynamically without refreshing the rest of the page.
+    
+    h3. build modules
+    * news
+    * discussion board
+    * events
+    
+    allow organizations to found chapters and localized subgroups. information should cascade down and communication should flow both ways. allow parent groups to empower subgroups to operate on their own, but with good diligence. 
+    
+    add support/oppose/debate functionality to items
+    
+    turn tags into interests/descriptions. make them a place to meet. ie group on an interest without a stance or any defined leadership. 
+    
+    make the page editor in place ajax?
+    
+    fix permissions with creating and editing pages.
+    
+    make ideas versionable until they are made public. they can not gain support until made public. once an idea is public it may not be made private again.
+page_versions_000009: 
+  updated_at: 2007-11-25 23:54:27
+  title: music
+  page_id: "2"
+  id: "9"
+  version: "1"
+  content: |-
+    h1. music rocks my world.
+    
+    it allows me to make really obvious cliches.
+    
+    
+    p>.i listen to horrible music.
+    i just like it.
+page_versions_000010: 
+  updated_at: 2007-11-26 00:01:51
+  title: music
+  page_id: "2"
+  id: "10"
+  version: "2"
+  content: |-
+    h1. music rocks my world.
+    
+    it allows me to make really obvious cliches.
+    
+    
+    p>. i listen to horrible music.
+    i just like it.
+page_versions_000011: 
+  updated_at: 2007-11-26 00:30:37
+  title: blah
+  page_id: "18"
+  id: "11"
+  version: "1"
+  content: blah
+page_versions_000001: 
+  updated_at: 2007-11-21 00:56:00
+  title: zest
+  page_id: "15"
+  id: "1"
+  version: "1"
+  content: pagan empiricist

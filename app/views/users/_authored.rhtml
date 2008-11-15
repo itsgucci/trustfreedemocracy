@@ -1,0 +1,9 @@
+<%- if @user.articles_authored.empty? %>
+<p><%= @user.name %> has not authored any Motions</p>
+<%- else %>
+<ul class="orangelist">
+	<%- for item in @user.articles_authored %>
+	<li><%= link_to (item.number + " - " + item.title), {:controller => 'articles', :action => 'show', :id => item}, :title => item.title %></li>
+	<%- end %>	
+</ul>
+<%- end %>

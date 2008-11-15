@@ -1,0 +1,21 @@
+<div class="box">
+	<h1 class="header">Create A Community</h1>
+	<div class="body">
+		<% form_for :district, District.new, :url => {:controller => 'districts', :action => 'create'} do |f| %>
+		<%= error_messages_for 'district' %>
+
+		<!--[form:district]-->
+		<%- if @parent %>
+		New Sub-District of <%= @parent.name %>
+		<%- end %>
+
+		<p><label for="district_name">Community Name</label><br /><%= f.text_field 'name'  %></p>
+		<p><label for="district_state">Population Size</label><br /><%= f.text_field 'tax_population'  %></p>
+		<!--[eoform:district]-->
+		
+		<%= submit_tag "Create" %>
+		
+		<%- end %>
+		
+	</div>
+</div>

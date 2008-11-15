@@ -1,0 +1,10 @@
+<div class="box">
+	<h2 class="header">Governments</h2>
+	<div class="body">
+		<ul class="orangelist">
+		<%- @communities.each do |community| %>
+			<li><%= link_to(h(community.name), community) %></li>
+		<%- end %>
+		</ul>
+	</div>
+</div>

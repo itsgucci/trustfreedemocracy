@@ -1,0 +1,9 @@
+<div class="box">
+	<div class="header">
+		<h4>Results</h4>
+	</div>
+	<div class="body">
+		<p><%= pluralize @item.votes_for, "vote" %> for</p>
+		<p><%= pluralize @item.votes_against, "vote" %> against</p>
+	</div>
+</div>

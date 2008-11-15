@@ -1,0 +1,66 @@
+<div class="box rounded articles">
+	<div class="header" id="l<%= @article.id %>">
+		<h1 class="number" help="Share this Motion with <%= article_url(@article) %>"><%= h @article.number %></h1>
+		<div style="float:left; margin-right: 0.38em;" help="This Pie represents Support for <%= @article.number %>">
+			<%= @width = 50; render :partial => 'articles/support_image' %>
+		</div>
+		<h2 class="title" help="">
+			<span class="dull">A <%= @article.article_type.name %>: </span>
+			<%- if false && logged_in? && @article.draft? && current_user.has_privilege?('edit article', @article) %>
+			<span class="inline_form">
+				<%= editable_content( :content => { :text => @article.title.blank? ? "Click here to edit the title" : @article.title, 
+					:options => { :id => "article_title#{@article.id}" } },
+					:url => { :controller => 'articles', :action => 'update_title', :id => @article.id },
+					:ajax => { }
+					) %>
+			</span>
+			<%- else %>
+			<%= h @article.title %>
+			<%- end %>
+		</h2>
+		<h4 class="dull">
+			<%= @article.stage_name %>
+			 - 
+			Author: 
+			<%- if logged_in? && current_user.has_privilege?('set author') %>
+				<span class="inline_form">
+				<%= in_place_select_editor( :content => {
+			                                :element => 'span',
+			                                :text => @article.author_name,
+											:options => {
+												:id => "author#{ @article.id }",
+												:class => 'editable-content'
+											}
+			                               },
+			                              :url => {
+			                                :controller => '/articles',
+			                                :action => "update_author",
+			                                :id => @article.id
+			                               },
+			                               :collection => User.system_generated_users.map {|user| [user.id, user.name] }.to_json
+			                            ) %>
+				</span>
+			<%- else %>
+				<%= link_to_unless( @article.author.nil?, @article.author_name, @article.author ) %> 
+			<%- end %>
+			
+			<%- if @article.tom_id %>
+			 - Original Source: <%= link_to @article.tom_id, @article.tom_id, :popup => true %>
+			<%- end %>
+		</h4>
+		<%= clear_both %>
+	</div>
+	
+	<%- tabs = [
+			[@article.article_type.name, "article", render( :partial => '/shared/article')],
+			["Progress", "action", url_for(:controller => 'articles', :action => 'show_action', :id => @article)],
+			["Support", "support", url_for(:controller => 'articles', :action => 'show_support', :id => @article)],
+			["Discussion", "discuss", url_for(:controller => 'articles', :action => 'show_discussion', :id => @article)]] %>
+	<%- tabs += [["Top Priority", "focus", url_for(:controller => 'articles', :action => 'show_focus', :id => @article)]] if @article.focus? %>
+	<%- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
+	<%- tabs += [["Vote", "vote", url_for(:controller => 'articles', :action => 'show_vote', :id => @article)]] %>
+	<%#- tabs += [["Results", "result", url_for(:controller => 'articles', :action => 'show_results', :id => @article)]] %>
+	
+	<%= tabs @article.id.to_s, tabs %>
+	<%= clear_both %>
+</div>

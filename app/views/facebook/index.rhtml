@@ -1,0 +1,43 @@
+<div class="box">
+	<h1 class="header">Cooperate with Facebook</h1>
+	<div class="body">
+		<div class="right_column golden_small">
+				<div class="box">
+					<h2 class="header">Facebook</h2>
+					<p style="float:left"><%= image_tag facebook_user.pic %></p>
+					<p><%= facebook_user.name %></p>
+					<p>ID <%= facebook_user.id %></p>
+				</div>
+				<div class="box">
+					<h2 class="header">TrustFreeDemocracy</h2>
+					<%- if logged_in? %>
+					<p><%= h current_user.name %></p>
+					<p>id: <%= current_user.id %></p>
+					<%- else %>
+					<p>Please Login to TrustFreeDemocracy</p>
+					<%- end %>
+				</div>
+			</div>
+			<div class="left_column golden_big">
+				<%- if logged_in? && current_user.facebook_id.to_i == facebook_user.id.to_i %>
+				<p>Presently, this TrustFreeDemocracy and Facebook account are linked together and sharing information</p>
+				<p>If you are satisfied with this connection, please, explore <%= link_to "TrustFreeDemocracy", '/' %></p>
+				<p>If you would lik to sever cooperation with Facebook, <%= link_to "terminate the link", '/facebook/disassociate', :confirm => "Yeah, are you sure?", :method => :post %></p>
+				<%- elsif !logged_in? %>
+				<%= render :partial => '/sessions/login' %>
+				<%- else %>
+				<div class="box">
+					<p>Linking your Accounts enables TrustFreeDemocracy and Faceook to share relevant information</p>
+					<p>Cooperating lets you receive TrustFreeDemocracy notification through Facebook's Newsfeed, use one login for both places, easily share your political motivations with established friends, and of course, poke</p>
+					<%- form_tag '/facebook/associate' do %>
+					<p>To link the accounts to the right, click <%= submit_tag "Cooperate", :confirm => "Yeah, are you sure?" %></p>
+					<%- end %>
+				</div>				
+				<%- end %>
+			</div>
+		</div>
+		<div class="right_column golden_small">
+			
+		</div>	
+	</div>
+</div>

@@ -1,0 +1,11 @@
+<div class="box">
+	<h3 class="header">Join <%= @district.full_name %></h3>
+	<div class="body">
+		<% form_tag :controller => 'districts', :action => 'join', :id => @district do %>
+			<p help="This is the Login name of the account presently logged in." style="font-size: large">Login: <%= h current_user.login %></p>
+			<p><label for="certificate" help="Enter your Certificate here if you have one.">Certificate(optional):</label><br /><%= text_field_tag :certificate, nil, :size => 14 %></p>
+			<p><label for="keycode" help="Enter your Keycode here if you have one.">Keycode(optional):</label><br /><%= password_field_tag 'keycode', nil, :size => 14  %></p>
+			<%= accountable_submit_tag "Become a Member" %>
+		<% end %>
+	</div>
+</div>

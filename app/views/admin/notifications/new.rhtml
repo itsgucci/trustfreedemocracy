@@ -1,0 +1,10 @@
+<h1>New notification</h1>
+
+<% form_for(:notification, Notification.new, :url => { :action => 'create' }) do |f| %>
+	<p>
+		<%= f.text_area :message %>
+	</p>
+	<p>
+		<%= f.submit "Create" %>
+	</p>
+<% end %>

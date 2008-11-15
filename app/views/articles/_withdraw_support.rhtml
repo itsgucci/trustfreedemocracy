@@ -1,0 +1,1 @@
+<p>You support this <%= @article.article_type.name %><br /><%= link_to_remote 'withdraw your support', :url => { :controller => 'articles', :action => 'remove_support', :id => @article.id }, :html => { :class => 'discreet' } %></p>

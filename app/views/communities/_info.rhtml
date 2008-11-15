@@ -1,0 +1,19 @@
+<p>Budget: $<%= @community.budget %></p>
+<p>Approximate Cost Per Member: $<%= @community.population == 0 ? "0" : @community.budget / @community.population %></p>
+<%- if logged_in? && current_user.has_privilege?('manage communities') %>
+	<%- form_tag :action => 'toggle_clerk', :id => @community do %>
+		<%= text_field_tag 'clerk', "Clerk ID" %>
+		<%= submit_tag 'toggle' %>
+	<%- end %>
+<%- end %>
+
+<p style="float:left">Clerks:</p>
+<%- if @community.clerks.empty? %>
+<p>None</p>
+<%- else %>
+<ul id="clerks" style="list-style:none;">
+	<%- @community.clerks.each do |clerk| %>
+	<li><%= link_to h( clerk.name ), clerk %></li>
+	<%- end %>
+</ul>
+<%- end %>

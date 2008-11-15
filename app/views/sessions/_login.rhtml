@@ -1,0 +1,11 @@
+<div class="box">
+	<h2 class="header">Login to TrustFreeDemocracy</h2>
+	<div class="body">
+		<% form_tag SSL_ROOT + 'sessions/create' do %>
+			<p><label for="user_login" help="This is the login name you chose when creating your account. If you do not have an account click Create an Account below">Email</label><br /><%= text_field_tag :login, nil, :size => 13 %></p>
+			<p><label for="user_password" help="This is your password. Keep it secret, keep it safe.">Password</label><br /><%= password_field_tag 'password', nil, :size => 13  %></p>	
+			<p style="float:left"><%= check_box_tag 'remember_me' %> <label for="remember_me" class="smaller">remember me</label></p>
+			<p class="" style="font-size: large"><%= submit_tag "Login" %></p>
+		<% end %>
+	</div>		
+</div>

@@ -1,0 +1,178 @@
+Badges - Rails authorization plugin
+
+Summary
+=======
+Badges is an authorization plugin (as in "we don't need no stinking badges" http://en.wikipedia.org/wiki/Stinking_badges).
+It does not provide authentication capability, nor it's own User model, but instead is meant to work with other authentication plugins such as acts_as_authenticated or restful_authentication.  You will need a User model, and the 'current_user' method to be implemented at the controller level using an include.
+
+Badges relies on the following domain model:
+A Privilege represents a particular named capability that is checked for authorization.
+Roles have a set of Privileges.
+Privileges can belong to more than one Role.
+Users can have one or more Roles.
+Users can have a role in general, or a role on an authorizable object, or on a class of authorizable objects.
+
+Badges enforces authorization by checking if a user has a particular privilege.  Users get privileges by having roles, as each role comes with a certain set of privileges.  Since what privileges a role has is stored in the database, it is easy to create new roles with different levels of privilege without needing to change any code, or to change existing roles while the application is running.
+
+Checking Authorization
+======================
+Badges provides ability to enforce authorization at every layer of your application, and admin pages to manage the roles, privileges, and the role to privilege mapping.
+
+You can check authorization: 
+* in views to protect blocks using the 'if_privilege' method:
+
+<% if_privilege('delete', @project) do -%>
+  You have the privilege to <%= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete %> the project!
+<% end -%>
+
+* in routing using 'privilege_required' declarations in controllers
+
+  class FooController < ApplicationController
+  
+    # need to have 'manage foos' privilege to create, update or destroy
+    privilege_required 'manage foos', :only => [:create, :update, :destroy]
+
+    # need to have 'manage' and 'delete' privileges on the FooBar class to destroy 
+    privilege_required ['manage foos', 'delete foos'], :on=>FooBar, :only => :destroy
+
+    # need to have 'delete' privilege on the FooBar instance with id of params[:foo_id] to destroy
+    privilege_required 'delete', :on=>FooBar, :param=>:foo_id, :only => :destroy
+  
+  end
+  
+  Here are all the options for calling privilege_required:
+    privilege_required 'manage users', options
+    privilege_required ['kick butt', 'chew bubblegum'], options
+    options can be the following:
+    :only => [:view, :create, :delete], :only => :delete (passed on to create a before_filter)
+    :except => [:view, :create, :delete], :except => :view (passed on to create a before_filter)
+    :user => :controller_attribute, :user => :controller_method
+    :on => ClassName, :on => :controller_attribute, :on => :controller_method, :on => object (used in non-filter calls)
+    :param=>:id (must be used with :on=> ClassName)
+    :redirect => true or false, controls if the default redirect on failure should be used (true is default)
+    :unauthorized_message => string, message given to user if authorization fails
+
+* for conditionally running blocks in methods using 'privilege_required', 'if_privilege?', or using 'has_privilege?' in conditionals
+I'm giving several options here as people seem to have different ideas and styles on this, so here goes 
+
+class FooController < ApplicationController
+  def foobar
+
+    # this will redirect on authorize failure
+    privilege_required('create', :on=>FooBar) do
+      FooBar.create(request[:foobar])
+    end
+
+    # similar, but won't redirect on failure
+    privilege_required('manage foos', :redirect=>false) do
+      FooBar.create(request[:foobar])
+    end
+
+    # one way to do a conditional ....
+    if_privilege('manage foos') do
+      FooBar.create(request[:foobar])
+    end
+    
+    # ....or another conditional
+    if has_privilege?('manage foos')
+      FooBar.create(request[:foobar])
+    else
+      render :text, 'no way jose'
+    end  
+  end
+end
+
+* using the same logic to forward a user to authentication actions and set the flash as is used in 'privilege_required' using 'handle_privilege_required'
+
+class FooController < ApplicationController
+  def foobar
+    if handle_privilege_required('manage foos', :unauthorized_message=>'no way jose')
+      FooBar.create(request[:foobar])
+    end
+  end
+end
+
+* in models you can protect find, create, destroy, and update.
+
+class Project < ActiveRecord::Base
+  
+  badges_authorizable_object
+
+  privilege_required  'can create project'=>:create, 
+                      'can destroy projects'=>:destroy,
+                      'can view projects'=>:find,
+                      :on=>:parent,
+                      :user=>:owner
+                      
+end
+
+  privilege_required takes a Hash, with eah key/value pair either 
+
+Installation
+==========
+After installing the plugin, the install.rb script creates the database tables for 
+'badges_privileges', 'badges_roles', 'badges_user_roles', and 'badges_role_privileges'.
+Run the install.rb if you install the plugin without running this script (e.g. you use piston to install the plugin).
+
+The install also creates 2 default roles: 'admin' and 'authenticated'. The 'admin' role is the default admin role, which means that as new privileges are created, they will automatically be assigned to 'admin' (though they can be removed later) so that by default this role will have all privileges.  The 'authenticated' role is the default user role, meaning that all users will be given this role when created, so this will be the role every user will have at a minimum after they log in to identify themselves.
+
+To make Badges work you need to identify which Class is the user, and any classes you want to have as 'authorizable'.
+You can do that by declaring them: badges_authorized_user, and badges_authorizable_object.
+
+class User < ActiveRecord::Base
+  badges_authorized_user
+end
+
+which adds the following methods:
+
+#has_privilege?(privilege, authorizable)
+#grant_role(role, authorizable)
+#revoke_role(role, authorizable)
+#privileges(authorizable)
+#authorizables(authorizable_class)
+#roles
+#user_roles
+
+
+For the authorizable object - (e.g. the object a user has a role on some object, that object is 'authorizable').
+
+class Project < ActiveRecord::Base
+  badges_authorizable_object
+end
+
+which adds the following methods:
+
+#accepts_privilege?(privilege, user)
+#role_granted(role_name, user)
+#role_revoked(role_name, user)
+
+
+Configuration
+=============
+
+The Badges plugin has a Badges::Config object with attributes you can set to change the way Badges behaves.
+Generally you would put these assignments in the environment config file(s).
+
+You can either assign each value independently, or in a block:
+
+Badges::Config.authentication_include = AuthenticatedSystem
+
+or 
+
+Badges::Config.define do 
+  authentication_include = AuthenticatedSystem
+end
+
+Below are the properties you can change:
+
+# unauthorized_message - message set in the flash if authorization fails
+# unauthorized_controller_method - method on the controller to call is authorization fails, (default is :access_denied, the method acts_as_authenticated and restful_authentication both call)
+# unauthorized_url - if unauthorized_controller_method method not found, will forward to this url
+# create_when_missing - create roles and privileges if they are checked but are missing
+# default_user_role - default role to grant to all new users when they are created, can be taken away after
+# default_admin_role - default role to have all privileges: gets each privilege on create, can be taken away
+# authentication_include - name of mixin to include in the badges admin controller (e.g. AuthenticatedSystem for restful_authentication) 
+
+
+Admin Interface
+===============

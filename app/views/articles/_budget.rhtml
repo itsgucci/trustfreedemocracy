@@ -1,0 +1,20 @@
+<div class="box">
+	<h2 class="header">Budget</h2>
+	<%- if @article.cost.nil? || @article.cost == 0 %>
+	<p>The Budget has not been disclosed</p>
+	<%- else %>
+	<div class="left_column golden_big">
+		<p class="larger"><%= number_with_delimiter @article.budget %> USD</p>
+		<p>This <%= @article.article_type.name %> <strong><%= @article.savings? ? "<span class='savings'>saves</span>" : "<span class='cost'>costs</span>" %></strong> each tax payer approximately <span help='<%= number_with_delimiter(@article.cost) %> USD shared by <%= number_with_delimiter @article.community.tax_population %> people'><%= number_to_currency @article.cost_per_taxpayer.abs %></span></p>
+	</div>
+	<div class="right_column golden_small">
+		<table>
+			<tr><td style="text-align: right"><%= money_place @article.budget, :trillion %></td><td>trillion</td></tr>
+			<tr><td style="text-align: right"><%= money_place @article.budget, :billion %></td><td>billion</td></tr>
+			<tr><td style="text-align: right"><%= money_place @article.budget, :million %></td><td>million</td></tr>
+			<tr><td style="text-align: right"><%= money_place @article.budget, :thousand %></td><td>thousand</td></tr>
+			<tr><td style="text-align: right"><%= money_place @article.budget, :dollars %></td><td>dollar$</td></tr>
+		</table>
+	</div>
+	<%- end %>
+</div>

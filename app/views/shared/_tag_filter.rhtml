@@ -1,0 +1,7 @@
+<div class="container">
+	<div class="body tags">
+		<%- tags.each do |tag| %>
+		<%= render :partial => 'shared/tag', :object => tag %>
+		<%- end %>		
+	</div>
+</div>

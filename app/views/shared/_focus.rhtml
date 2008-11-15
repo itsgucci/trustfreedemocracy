@@ -1,0 +1,36 @@
+<div class="two_columns">
+	<div class="left_column golden_big">
+		<div class="two_columns">
+			<div class="left_column half">
+				<div class="center">
+					<%= render :partial => 'articles/focus_image' %>
+					<div id="focus_summary<%= @article.id %>">
+						<%= render :partial => 'articles/focus_summary' %>
+					</div>
+				</div>
+			</div>
+			<div class="right_column half" style="">
+				<ul id="user_focus_list<%= @article.id %>" class="scrolling_box orangelist">
+					<%- for user in @article.active_endorsers %>
+						<li id="user_focuser<%= @article.id.to_s + '_' + user.id.to_s %>"><%= link_to user.name, user %></li>
+					<%- end %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="endorsement_area" class="right_column golden_small">
+			<% if @article.focus? %>
+				<%- if logged_in? && current_user.focus(@article.district) %>
+					<p>Your current Top Priority is <%= h current_user.focus(@article.district).article.name %></p>
+				<%- end %>
+				<% if logged_in? && @article.endorsed_by?( current_user ) %>
+					<%= render :partial => 'articles/withdraw_focus' %>
+				<% else %>
+					<%= render :partial => 'articles/add_focus' %>
+				<% end %>
+			<% else %>
+			<p>This <%= @article.article_type.name %> may no longer be focused on!</p>
+			<% end %>
+	</div>
+	<%= clear_both %>
+</div>

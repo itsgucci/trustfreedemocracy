@@ -1,0 +1,40 @@
+<div class="box">
+	<h1 class="header">Create TrustFreeDemocracy</h1>
+	<div class="body">
+		<div class="left_column golden_big">
+			<div class="box">
+				<h2 class="header">Terms</h2>
+				<div class="body">
+					<p>Do what thou wilt</p>
+					<p>Everything is Public Domain</p>
+					<p>I am responsible for my behavior</p>
+				</div>
+			</div>
+			<div class="box">
+				<h2 class="header">Conditions</h2>
+				<div class="body">
+					<p>This software is evolving and subject to change</p>
+					<p>Your access is free on an equal basis</p>
+				</div>
+			</div>
+		</div>
+		<div class="right_column golden_small">
+			<div class="box">
+				<h2 class="header">Apply for an Account</h2>
+				<div class="body">
+				<% form_for @user do |f| -%>
+					<%= error_messages_for 'user' %>
+					<!--[form:user]-->
+					<p id="name"><label for="user_name">First and Last Name</label><br /><%= f.text_field 'name', :size => 15  %></p>
+					<p id="user_info"><label for="user_email">Email</label><br /><%= f.text_field :email, :size => "15" %></p>
+					<p id="login_info"><label for="user_password">Password</label><br /><%= f.password_field 'password', :size => 13  %></p>
+					<p><%= check_box_tag 'soul' %><label for="soul"> I am aware of the Terms and Conditions</label></p>
+					<p><span class="dull">Yes,</span> <%= submit_tag "Create My Account" %></p>
+				<% end %>
+				</div>		
+			</div>
+		</div>
+	</div>
+	
+	<%= clear_both %>
+</div>

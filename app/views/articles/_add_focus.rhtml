@@ -1,0 +1,9 @@
+<div class="actions">
+<% form_remote_tag :url => {:action => :endorse, :id => @article} do %>
+	<div id="div_for<%= @article.id %>">
+		<%= check_box_tag :checkbox, "1", false, :id => "for" + @article.id.to_s, :style => "width:40px;height:40px;" %> 
+		<label for="for<%= @article.id %>">I would like this <%= @article.article_type.name %> to be my Top Priority</label>
+	</div>
+	<%= accountable_submit_tag 'Make My Top Priority' %>
+<% end %>
+</div>

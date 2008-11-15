@@ -1,0 +1,21 @@
+<%- if @user.notifications.empty? %>
+	<p class="error">There are no Notifications to report</p>
+<%- else %>
+	<%- @user.notifications.each do |notification| %>
+	<div class="comment two_columns" id="notification<%= notification.id %>">
+		<div class="right_column golden_small smaller">
+			<p><%= notification.created_at.strftime('%Y.%m.%d %I:%M%p').downcase %></p>
+			<%- if notification.from_user %>
+			<p>from <%= link_to h( notification.from_user.name ), :controller => 'users', :action => 'show', :id => notification.from_user %></p>
+			<p style="display:none">of <%= h(notification.from_user.districts.map(&:name).to_sentence) %></p>	
+			<%- else %>
+			<p>from Anonymous</p>
+			<%- end %>
+		</div>
+		<div class="left_column golden_big">
+			<p><%= textile( notification.message ) %></p>	
+		</div>
+		<%= clear_both %>
+	</div>
+	<%- end %>
+<%- end %>

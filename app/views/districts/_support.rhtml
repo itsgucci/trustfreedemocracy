@@ -1,0 +1,16 @@
+<%- articles = @district.articles.sort { |a,b| b.support_count <=> a.support_count } %>
+<table class="ruler">
+	<thead>
+	<tr><th>Support</th><th>Motion Title</th><th>Type</th><th>Stage</th></tr>
+	</thead>
+	<tbody>
+	<%- articles.each do |article| %>
+	<tr style="cursor:pointer" onclick="document.location.href='<%= url_for article %>'">
+		<td style="text-align: right"><%= number_to_percentage article.support_percentage, :precision => 2 %></td>
+		<td><%= article.title %></td>
+		<td><%= article.article_type.name %></td>
+		<td><%= article.stage_name %></td>
+	</tr>
+	<%- end %>
+	</tbody>
+</table>

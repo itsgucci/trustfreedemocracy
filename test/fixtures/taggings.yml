@@ -1,0 +1,246 @@
+--- 
+taggings_000032: 
+  tag_id: "10"
+  id: "34"
+  taggable_type: Legislation
+  user_id: "1"
+  taggable_id: "2"
+  created_at: 2007-11-26 11:21:38
+taggings_000021: 
+  tag_id: "3"
+  id: "23"
+  taggable_type: Idea
+  user_id: "5"
+  taggable_id: "1"
+  created_at: 2007-11-25 02:19:46
+taggings_000010: 
+  tag_id: "9"
+  id: "10"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "2"
+  created_at: 2007-10-31 01:47:48
+taggings_000033: 
+  tag_id: "24"
+  id: "35"
+  taggable_type: Legislation
+  user_id: "1"
+  taggable_id: "2"
+  created_at: 2007-11-26 11:22:34
+taggings_000022: 
+  tag_id: "10"
+  id: "24"
+  taggable_type: Proposal
+  user_id: "5"
+  taggable_id: "1"
+  created_at: 2007-11-25 02:22:16
+taggings_000011: 
+  tag_id: "10"
+  id: "11"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "5"
+  created_at: 2007-10-31 01:49:01
+taggings_000034: 
+  tag_id: "10"
+  id: "36"
+  taggable_type: Legislation
+  user_id: "4"
+  taggable_id: "2"
+  created_at: 2007-11-26 11:23:47
+taggings_000023: 
+  tag_id: "5"
+  id: "25"
+  taggable_type: Proposal
+  user_id: "5"
+  taggable_id: "3"
+  created_at: 2007-11-25 02:31:42
+taggings_000012: 
+  tag_id: "11"
+  id: "12"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "5"
+  created_at: 2007-10-31 01:51:12
+taggings_000001: 
+  tag_id: "1"
+  id: "1"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "1"
+  created_at: 2007-10-15 22:07:26
+taggings_000035: 
+  tag_id: "24"
+  id: "37"
+  taggable_type: Legislation
+  user_id: "4"
+  taggable_id: "2"
+  created_at: 2007-11-26 11:24:18
+taggings_000024: 
+  tag_id: "10"
+  id: "26"
+  taggable_type: Proposal
+  user_id: "5"
+  taggable_id: "3"
+  created_at: 2007-11-25 02:31:52
+taggings_000013: 
+  tag_id: "12"
+  id: "13"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "1"
+  created_at: 2007-11-05 23:50:51
+taggings_000002: 
+  tag_id: "2"
+  id: "2"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "1"
+  created_at: 2007-10-15 22:07:26
+taggings_000025: 
+  tag_id: "19"
+  id: "27"
+  taggable_type: Proposal
+  user_id: "5"
+  taggable_id: "8"
+  created_at: 2007-11-25 02:33:12
+taggings_000014: 
+  tag_id: "13"
+  id: "14"
+  taggable_type: Proposal
+  user_id: "0"
+  taggable_id: "1"
+  created_at: 2007-11-06 23:57:22
+taggings_000003: 
+  tag_id: "3"
+  id: "3"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "1"
+  created_at: 2007-10-19 17:37:09
+taggings_000026: 
+  tag_id: "22"
+  id: "28"
+  taggable_type: Proposal
+  user_id: "5"
+  taggable_id: "8"
+  created_at: 2007-11-25 02:34:24
+taggings_000015: 
+  tag_id: "14"
+  id: "15"
+  taggable_type: Proposal
+  user_id: "0"
+  taggable_id: "1"
+  created_at: 2007-11-06 23:57:33
+taggings_000004: 
+  tag_id: "4"
+  id: "4"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "2"
+  created_at: 2007-10-25 23:27:36
+taggings_000027: 
+  tag_id: "11"
+  id: "29"
+  taggable_type: Proposal
+  user_id: "5"
+  taggable_id: "10"
+  created_at: 2007-11-25 02:35:17
+taggings_000016: 
+  tag_id: "17"
+  id: "18"
+  taggable_type: Group
+  user_id: "1"
+  taggable_id: "1"
+  created_at: 2007-11-24 19:37:40
+taggings_000005: 
+  tag_id: "5"
+  id: "5"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "3"
+  created_at: 2007-10-25 23:28:05
+taggings_000028: 
+  tag_id: "10"
+  id: "30"
+  taggable_type: Group
+  user_id: "1"
+  taggable_id: "1"
+  created_at: 2007-11-25 11:53:36
+taggings_000017: 
+  tag_id: "23"
+  id: "19"
+  taggable_type: Group
+  user_id: "1"
+  taggable_id: "1"
+  created_at: 2007-11-24 19:47:07
+taggings_000006: 
+  tag_id: "6"
+  id: "6"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "3"
+  created_at: 2007-10-25 23:28:11
+taggings_000030: 
+  tag_id: "24"
+  id: "32"
+  taggable_type: Legislation
+  user_id: "1"
+  taggable_id: "1"
+  created_at: 2007-11-26 02:24:55
+taggings_000029: 
+  tag_id: "13"
+  id: "31"
+  taggable_type: Idea
+  user_id: "1"
+  taggable_id: "1"
+  created_at: 2007-11-25 12:16:17
+taggings_000018: 
+  tag_id: "12"
+  id: "20"
+  taggable_type: Group
+  user_id: "4"
+  taggable_id: "1"
+  created_at: 2007-11-25 01:20:29
+taggings_000007: 
+  tag_id: "7"
+  id: "7"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "3"
+  created_at: 2007-10-25 23:28:14
+taggings_000031: 
+  tag_id: "12"
+  id: "33"
+  taggable_type: Legislation
+  user_id: "1"
+  taggable_id: "1"
+  created_at: 2007-11-26 02:33:37
+taggings_000020: 
+  tag_id: "12"
+  id: "22"
+  taggable_type: Legislation
+  user_id: "5"
+  taggable_id: "1"
+  created_at: 2007-11-25 01:40:15
+taggings_000019: 
+  tag_id: "12"
+  id: "21"
+  taggable_type: Legislation
+  user_id: "4"
+  taggable_id: "1"
+  created_at: 2007-11-25 01:38:11
+taggings_000008: 
+  tag_id: "8"
+  id: "8"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "5"
+  created_at: 2007-10-25 23:28:54
+taggings_000009: 
+  tag_id: "4"
+  id: "9"
+  taggable_type: Legislation
+  user_id: "0"
+  taggable_id: "4"
+  created_at: 2007-10-25 23:29:09

@@ -1,0 +1,11 @@
+<%- if @district.groups.empty? %>
+	<p>There are no groups in <%= @district.name %></p>
+<%- else %>
+<ul class="orangelist">
+	<%- @district.groups.each do |group| %>
+	<li><%= link_to group.name, :controller => 'groups', :action => 'show', :id => group %></li>
+	<%- end %>
+</ul>
+<%- end %>
+
+<p><%= link_to 'Create a new City', :controller => 'groups', :action => 'new' %></p>

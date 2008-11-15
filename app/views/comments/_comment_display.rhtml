@@ -1,0 +1,18 @@
+<div class="comment two_columns" id="comment<%= comment.id %>">
+	<div class="right_column golden_small smaller">
+		<p><%= comment.number %> on <%= link_to "#{ comment.commentable.number } - #{ h comment.commentable.title }", :controller => 'articles', :action => 'show', :id => comment.commentable.id %></p>
+		<p><%= comment.created_at.strftime('%Y.%m.%d %I:%M%p').downcase %></p>
+		<%= render( :partial => "ratings/rate", :locals => { :asset => comment } ) unless comment.commentable.class == User %>
+		<%- if comment.user %>
+		<p>by <%= link_to h( comment.user.name ), :controller => 'users', :action => 'show', :id => comment.user %></p>
+		<p style="display:none">of <%= h(comment.user.districts.map(&:name).to_sentence) %></p>	
+		<%- else %>
+		<p>by Anonymous</p>
+		<%- end %>
+	</div>
+	<div class="left_column golden_big">
+		<h4><%= h comment.title %></h4> 
+		<%= textile( comment.comment ) %>	
+	</div>
+	<%= clear_both %>
+</div>

@@ -1,0 +1,10 @@
+<div class="box">
+	<h1 class="header">Recommended Communities</h1>
+	<div class="body">
+		<%- @districts.each do |district| %>
+		<p><%= district.community.name + " - " + district.name %> <%= link_to "join this community", certify_district_path(district) %></p>
+		<%- end %>
+	</div>
+</div>
+
+<%= @county %>

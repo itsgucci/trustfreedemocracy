@@ -1,0 +1,29 @@
+<h1>Listing districts</h1>
+
+<table>
+	<tr>
+		<% for column in District.content_columns %>
+		<th><%= column.human_name %></th>
+		<% end %>
+	</tr>
+
+	<% for district in @districts %>
+	<div id="d<%= district.id %>">
+		<% for column in District.content_columns %>
+		<div><%=h district.send(column.name) %></div>
+		<% end %>
+		<!-->
+		<td><%= link_to 'Show', :action => 'show', :id => district %></td>
+		<td><%= link_to 'Edit', :action => 'edit', :id => district %></td>
+		<td><%= link_to 'Destroy', { :action => 'destroy', :id => district }, :confirm => 'Are you sure?', :method => :post %></td>
+		<-->
+	</div>
+	<%= draggable_element 'd' + district.id.to_s %>
+	<%= drop_receiving_element 'd' + district.id.to_s, :hoverclass => 'hover' %>
+	<% end %>
+</table>
+
+
+<br />
+
+<%= link_to 'New district', :action => 'new' %>

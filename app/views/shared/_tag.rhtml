@@ -1,0 +1,9 @@
+<%- if sieve.include?(tag) %>
+<div id="tag<%= tag.id %>" class="tag active">
+	<%= link_to_remote tag.name, :url => {:controller => 'sessions', :action => 'remove_tag_from_sieve', :id => tag}, :post => true %>	
+</div>
+<%- else %>
+<div id="tag<%= tag.id %>" class="tag">
+	<%= link_to_remote tag.name, :url => {:controller => 'sessions', :action => 'add_tag_to_sieve', :id => tag}, :post => true %>	
+</div>
+<%- end %>

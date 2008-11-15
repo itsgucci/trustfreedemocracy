@@ -1,0 +1,7 @@
+author: Andrew Kuklewicz
+summary: Badges authorization plugin
+homepage: http://code.google.com/p/badges/
+plugin: http://badges.googlecode.com/svn/trunk/badges/
+version: 0.3
+license: MIT
+rails_version: 1.2+

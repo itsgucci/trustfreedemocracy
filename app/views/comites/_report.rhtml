@@ -1,0 +1,26 @@
+<%- if help_enabled? %>
+<div class="help">
+	<p>Reports are official documents prepared by your legislative body</p>
+</div>
+<%- end %>
+<%- if logged_in? && current_user.has_privilege?('add report', current_district) %>
+	<% form_remote_tag :url => { :controller => 'ratings', :action => 'add_report', :id => @article, :rateable_type => "Article" } do %>
+		<%= render :partial => "comments/comment" %>
+		<%= submit_tag "Add Report" %>
+	<%- end %>
+<%- end %>
+<%- if @article.reports.empty? %>
+<p class="larger">There are no reports on Record</p>
+<%- else %>
+<ul id="reports<%= @article.id %>">
+	<%- @article.reports.each do |report| %>
+	<li>
+		<p><%= link_to_function h( report.title ), visual_effect( :toggle_blind, 'report' + report.id.to_s ) %></p>
+		<div id="report<%= report.id %>" class="report" style="display:none">
+	<%# the first gsub removes the empty tags, the second removes the tables, sort of %>
+			<%= textile report.comment.gsub(/<[^>]*>&nbsp;<\/[^>]*>/, "").gsub(/<\/?td[^>]*>/, "") %>	
+		</div>
+	</li>
+	<%- end %>
+</ul>
+<%- end %>

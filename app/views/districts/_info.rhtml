@@ -1,0 +1,3 @@
+<p class="larger">This data is based on <%= pluralize @district.population, "participant" %></p>
+<%#= render :partial => 'focus' %>
+<p>Top Priority: <%= @district.top_priority.blank? ? "Nothing" : link_to( (@district.top_priority.title.blank? ? "Untitled" : h(@district.top_priority.title)), @district.top_priority ) %></p>

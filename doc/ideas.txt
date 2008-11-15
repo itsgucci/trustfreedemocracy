@@ -1,0 +1,27 @@
+everything has flags
+
+clean flag:
+nil means never checked -> default -> dirty
+false means obscene -> dirty
+true means not obscene -> clean
+
+certified flag:
+true means certified
+false means uncertified -> default
+
+
+check out composed_of for flags.
+
+receipts.
+generate a receipt for every vote.
+display the receipt on the persons page.
+display the receipts on the article.
+perhaps do not make it public. you get a receipt when you vote and when you look at that legislation, and then the legislation has a list of all issued receipts. but this allows fraud to encroach. if i am a less than honest user, i can stir the pot by saying "i have #02022008" when in fact that was issued to another person. the other person then starts to doubt the system, because there is apparently a duplicate. a simple solution to this would be to link the receipt directly to the voters profile. you click on the receipt and can instantly verify who it was issued to. this however introduces the scenario where i can tell if you have voted or not. this may not seem dangerous, but what if i threaten your life that you shall not vote on this issue. i will not be able to tell which way you vote, but i want to win, so i demand that you don't vote. i can now verify if you have voted or not. this however might be nice. you can show people that really participate. and other people that haven't. 
+this may actually be a sort of motivator to vote. you start talking about some issue, then comes to find out that you didn't even vote on it. booyah sucka. you can see who participates and who doesn't. conversely, i don't want to encourage people to participate who are uninformed on the issue at hand. just because you can vote, doesn't mean you should. 
+i think i will side with public receipts.
+it could easily just be the id of the vote. that is already unique.
+
+add committee stage.
+follow article as it travels through.
+find a better way to display the committee report.
+maybe in the discussion area?

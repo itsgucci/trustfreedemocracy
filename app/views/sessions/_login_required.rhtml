@@ -1,0 +1,28 @@
+<h3 style="text-align: center; color: red; margin-bottom: 0.5em">Accounts are Necessary for Participation</h3>
+<div class="two_columns">
+	<div class="right_column golden_big">
+		<div class="box rounded">
+		<% form_remote_tag :html => {:id => :ajax_login_form}, :url => url_for(:protocol => "https", :controller => :sessions, :action => :create, :only_path => false), :success => "try{ $(accountable_form).onsubmit(); } catch(e){ $(accountable_form).submit(); } finally{ hideBox(); }", :failure => "$('ajax_login_result').innerHTML = 'error'" do %>
+			<div class="header">
+				<h2>Login to TrustFreeDemocracy</h2>
+			</div>
+			<div class="body pretty_form">
+				<!--[form:login]-->
+				<p><label for="user_login" help="This is the login name provided to you, typically your email address. If you do not have a login, click Sign Up below">Email</label><%= text_field_tag :login, nil, :size => 14 %></p>
+				<p><label for="user_password" help="This is your password. If you forgot your password, email democracy@hungrychild.org">Password</label><%= password_field_tag 'password', nil, :size => 14  %></p>
+				<!--[eoform:login]-->
+				<!-- Uncomment this if you want this functionality
+				<p><label for="remember_me">Remember me:</label>
+				<%= check_box_tag 'remember_me' %></p>
+				-->
+				<p><%= submit_tag "Login and Contribute" %> <span id="ajax_login_result"></span></p>
+			</div>
+		<% end %>
+		</div>		
+	</div>
+	<div class="left_column golden_small">
+		<p>I must claim my voice</p>
+		<p>To do so, I can either login --><br /> or <%= link_to "create a new account", new_user_path %></p>
+		<p>Otherwise I must <%= link_to_function "cancel my participation", "hideBox()" %></p>
+	</div>
+</div>

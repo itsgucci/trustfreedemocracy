@@ -1,0 +1,62 @@
+<div class="article">
+	<%- if logged_in? && @article.draft? && current_user.has_privilege?('edit article', @article) %>
+	
+		<%- if help_enabled? %>
+		<div class="help">
+			<p>As the author, you are the only user that can edit this Motion</p>
+			<p>To edit your Motion, click the on the text you would like to modify, make your changes, then click Save</p>
+			<p>Once saved, your revised Motion is visible to the community immediately</p>
+		</div>
+		<%- end %>
+	
+		<%- if @article.article_type.bill? %>
+		<h2 help="The budget is how much a Motion will cost or save you">Budget</h2>
+		<div class="p_padding text">
+			<%=  
+				editable_content( :content => { :text => "#{ number_to_currency( @article.cost )}", 
+				:options => { :id => "article_budget#{@article.id}" } },
+				:url => { :controller => 'articles', :action => 'update_budget', :id => @article.id },
+				:ajax => { :loadTextURL => "'#{ url_for :controller => 'articles', :action => 'get_budget', :id => @article.id }'"}
+				)
+			%>
+		</div>
+		<%- end %>
+		<%= clear_both %>
+	<h2 help="Be complete, succinct and comprehensive. Describe your Motion in a people friendly manner">Brief Summary</h2>
+	<div class="p_padding text">
+		<%=  
+			editable_content( :content => { :text => @article.summary.blank? ? "Click here to add a summary" : textile( @article.summary ), 
+			:options => { :id => "article_idea#{@article.id}" } },
+			:url => { :controller => 'articles', :action => 'update_idea', :id => @article.id },
+			:ajax => { :loadTextURL => "'#{ url_for :controller => 'articles', :action => 'get_idea', :id => @article.id }'", :rows => 5}
+			)
+		%>
+	</div>
+	<h2 help="This will be the actual Legislation introduced. It needs to be correct. We can work together to get this done."><%= @article.article_type.name %></h2>
+	<div class="p_padding text">
+		<%=  
+			editable_content( :content => { :text => @article.text.blank? ? "Click here to add your" + @article.article_type.name : textile( @article.text ), 
+			:options => { :id => "article_proposal#{@article.id}" } },
+			:url => { :controller => 'articles', :action => 'update_proposal', :id => @article.id },
+			:ajax => { :loadTextURL => "'#{ url_for :controller => 'articles', :action => 'get_proposal', :id => @article.id }'", :rows => 5}
+			)
+		%>
+	</div>
+	<%- else %>
+		<%- if @article.article_type.bill? %>
+		<%= render :partial => '/articles/budget' %>
+		<%- end %>
+		<div class="box">
+			<h2 class="header">Brief Summary</h2>
+			<div class="body text">
+				<%= @article.summary == "" ? "No summary available" : textile( @article.summary ) %>
+			</div>
+		</div>
+		<div class="box">
+			<h2 class="header"><%= @article.article_type.name %></h2>
+			<div class="body text">
+				<%= @article.text == "" ? "No proposal available" : textile( @article.text ) %>
+			</div>	
+		</div>
+	<%- end %>
+</div>

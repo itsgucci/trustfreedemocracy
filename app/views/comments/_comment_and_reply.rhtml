@@ -1,0 +1,11 @@
+<%= render :partial => "comments/comment_display", :locals => {:comment => comment} %>
+<div class="" style="display:none">
+	<%= link_to_function "reply", update_page { |p| p.visual_effect( :blind_down, "reply#{ comment.id }" ); p.visual_effect(:fade, "comment_reply_toggle#{ comment.id }", :duration => 0.4) }, :id => "comment_reply_toggle#{ comment.id }" %>
+</div>
+<div id="reply<%= comment.id %>" style="display:none">
+	<%- form_remote_tag :url => { :action => 'create', :controller => 'comments', :id => comment } do %>
+		<%= render :partial => "comments/comment", :locals => {:comment => comment} %>
+		<br />
+		<%= submit_tag 'Reply' %><%= link_to_function 'cancel', update_page { |p| p.visual_effect( :blind_up, "reply#{ comment.id }" ); p.visual_effect(:appear, "comment_reply_toggle#{ comment.id }") }, :class => 'discreet' %>
+	<%- end %>
+</div>

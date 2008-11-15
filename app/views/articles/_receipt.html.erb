@@ -1,0 +1,10 @@
+<%- if vote %>
+<div class="notice">
+	<p>Ballot #<%= vote.id %></p>
+	<p><%= h vote.user.name %></p>
+	<p><%= Article.find(vote.voteable_id).number %></p>
+	<p><%= vote_in_english vote %></p>
+</div>
+<%- else %>
+<p class="notice">Abstaining</p>
+<%- end %>

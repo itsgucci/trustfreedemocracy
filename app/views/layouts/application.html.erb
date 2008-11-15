@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+	<link rel="icon" type="image/gif" href="<%= image_path "logo.png" %>" />
+	<title><%= current_district ?  "Trust " + h( current_district.full_name ) : "There is Hope" %></title>
+	<%= stylesheet_link_tag 'basic', 'lightbox' %>
+	<%= javascript_include_tag :defaults, 'textile', 'tooltip', 'reflection' %>
+	<script type="text/javascript">
+		<%- if help_enabled? %>
+		Event.observe(window,"load",function() {
+			$$("*").findAll(function(node){
+				return node.getAttribute('help');
+			}).each(function(node){
+				new Tooltip(node,node.getAttribute('help'),'helptip');
+				node.removeAttribute("help");
+			});
+		});
+		<%- end %>
+	</script>
+	<script type="text/javascript">
+	    <%= yield :header_scripts %>
+	try {
+		if(window.top.location.host.match(/facebook\.com/)) {
+			document.write('<%= stylesheet_link_tag 'facebook' %>');
+		}
+	}
+	catch(e) {
+		document.write('<%= stylesheet_link_tag 'facebook' %>');
+	}
+	</script>
+</head>
+<body id="trustfreedemocracy">
+	<p id="the_whole_of_the_law" class="smaller" style="font-align:center;position:fixed;left:50%;bottom:0;color:#fff;z-index:420;margin:0:padding:0;line-height:1em;">Do what thou wilt</p>
+	<div id="padding">
+		 <p style="margin:0;padding:0;padding-right:7px; color: #000; float: right;line-height:28px"><%- if logged_in? %>I am <%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="dull" help="Click here to log in or out of TrustFreeDemocracy" style="margin:0;padding:0;padding-right:7px; color: #000; display: inline"><%= login_logout_link %></span>
+		</p>
+		<ul class="horizontal district larger">
+			<li style="cursor:pointer" <%= current_page?('/') ? 'class="active"' : 'OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>
+			<%- if current_community %>
+				<%#- current_community.ancestors.reverse.each do |community| %>
+				<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
+				<%#- end %>
+			<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %>: <%= select_tag("interest_id", options_for_select( [["All Districts", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/districts/'+$('interest_id').value", :style => "border: none; padding: 0; color: #fff; font-weight:normal; background:inherit; width: 10em", :help => "This is the district filter, select a district to get more specific results" } ) %>
+			<%- if false && current_district %> 
+				<a href="#" onclick="document.location.href='/districts/'+$('interest_id').value" help="Click here to go to <%= current_district.name %>">></a><%- end %></li>
+			<%- end %>
+		</ul>
+		<div id="navigation">	
+			<div id="top_links" class="top_links">
+				<%- if current_district || current_community %>
+				<ul id="site_navigation" class="left_links">
+					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Propose", new_article_path %></li>
+					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths">&gt;<%= link_to_unless_current "Develop", {:controller => '/ideas'} %></li>
+					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "Corroborate", {:controller => '/proposals'} %></li>
+					<li help="Watch democracy work. Click here to track Motions traveling through the legislative process of <%= h current_community.name %>. Monitor your legislator's behavior, know the decisions made on your behalf">&gt;<%= link_to_unless_current "Control", {:controller => '/comites'} %></li>
+					<li help="Yes or No, you decide. Click here to Vote on Motions in <%= h current_community.name %>. Register your vote to enable accountable representation">&gt;<%= link_to_unless_current "Vote", {:controller => '/legislations'} %></li>
+					<li help="Knowledge is power. Click here to view the Results of Motions tried in <%= h current_community.name %>. Find the laws that impact your life">&gt;<%= link_to_unless_current "Promulgate", {:controller => '/laws'} %></li>
+				</ul>
+				<%- end %>
+				<ul class="right_links">
+					<li style="display:none"><%= link_to_function "help", visual_effect(:grow, :helpbar, :direction => 'top-right') %></li>
+					<%- if logged_in? %>
+					<li style="display:none"><%= link_to_function 'filters', visual_effect(:toggle_blind, :filter_header) %></li>
+					<%- end %>
+					<li>
+						<%- form_tag '/articles', :method => 'get' do %>
+							<%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
+							<%= text_field_tag "search", "Search Motions", :onblur => "if(this.value == '') this.value = 'Search Motions';", :onclick => "if(this.value == 'Search Motions') this.value = '';", :size => "13", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
+						<%- end %>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div id="filter_header" style="display:none" class="">
+			<p>I would like to see <%= toggle_certified_link %> Motions</p>
+			<ul class="horizontal">
+			<%- sieve.tags.each do |tag| %>
+				<li><%= tag.name %></li>
+			<%- end %>
+			</ul>
+		</div>
+		<div id="content_header" class="content_header">
+			<%= yield :content_header %>
+		</div>
+		<div id="content" class="content">
+			<div id="bookmark_container" class="golden_small">
+				<div id="helpbar" class="box help" style="display:none">
+					<div class=" box">
+						<p class="dull" style="float:right; padding: 0"><%= link_to_function "x", visual_effect(:shrink, :helpbar, :direction => 'top-right') %></p>
+						<h1 class="header">Help</h1>
+						<p><%= link_to "Find out about TrustFreeDemocracy", '/about' %></p>
+						<%= yield(:help_lightbox) %>
+					</div>
+				</div>
+				<div id="bookmarks" style="display: none; width: 100%">
+					<%= render :partial => 'layouts/bookmarks' %>
+				</div>
+			</div>
+			<%- if flash[:error] %>
+			<div id="flash_error" class="container">
+			 	<div class="flash rounded error">
+					<p class="right" style="float:right;"><%= link_to_function 'bummer', visual_effect(:switch_off, :flash_error), :class => 'smaller', :style => "color: #ccc;" %></p>
+					<%= flash[:error] %>
+				</div>
+			</div>
+			<%- end %>
+			<%- if flash[:notice] %>
+			<div id="flash_notice" class="container">
+			 	<div class="flash rounded notice">
+					<p class="right" style="float:right;"><%= link_to_function 'okay', visual_effect(:switch_off, :flash_notice), :class => 'smaller', :style => "color: #ccc;" %></p>
+					<%= flash[:notice] %>
+				</div>
+			</div>
+			<%- end %>
+			<%- if false && help_enabled? %>
+			<div id="page_help" class="flash rounded help">
+				<p style="text-align:center;"><%= link_to_function "How do I use this page?", visual_effect(:toggle_blind, :page_help_content), :style => "display:block" %></p>
+				<div id="page_help_content" class="body" style="display:none">
+					<%= yield :page_help %>				
+				</div>
+			</div>
+			<%- end %>
+			<%= yield  %>
+			<%= clear_both %>
+		</div>
+		<div id="footer">
+			<p class="larger the_truth">The people were in fact, the fountain of all power, and by resorting to them, all difficulties were got over. -James Madison</p>
+			<p class="the_truth">Your liberty is the state of being free within society from oppressive restrictions imposed by authority on your way of life, behavior, or political views</p>
+			<h1 class="dull" style="float:left;font-size: 20px;padding-left: 0.38em"><%= link_to "#{User.authenticated_users.size} Strong", users_path, :style => "color: inherit; text-decoration: none" %></h1>
+			<ul class="top_links">
+				<%- if logged_in? && current_user.has_privilege?('certify users', current_community) %>
+				<li><%= link_to "manage certifications", manage_certification_community_path(current_community) %></li>
+				<%- end %>
+				<%- if logged_in? && current_user.has_privilege?('set author') %>
+				<li><%= link_to "New Motion", new_article_path, :help => "Click here to create a new User" %></li>
+				<%- end %>
+				<%- if logged_in? && current_user.has_privilege?('manage communities') %>
+				<li><%= link_to "all accounts", '/users/?all=true'%>
+				<li><%= link_to "communities", { :controller => 'admin/districts', :action => 'show' }, :help => "Click here to set up Communities" %></li>
+				<%- end %>
+				<%- if logged_in? && current_user.has_privilege?('manage badges') %>
+				<li><%= link_to "Badges", { :controller => '/badges', :action => 'admin' }, :help => "Click here to manage Badges within TrustFreeDemocracy." %></li>
+				<%- end %>
+				<li style="display:none"><%= link_to_function 'jump', visual_effect(:grow, :bookmarks, :direction => 'top-right'), :help => "Quickly navigate with a Jump" %></li>
+				<li style="display:none"><%= toggle_certified_link %></li>
+				<li style="display:none"><%= toggle_help_link %></li>
+				<li style="display:none"><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
+				<li><a href="/options" >options </a></li>
+				<li><a href="/about" help="Find out about this website">about</a></li>
+				<li><a href="/why">why</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- magic little lightbox code for login -->
+	<div id="overlay" onclick="hideBox()" style="display:none"></div>
+	<!-- click outside to exit, desired><div id="overlay" style="display:none"></div><-->
+	<div class="lightbox" id="login_required" style="display:none">
+	    <img class="close" src="/images/close.gif" onclick="hideBox()" alt="Close" title="Cancel my participation" style="width: 36px; height: 36px;" />
+		<iframe src="<%= SSL_ROOT + 'sessions/login_iframe' %>" width="100%" height="265px"></iframe>
+	</div>
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-1655471-4");
+	pageTracker._trackPageview();
+	</script>
+</body>
+</html>

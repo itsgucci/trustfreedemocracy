@@ -1,0 +1,59 @@
+<div class="header support_accordion_toggle">
+	<h4>Public Support</h4>
+</div>
+<div id="support_body" class="body support_accordion_content">
+	<ul id="supporter_list" class="scrolling_box orangelist" style='<%= "height: 10em;" if object.users.size > 10 %>'>
+		<%- for user in object.users %>
+			<li><%= link_to user.name, { :controller => 'users', :action => 'show', :id => user.id } %> <%# user.created_at.strftime("%Y.%m.%d") %></li>
+		<%- end %>
+	</ul>
+	<p id="support_count"><%= pluralize object.support_count, "person" %> support this draft</p>
+	<div id="support_area" class="actions">
+	<% if logged_in? %>
+		<% unless object.supported_by? @current_user %>
+			<% form_remote_tag :url => { :controller => 'users', :action => 'add_support', :id => object.id } do %>
+				<div>
+					<%= check_box_tag :support, "1", false, :id => "support_checkbox", :style => "width:40px;height:40px;" %> 
+					<label for="support_checkbox" style="font-size: 40px;">Support</label>
+				</div>
+				<%= submit_tag 'Pledge', :id => "support_submit" %>
+			<% end %>
+		<%- else %>
+			<p>You support this article</p>
+			<!-- <p class="discreet inline"><%= link_to 'withdraw', :controller => 'users', :action => 'withdraw_support', :id => object %></p> -->
+		<% end %>
+	<% else %>
+		<p>If you <%= link_to 'log in', '/' %> you can support this draft too!</p>
+	<% end %>
+	</div>
+</div>
+<div class="header support_accordion_toggle">
+	<h4>Draft Information</h4>
+</div>
+<div class="body support_accordion_content">
+	<h4>Author</h4>
+	<p class="orangelist">
+		<%= link_to h(object.author.name), :controller => 'users', :action => 'show', :id => object.author.id %>
+	</p>
+	<h4>Last Updated</h4>
+	<p><%= object.updated_at.strftime '%Y.%m.%d' %></p>
+	<%- if object.versions.size > 1 %>
+	<h4>Revisions</h4>
+	<ul class="horizontal_list orangelist">
+	<%# the revisions are always numeric sequentially, and if we do not allow for deletion, there should be from 1 to the amount of revisions size %>
+	<%- (1..object.versions.size).each do  |n| %>
+		<li><%= link_to( n, :v => n ) %></li>
+	<%- end %>
+	</ul>
+	<%- end %>
+</div>
+<% if has_privilege?('edit article', object) && object.draft? -%>
+<div class="header support_accordion_toggle">
+	<h4>Manage Draft</h4>
+</div>
+<div id="support_body" class="body support_accordion_content">
+	<ul>
+		<li><%= link_to 'finalize', :action => 'finalize', :id => object %></li>
+	</ul>
+</div>
+<% end -%>

@@ -1,0 +1,44 @@
+<%- if current_community.in_session? %>
+<div class="box">
+	<h1 class="header">Being Considered in <%= h current_community.name %></h1>
+	<div class="body">
+	<%- if @list.empty? %>
+		<p class="error">Presently there are no Motions in Legislature</p>
+	<%- else %>
+		<table class="ruler">
+			<tbody class="">
+		<%- for article in @list %>
+			<tr style="cursor:pointer" onclick="document.location.href='<%= url_for article %>'">
+				<td style="width: 33px; padding-left: 3px;"><%= @width = 30; @article = article; render :partial => 'articles/support_image' %></td>
+				<td><%= h article.title %></td>
+				<td>
+					<%- if article.draft? %>
+					Last Revision <%= article.updated_at.strftime("%Y.%m.%d") %>
+					<%- elsif article.focus? %>
+					Top Priority for <%= pluralize article.focus_count, "person"  %>
+					<%- elsif article.in_comite? %>
+					<%= article.comites.map(&:name).to_sentence %>
+					<%- else %>
+
+					<%- end %>
+				</td>
+			</tr>
+		<%- end %>
+			</tbody>
+		</table>	
+	<%- end %>
+	</div>
+	<div class="footer">
+		<%= will_paginate @list %>
+	</div>
+</div>
+<%- else %>
+<div class="box">
+	<h1 class="header"><%= h current_community.name %></h1>
+	<div class="body">
+		<h2>Not Currently in Session</h2>
+		<p>When a government is in session all Motions before the representatives will be available here.</p>
+		<p>We collect official reports and summarize action taken to make it easy for you to watch our democracy work. We also continue to let you support and discuss motions here.</p>
+	</div>
+</div>
+<%- end %>

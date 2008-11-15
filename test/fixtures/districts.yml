@@ -1,0 +1,205 @@
+--- 
+districts_000051: 
+  name: Wyoming
+  id: "51"
+  parent_id: "0"
+districts_000040: 
+  name: Rhode Island
+  id: "40"
+  parent_id: "0"
+districts_000039: 
+  name: Pennsylvania
+  id: "39"
+  parent_id: "0"
+districts_000028: 
+  name: Nebraska
+  id: "28"
+  parent_id: "0"
+districts_000017: 
+  name: Kansas
+  id: "17"
+  parent_id: "0"
+districts_000006: 
+  name: Arkansas
+  id: "6"
+  parent_id: "1"
+districts_000041: 
+  name: South Carolina
+  id: "41"
+  parent_id: "0"
+districts_000030: 
+  name: New Hampshire
+  id: "30"
+  parent_id: "0"
+districts_000029: 
+  name: Nevada
+  id: "29"
+  parent_id: "0"
+districts_000018: 
+  name: Kentucky
+  id: "18"
+  parent_id: "0"
+districts_000007: 
+  name: Arizona
+  id: "7"
+  parent_id: "1"
+districts_000042: 
+  name: South Dakota
+  id: "42"
+  parent_id: "0"
+districts_000031: 
+  name: New Jersey
+  id: "31"
+  parent_id: "0"
+districts_000020: 
+  name: Main
+  id: "20"
+  parent_id: "0"
+districts_000019: 
+  name: Louisiana
+  id: "19"
+  parent_id: "0"
+districts_000008: 
+  name: Colorado
+  id: "8"
+  parent_id: "1"
+districts_000043: 
+  name: Tennessee
+  id: "43"
+  parent_id: "0"
+districts_000032: 
+  name: New Mexico
+  id: "32"
+  parent_id: "0"
+districts_000021: 
+  name: Maryland
+  id: "21"
+  parent_id: "0"
+districts_000010: 
+  name: Delaware
+  id: "10"
+  parent_id: "1"
+districts_000009: 
+  name: Connecticut
+  id: "9"
+  parent_id: "1"
+districts_000044: 
+  name: Texas
+  id: "44"
+  parent_id: "0"
+districts_000033: 
+  name: New York
+  id: "33"
+  parent_id: "0"
+districts_000022: 
+  name: Massachusetts
+  id: "22"
+  parent_id: "0"
+districts_000011: 
+  name: Florida
+  id: "11"
+  parent_id: "1"
+districts_000045: 
+  name: Utah
+  id: "45"
+  parent_id: "0"
+districts_000034: 
+  name: North Carolina
+  id: "34"
+  parent_id: "0"
+districts_000023: 
+  name: Michigan
+  id: "23"
+  parent_id: "0"
+districts_000012: 
+  name: Georgia
+  id: "12"
+  parent_id: "1"
+districts_000001: 
+  name: United States
+  id: "1"
+  parent_id: "0"
+districts_000046: 
+  name: Vermont
+  id: "46"
+  parent_id: "0"
+districts_000035: 
+  name: North Dakota
+  id: "35"
+  parent_id: "0"
+districts_000024: 
+  name: Minnesota
+  id: "24"
+  parent_id: "0"
+districts_000013: 
+  name: Idaho
+  id: "13"
+  parent_id: "0"
+districts_000002: 
+  name: Hawaii
+  id: "2"
+  parent_id: "1"
+districts_000047: 
+  name: Virginia
+  id: "47"
+  parent_id: "0"
+districts_000036: 
+  name: Ohio
+  id: "36"
+  parent_id: "0"
+districts_000025: 
+  name: Mississippi
+  id: "25"
+  parent_id: "0"
+districts_000014: 
+  name: Illiniois
+  id: "14"
+  parent_id: "0"
+districts_000003: 
+  name: California
+  id: "3"
+  parent_id: "1"
+districts_000048: 
+  name: Washington
+  id: "48"
+  parent_id: "0"
+districts_000037: 
+  name: Oklahoma
+  id: "37"
+  parent_id: "0"
+districts_000026: 
+  name: Missouri
+  id: "26"
+  parent_id: "0"
+districts_000015: 
+  name: Indiana
+  id: "15"
+  parent_id: "0"
+districts_000004: 
+  name: Alaska
+  id: "4"
+  parent_id: "1"
+districts_000049: 
+  name: West Virginia
+  id: "49"
+  parent_id: "0"
+districts_000038: 
+  name: Oregon
+  id: "38"
+  parent_id: "0"
+districts_000027: 
+  name: Montana
+  id: "27"
+  parent_id: "0"
+districts_000016: 
+  name: Iowa
+  id: "16"
+  parent_id: "0"
+districts_000005: 
+  name: Alabama
+  id: "5"
+  parent_id: "1"
+districts_000050: 
+  name: Wisconsin
+  id: "50"
+  parent_id: "0"

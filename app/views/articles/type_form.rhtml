@@ -1,0 +1,26 @@
+<div class="box rounded">
+	<div class="header">
+		<h1>I want to write a ...</h1>
+	</div>
+	<div class="body">
+		<div class="two_columns">
+			<div class="left_column golden_small">
+				<%- form_tag do %>
+				<ul>
+					<%- for type in current_district.article_types %>
+					<li onMouseOver="$('explanation_box').innerHTML='<%= escape_javascript type.description %>'; style.backgroundColor = $('explanation_box').style.backgroundColor;" onMouseOut="style.backgroundColor = '';$('explanation_box').innerHTML=''" style="padding-right: 2em"><%= radio_button_tag 'type_code', type.id, false, {:style => "float: left;"} %> <label for="type_code_<%= type.id %>" style="display: block"><%= type.name %></label></li>
+					<%- end %>
+				</ul>
+			
+				<%= submit_tag 'Begin Creation' %>
+				<%- end %>	
+			</div>
+			<div class="right_column golden_big">
+				<div id="explanation_box" style="background-color: #bdf2ca">
+			
+				</div>
+			</div>	
+			<%= clear_both %>
+		</div>
+	</div>
+</div>

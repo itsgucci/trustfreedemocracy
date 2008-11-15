@@ -1,0 +1,77 @@
+<style type="text/css">
+table.badges {
+	border-spacing: 0;
+	background-color: #fff;
+}
+table.badges th {
+	padding: 4px;
+	background-color: #f60;
+	color: #fff;
+	text-align: right;
+}
+table.badges td {
+	padding: 4px;
+	text-align: center;
+}
+.hoverHilight {
+background-color: #9dbeee;
+cursor:pointer;
+}
+.activeCellHilight {
+background-color: #3875d7;
+color: #f60;
+}
+</style>
+
+<%= javascript_include_tag 'crosshairs' %>
+
+
+<h1>Badges Administration</h1>
+
+<p>In the table below, you can set which privileges belong to which roles.</p>
+
+<%# table of the roles and privileges %>
+<% form_tag({:controller=>controller.controller_name, :action=>'update_role_privileges'}, {:method=>'post'})  do -%>
+  <table class="badges">
+    <tr>
+      <th></th>
+  <% for role in @roles -%>
+      <th><%= role.name %> (<%=link_to 'X', { :id=>role, 
+                                              :action=>'delete_role', 
+                                              :controller=>controller.controller_name}, 
+                                            :confirm => "Are you sure you want to delete '#{role.name}'?" %>)</th>
+  <% end -%>
+    </tr>
+
+  <% for privilege in @privileges -%>
+    <tr>
+      <th><%= privilege.name %> (<%=link_to 'X', {  :id=>privilege, 
+                                                    :action=>'delete_privilege', 
+                                                    :controller=>controller.controller_name}, 
+                                                  :confirm => "Are you sure you want to delete '#{privilege.name}'?" %>)</th>
+      <% for role in @roles -%>
+          <td onmouseover="addHilight(this);" onmouseout="removeHilight(this);"><%=check_box_tag("p#{privilege.id}_r#{role.id}", 1, @privilege_roles[privilege.id].has_key?(role.id))%></td>
+      <% end -%>
+    </tr>
+  <% end -%>
+
+  </table>
+  <p><%=submit_tag 'Save Roles and Privileges'%></p>
+<% end -%>
+
+<hr />
+<%# Form to create a new role, just at he bottom of the page %>
+<%= error_messages_for :badges_role %>
+<% form_for(:badges_role, @badges_role, :url=>{:controller=>controller.controller_name, :action=>'create_role'}) do |f| -%>
+  <p>
+    <b>Create a new Role:</b> <%= f.text_field :name %> <%= f.submit "Create" %>
+  </p>
+<% end -%>
+
+<%# Form to create a new privilege, just at he bottom of the page %>
+<%= error_messages_for :badges_privilege %>
+<% form_for(:badges_privilege, @badges_privilege, :url=>{:controller=>controller.controller_name, :action=>'create_privilege'}) do |f| -%>
+  <p>
+    <b>Create a new Privilege:</b> <%= f.text_field :name %> <%= f.submit "Create" %>
+  </p>
+<% end -%>

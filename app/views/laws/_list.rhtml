@@ -1,0 +1,15 @@
+<div class="box">
+	<h1 class="header">The Promulgation of <%= h current_community.name %></h1>
+	<div class="tabs" style="">
+		<%= tabs current_community.id.to_s, [
+				["Enacted", "info", render(:partial => 'laws/real_list')],
+				["To Executive", "toexec", url_for(:controller => 'laws', :action => 'show_exec', :id => @district)],
+				["Signed", "sign", url_for(:controller => 'laws', :action => 'show_signed', :id => @district)],
+				["Vetoed", "veto", url_for(:controller => 'laws', :action => 'show_vetoed', :id => @district)],
+				["Overridden", "over", url_for(:controller => 'laws', :action => 'show_overridden', :id => @district)],
+				
+				["Defunct", "action", url_for(:controller => 'laws', :action => 'show_dead', :id => @district)],
+				["Unknown", "support", url_for(:controller => 'laws', :action => 'show_unknown', :id => @district)]
+				] %>
+	</div>
+</div>

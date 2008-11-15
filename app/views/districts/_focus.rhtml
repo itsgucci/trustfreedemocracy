@@ -1,0 +1,32 @@
+<div class="two_columns">
+	<div class="right_column golden_small">
+		<%- focuses = @district.articles.focuses.sort { |a,b| b.focus_count <=> a.focus_count } %>
+		<%- ratios = []; labels = ""; district_focus_count = 0 %>
+		<%- for article in focuses
+			  district_focus_count += article.focus_count
+			  ratios << article.focus_percentage
+			  labels << article.number << "|"
+		    end %>
+		<%- remainder = 100 - ratios.sum %>
+		<%= image_tag "http://chart.apis.google.com/chart?cht=p&chs=360x250&chd=t:" + ratios.join(",") + "," + remainder.to_s + "&chl=" + labels + "no priority&chf=bg,s,00000000", :style => "float:left" %>	
+	</div>
+	<div class="left_column golden_big">
+		<table class="ruler">
+			<thead>
+			<tr><th>#</th><th>Top Priority</th><th>Title</th></tr>
+			</thead>
+			<tbody>
+			<%- focuses.each do |article| %>
+			<tr>
+				<td><%= article.number %></td>
+				<td><%= pluralize article.focus_count, "person" %></td>
+				<td><%= article.title %></td>
+			</tr>
+			<%- end %>
+			<tr><td></td><td><%= pluralize @district.population - district_focus_count, "person" %></td><td>No Priority</td></tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+	
+

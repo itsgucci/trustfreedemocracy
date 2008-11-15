@@ -1,0 +1,3 @@
+<li id="<%= h name.camelize %>_tab<%= object.id %>"<%= " class='active'" if active %>>
+	<%= link_to_remote name, :url => { :controller => controller, :action => :ajax_tab, :id => object, :tab => name.camelize }, :update => "article#{ object.id }", :before => visual_effect(:slide_up,  "article#{ object.id }", :queue => 'front' ), :interactive => visual_effect(:slide_down, "article#{ object.id }", :queue => 'end') %>
+</li>

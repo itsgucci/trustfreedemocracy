@@ -1,0 +1,24 @@
+<%- if help_enabled? %>
+<div class="container help rounded">
+		<p>The purpose of this section is to inform <%= current_district ? current_district.representative ? current_district.representative.name : "your Legislator" : "your Legislator" %> how to represent you by registering your Vote</p>
+		<p>If we expect our legislators to represent us, we must tell them how</p>
+		<p>Every Motion traveling through Legislature comes up for a Vote on the floor. Before your legislator makes a decision on your behalf, we enable you to cast your vote. This way, legislators can consider the collected consensus during deliberation</p>
+</div>
+<%- end %>
+<%- if false && current_community.in_session? %>
+<div class="box">
+	<h2 class="header"><%= current_community.name %> Voting Summary</h2>
+	<div class="body">
+		<div class="box">
+			<h3 class="header">Congruency</h3>
+			<div class="body">
+				<%- if logged_in? %>
+				<p class="huge"><%= number_to_percentage @current_user.legislative_accuracy %></p>
+				<%- else %>
+				<p><%= link_to "Log in", '/login' %> to find out how well <%= current_district ? current_district.representative ? current_district.representative.name : "your legislator" : "your legislator" %> represents you</p>
+				<%- end %>
+			</div>
+		</div>
+	</div>
+</div>
+<%- end %>

@@ -1,0 +1,30 @@
+<div class="box">
+	<h1 class="header">Manage <%= @community.name %> Certification</h1>
+	<div class="body">
+		<table class="ruler">
+			<thead>
+				<tr><th>District</th><th>User</th><th>Name</th><th>Certificate</th><th>Keycode</th></tr>
+			</thead>
+			<%- @community.certifications.available(:order => 'district_id').each do |cert| %>
+			<tr>
+				<td><%= h cert.district.name %></td>
+				<td><%= cert.user ? cert.user.name : "unassigned" %></td>
+				<td><%= h cert.certified_name %></td>
+				<td><%= h cert.certification_number %></td>
+				<td><%= link_to_function( "show", "$('pin#{cert.id}').show(); this.hide()") unless cert.certification_pin.blank? %><span id="pin<%= cert.id %>" style="display:none"><%= h(cert.certification_pin || "none") %></span></td>
+				<td class="dull smaller"><%= link_to "revoke", {:controller => :certification, :action => :destroy, :id => cert}, :method => :delete, :confirm => "Are you sure you want to revoke this certification?\n\nRevocation is permanent and devastating!" %>
+			</tr>
+			<%- end %>
+		</table>	
+	</div>
+</div>
+<div class="box">
+	<h2 class="header">New Certification</h2>
+	<div class="body">
+		<%- form_tag :action => :generate_certifications, :id => @community do %>
+		<%= text_field_tag :name, "Name", :onblur => "if(this.value == '') this.value = 'Name';", :onclick => "if(this.value == 'Name') this.value = '';" %>
+		in <%= select_tag("district", options_for_select(@community.districts.all.map {|district| [ district.name, district.id ] })) %>
+		<%= submit_tag "Generate" %>
+		<%- end %>
+	</div>
+</div>

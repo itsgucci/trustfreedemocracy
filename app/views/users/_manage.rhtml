@@ -1,0 +1,28 @@
+<%- if logged_in? && current_user == @user %>
+<p>Name: <%=  
+	editable_content( :content => { :text => @user.name.blank? ? "--empty--" : @user.name, 
+	:options => { :id => "user_name#{@user.id}" } },
+	:url => { :controller => 'users', :action => 'update_name', :id => @user.id },
+	:ajax => {}
+	)
+%></p>
+<%- else %>
+<p>Name: <%= h @user.name %></p>
+<%- end %>
+<%- if logged_in? && current_user.has_privilege?('edit users') %>
+<p>Login: 
+<%=  
+	editable_content( :content => { :text => @user.login.blank? ? "--empty--" : @user.login, 
+	:options => { :id => "user_login#{@user.id}" } },
+	:url => { :controller => 'users', :action => 'update_login', :id => @user.id },
+	:ajax => {}
+	)
+%>
+</p>
+<%- else %>
+<p>Email: <%= @user.login.blank? ? "--empty--" : h(@user.login) %></p>
+<%- end %>
+<%- if logged_in? && has_privilege?('impersonate users') %>
+<p><%= link_to "Impersonate #{ h @user.name }", :controller => 'sessions', :action => 'impersonate_user', :id => @user %></p>
+<%- end %>
+<p>Facebook: <%= @user.facebook_id %></p>

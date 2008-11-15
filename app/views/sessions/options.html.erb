@@ -1,0 +1,12 @@
+<%- if help_enabled? %>
+<div class="container help">
+	<p>The options change the way TrustFreeDemocracy behaves</p>
+</div>
+<%- end %>
+<div class="box">
+	<h1 class="header">Options</h1>
+	<div class="body">
+		<p>help: <%= toggle_help_link %></p>
+		<p>certification filter: <%= toggle_certified_link %></p>
+	</div>
+</div>

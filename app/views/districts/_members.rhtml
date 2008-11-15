@@ -1,0 +1,9 @@
+<%- if @district.members.empty? %>
+<p class="larger"><%= @district.name %> has no members</p>
+<%- else %>
+<ul class="orangelist">
+	<%- @district.members.each do |user| %>
+		<li><%= link_to user.name, user %></li>
+	<%- end %>
+</ul>
+<%- end %>

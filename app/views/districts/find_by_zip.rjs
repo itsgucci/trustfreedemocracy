@@ -1,0 +1,9 @@
+if @districts.empty? && @communities.empty?
+  page.insert_html :bottom, :suggested_districts, "<li>No Governments were found. We suggest #{ link_to "United States Congress", 'communities/1', :style => "color:#FF9400" } and #{ link_to "Hawaii State Congress", 'communities/2', :style => "color:#FF9400" }</li>"
+end
+@districts.each do |district|
+  page.insert_html :bottom, :suggested_districts, "<li>#{ link_to district.full_name, district }</li>"
+end
+@communities.each do |community|
+  page.insert_html :bottom, :suggested_districts, "<li>#{ link_to community.name, community }</li>"
+end
