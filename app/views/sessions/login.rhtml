@@ -7,18 +7,26 @@
 				<h2 class="header">Facebook</h2>
 				<div class="body">
 					<%- if facebook_user %>
-					<p style="float:left"><%= image_tag facebook_user.pic %></p>
-					<p><%= facebook_user.name %></p>
-					<p>ID <%= facebook_user.id %></p>
+						<p style="float:left"><%= image_tag facebook_user.pic %></p>
+						<p><%= facebook_user.name %></p>
+						<p>ID <%= facebook_user.id %></p>
 						<%- if User.find_by_facebook_id facebook_user.id %>
-						<p>Valid</p>
-						<p style="clear:both"><%= link_to "Login with this facebook account", '/sessions/create', :method => :post %></p>
+						<p>Linked</p>
+						<p style="clear:both"><%= link_to "Login via Facebook", '/sessions/create', :method => :post %></p>
 						<%- else %>
-						<p>You can associate your account with facebook by <%= link_to "clicking here", '/facebook' %></p>
+						<p>Unlinked</p>
+						<p style="clear:both"><%= link_to "I would like to Link TrustFreeDemocracy + Facebook", '/facebook' %></p>
 						<%- end %>
 					<%- else %>
-					<p>You can login via facebook by <%= link_to "clicking here", '/facebook' %></p>
+					<p>You can <%= link_to "Login via Facebook", '/facebook' %></p>
 					<%- end %>
+				</div>
+			</div>
+			<div class="box">
+				<h2 class="header">New Account</h2>
+				<div class="body">
+					<p>New to TrustFreeDemocracy?</p>
+					<p>You can <%= link_to "create a new account", '/signup' %></p>
 				</div>
 			</div>
 		</div>

@@ -17,7 +17,7 @@ module ApplicationHelper
     if logged_in?
       link_to "logout", '/logout', :help => 'Click here to logout of your Account'
     else
-      link_to "sign in", '/login', :help => 'Click here to Sign in to your Account', :style => "font-weight: bold"
+      link_to "Login", '/login', :help => 'Click here to Sign in to your Account', :style => "font-weight: bold"
     end
   end
   

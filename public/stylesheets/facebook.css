@@ -1,10 +1,25 @@
+.facebook_hidden {
+  display:none;
+}
+
 body {
   font-size:   13px;
   line-height: 18px;
 }
 
-.facebook_hidden {
-  display:none;
+#navigation {
+  top: auto;
+  bottom: 0;
+  background: #FF5A00;
+}
+.district {
+  background: none;
+}
+#content {
+  margin-top: 1em;
+}
+#footer {
+  display: none;
 }
 
 #mantra {
@@ -12,7 +27,12 @@ body {
 }
 
 .pretty_form label {
-  width:auto;
+}
+label {
+  font-size: normal;
+}
+input {
+  font-size: normal;
 }
 
 p, .p_padding {

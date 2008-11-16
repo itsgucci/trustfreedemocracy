@@ -33,22 +33,22 @@
 	</script>
 </head>
 <body id="trustfreedemocracy">
-	<p id="the_whole_of_the_law" class="smaller" style="font-align:center;position:fixed;left:50%;bottom:0;color:#fff;z-index:420;margin:0:padding:0;line-height:1em;">Do what thou wilt</p>
+	<p id="the_whole_of_the_law" class="smaller facebook_hidden" style="font-align:center;position:fixed;left:50%;bottom:0;color:#fff;z-index:420;margin:0:padding:0;line-height:1em;">Do what thou wilt</p>
 	<div id="padding">
-		 <p style="margin:0;padding:0;padding-right:7px; color: #000; float: right;line-height:28px"><%- if logged_in? %>I am <%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="dull" help="Click here to log in or out of TrustFreeDemocracy" style="margin:0;padding:0;padding-right:7px; color: #000; display: inline"><%= login_logout_link %></span>
-		</p>
-		<ul class="horizontal district larger">
-			<li style="cursor:pointer" <%= current_page?('/') ? 'class="active"' : 'OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>
-			<%- if current_community %>
-				<%#- current_community.ancestors.reverse.each do |community| %>
-				<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
-				<%#- end %>
-			<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %>: <%= select_tag("interest_id", options_for_select( [["All Districts", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/districts/'+$('interest_id').value", :style => "border: none; padding: 0; color: #fff; font-weight:normal; background:inherit; width: 10em", :help => "This is the district filter, select a district to get more specific results" } ) %>
-			<%- if false && current_district %> 
-				<a href="#" onclick="document.location.href='/districts/'+$('interest_id').value" help="Click here to go to <%= current_district.name %>">></a><%- end %></li>
-			<%- end %>
-		</ul>
-		<div id="navigation">	
+		<div id="navigation">
+			<p style="margin:0;padding:0;padding-right:7px; color: #000; float: right;line-height:28px"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy" style="margin:0;padding:0;padding-right:7px; color: #000; display: inline"><%= login_logout_link %></span>
+			</p>
+			<ul class="horizontal district larger">
+				<li style="cursor:pointer" <%= current_page?('/') ? 'class="active"' : 'OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>
+				<%- if current_community %>
+					<%#- current_community.ancestors.reverse.each do |community| %>
+					<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
+					<%#- end %>
+				<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %>: <%= select_tag("interest_id", options_for_select( [["All Districts", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/districts/'+$('interest_id').value", :style => "border: none; padding: 0; color: #fff; font-weight:normal; background:inherit; width: 10em", :help => "This is the district filter, select a district to get more specific results" } ) %>
+				<%- if false && current_district %> 
+					<a href="#" onclick="document.location.href='/districts/'+$('interest_id').value" help="Click here to go to <%= current_district.name %>">></a><%- end %></li>
+				<%- end %>
+			</ul>
 			<div id="top_links" class="top_links">
 				<%- if current_district || current_community %>
 				<ul id="site_navigation" class="left_links">
