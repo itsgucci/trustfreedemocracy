@@ -141,6 +141,15 @@ margin: 0;
 font-size: smaller;
 display:inline;
 }
+
+#current_user {
+margin:0;
+padding:0;
+padding-right:7px;
+color: #000;
+float: right;
+line-height:28px
+}
 .flash_container {
 padding: 0.5em;
 clear: both;

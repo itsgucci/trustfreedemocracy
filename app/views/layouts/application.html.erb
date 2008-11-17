@@ -36,7 +36,7 @@
 	<p id="the_whole_of_the_law" class="smaller facebook_hidden" style="font-align:center;position:fixed;left:50%;bottom:0;color:#fff;z-index:420;margin:0:padding:0;line-height:1em;">Do what thou wilt</p>
 	<div id="padding">
 		<div id="navigation">
-			<p style="margin:0;padding:0;padding-right:7px; color: #000; float: right;line-height:28px"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy" style="margin:0;padding:0;padding-right:7px; color: #000; display: inline"><%= login_logout_link %></span>
+			<p id="current_user"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy" style="margin:0;padding:0;padding-right:7px; color: #000; display: inline"><%= login_logout_link %></span>
 			</p>
 			<ul class="horizontal district larger">
 				<li style="cursor:pointer" <%= current_page?('/') ? 'class="active"' : 'OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>

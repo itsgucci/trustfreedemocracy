@@ -18,8 +18,9 @@ class FacebookController < ApplicationController
     if logged_in? && facebook_user
       self.current_user.facebook_id = facebook_user.id
       self.current_user.save
-      flash[:notice] = "<p>#{current_user.name} linked with Facebook id: #{facebook_user.id}</p>"
-      redirect_to '/facebook'
+      flash[:notice] = "<p>Successfully Linked with Facebook #{facebook_user.id}</p>"
+      #redirect_to '/facebook'
+      redirect_to '/'
       return true
     end
     flash[:error] = "<p>Association failed</p>"

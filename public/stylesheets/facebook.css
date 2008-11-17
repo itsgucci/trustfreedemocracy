@@ -12,8 +12,12 @@ body {
   bottom: 0;
   background: #FF5A00;
 }
-#navigation .faint a {
+#current_user a {
   color: #fff;
+}
+#home_icon {
+  background: url('/images/fff-62.png');
+  padding-top: 1px;
 }
 .district {
   background: none;

@@ -8,15 +8,8 @@ class ArticlesController < ApplicationController
   #before_filter :community_membership_required, :only => [:add_support, :remove_support, :vote]
   
   def index
-    if current_district || current_community
-      community = current_community || current_district.community
-      @articles = community.articles.search params[:search], :page => params[:page], :per_page => 13, :order => "support_count DESC"
-    else
-      @articles = Article.search params[:search], :page => params[:page], :per_page => 13, :order => "support_count ASC"
-    end
-    
-    @search_terms = params[:search]
-    
+    @articles = current_community.articles.search params[:search], :page => params[:page], :per_page => 13, :order => "support_count DESC"
+        
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @articles }
