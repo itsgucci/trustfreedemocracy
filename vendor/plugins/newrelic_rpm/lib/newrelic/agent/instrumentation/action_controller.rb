@@ -6,23 +6,64 @@ if defined? ActionController
 
 module ActionController
   class Base
+    # Have NewRelic ignore actions in this controller.  Specify the actions as hash options
+    # using :except and :only.  If no actions are specified, all actions are ignored.
+    def self.newrelic_ignore(specifiers={})
+      if specifiers.empty?
+        write_inheritable_attribute('do_not_trace', true)
+      elsif ! (Hash === specifiers)
+        logger.error "newrelic_ignore takes an optional hash with :only and :except lists of actions (illegal argument type '#{specifiers.class}')"
+      else
+        write_inheritable_attribute('do_not_trace', specifiers)
+      end
+    end
+  
     def perform_action_with_newrelic_trace
       agent = NewRelic::Agent.instance
-      return perform_action_without_newrelic_trace if self.class.read_inheritable_attribute('do_not_trace')
-    
+      ignore_actions = self.class.read_inheritable_attribute('do_not_trace')
+      # Skip instrumentation based on the value of 'do_not_trace'
+      if ignore_actions
+        should_skip = false
+        
+        if Hash === ignore_actions
+          only_actions = Array(ignore_actions[:only])
+          except_actions = Array(ignore_actions[:except])
+          should_skip = true if only_actions.include? action_name.to_sym
+          should_skip = true if except_actions.any? && !except_actions.include?(action_name.to_sym)
+        else
+          should_skip = true
+        end
+        
+        if should_skip
+          Thread.current[:controller_ignored] = true
+          return perform_action_without_newrelic_trace
+        end
+      end
+      
+      agent.ensure_started
+
       # generate metrics for all all controllers (no scope)
-      self.class.trace_method_execution "Controller", false do 
+      self.class.trace_method_execution "Controller", false, true, true do 
         # generate metrics for this specific action
         path = _determine_metric_path
       
         agent.stats_engine.transaction_name ||= "Controller/#{path}" if agent.stats_engine
       
-        self.class.trace_method_execution "Controller/#{path}" do 
+        self.class.trace_method_execution "Controller/#{path}", true, true, true do 
           # send request and parameter info to the transaction sampler
-          NewRelic::Agent.instance.transaction_sampler.notice_transaction(path, request, params)
+          
+          local_params = (respond_to? :filter_parameters) ? filter_parameters(params) : params
+            
+          agent.transaction_sampler.notice_transaction(path, request, local_params)
         
-          # run the action
-          perform_action_without_newrelic_trace
+          t = Process.times.utime + Process.times.stime
+          
+          begin
+            # run the action
+            perform_action_without_newrelic_trace
+          ensure
+            agent.transaction_sampler.notice_transaction_cpu_time((Process.times.utime + Process.times.stime) - t)
+          end
         end
       end
     

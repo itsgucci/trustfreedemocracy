@@ -6,7 +6,6 @@ module NewRelic
       return 0 if call_count == 0
       total_call_time / call_count
     end
-    
     def average_exclusive_time
       return 0 if call_count == 0
       total_exclusive_time / call_count
@@ -120,6 +119,7 @@ module NewRelic
     end
 
     alias average_value average_call_time
+    alias average_response_time average_call_time 
     
     def to_s
       s = "Begin=#{begin_time}, "
@@ -195,9 +195,7 @@ module NewRelic
     # record a single data point into the statistical gatherer.  The gatherer
     # will aggregate all data points collected over a specified period and upload
     # its data to the NewRelic server
-    def record_data_point(value, exclusive_time = nil)
-      exclusive_time ||= value
-      
+    def record_data_point(value, exclusive_time = value)
       @call_count += 1
       @total_call_time += value
       @min_call_time = value if value < @min_call_time || @call_count == 1
@@ -207,8 +205,18 @@ module NewRelic
       @sum_of_squares += value ** 2
       self
     end
+    
+    
+    def increment_count(value = 1)
+      @call_count += value
+    end
 
-    alias :trace_call :record_data_point
+    def trace_call(value, exclusive_time = value)
+      value = 0 if value < 0
+      exclusive_time = 0 if exclusive_time && exclusive_time < 0
+      
+      record_data_point(value, exclusive_time)
+    end
 
     def freeze
       @end_time = Time.now
@@ -239,7 +247,7 @@ module NewRelic
       @unscoped_stats = unscoped_stats
     end
     
-    def trace_call(call_time, exclusive_time = nil)
+    def trace_call(call_time, exclusive_time = call_time)
       @unscoped_stats.trace_call call_time, exclusive_time
       super call_time, exclusive_time
     end
@@ -247,6 +255,19 @@ module NewRelic
 end
 
 class Numeric
+  
+  # copied from rails
+  def with_delimiter(delimiter=",", separator=".")
+    begin
+      parts = self.to_s.split('.')
+      parts[0].gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{delimiter}")
+      parts.join separator
+    rescue
+      self
+    end
+  end
+  
+  
   # utlity method that converts floating point time values in seconds
   # to integers in milliseconds, to improve readability in ui
   def to_ms(decimal_places = 0)

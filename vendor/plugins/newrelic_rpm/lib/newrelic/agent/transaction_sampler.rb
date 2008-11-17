@@ -2,20 +2,29 @@ require 'newrelic/transaction_sample'
 require 'thread'
 require 'newrelic/agent/method_tracer'
 require 'newrelic/agent/synchronize'
+require 'newrelic/agent/param_normalizer'
 
 module NewRelic::Agent
   class TransactionSampler
-    include(Synchronize)
+    include Synchronize
     
-    def initialize(agent, max_samples = 100)
+    attr_accessor :capture_params
+    
+    def initialize(agent, options = {})
       @samples = []
-      @max_samples = max_samples
+      
+      @options = {:max_samples => 100, :record_sql => :obfuscated}
+      @options.merge!(options)
+
+      @max_samples = @options[:max_samples]
+      
+      @capture_params = true
 
       agent.stats_engine.add_scope_stack_listener self
 
-      proc = Proc.new { |sql| default_sql_obfuscator(sql) }
-      
-      agent.set_sql_obfuscator(:replace, proc)
+      agent.set_sql_obfuscator(:replace) do |sql| 
+        default_sql_obfuscator(sql)
+      end
     end
     
     
@@ -63,6 +72,15 @@ module NewRelic::Agent
         end
       end
     end
+    
+    def scope_depth
+      depth = 0
+      with_builder do |builder|
+        depth = builder.scope_depth
+      end
+      
+      depth
+    end
   
     def notice_pop_scope(scope)
       with_builder do |builder|
@@ -95,12 +113,28 @@ module NewRelic::Agent
       end
     end
     
+    def notice_transaction_cpu_time(cpu_time)
+      with_builder do |builder|
+        builder.set_transaction_cpu_time(cpu_time)
+      end
+    end
+    
+    
+    # params == a hash of parameters to add
+    #
+    def add_request_parameters(params)
+      with_builder do |builder|
+        builder.add_request_parameters(params)
+      end
+    end
+    
     # some statements (particularly INSERTS with large BLOBS
     # may be very large; we should trim them to a maximum usable length
     MAX_SQL_LENGTH = 16384
-    def notice_sql(sql)
-      with_builder do |builder|
-        if Thread::current[:record_sql].nil? || Thread::current[:record_sql]
+    def notice_sql(sql, config)
+    
+      if (@options[:record_sql] != :off) && (Thread::current[:record_sql].nil? || Thread::current[:record_sql])
+        with_builder do |builder|
           segment = builder.current_segment
           if segment
             current_sql = segment[:sql]
@@ -111,6 +145,7 @@ module NewRelic::Agent
             end
             
             segment[:sql] = sql
+            segment[:connection_config] = config
           end
         end
       end
@@ -145,7 +180,7 @@ module NewRelic::Agent
       BUILDER_KEY = :transaction_sample_builder
 
       def create_builder
-        Thread::current[BUILDER_KEY] = TransactionSampleBuilder.new
+        Thread::current[BUILDER_KEY] = TransactionSampleBuilder.new(@capture_params)
       end
       
       # most entry points into the transaction sampler take the current transaction
@@ -160,16 +195,17 @@ module NewRelic::Agent
       end
       
       def get_builder
-        Thread::current[BUILDER_KEY]
+        if Thread::current[:record_tt].nil? || Thread::current[:record_tt]
+          Thread::current[BUILDER_KEY]
+        else
+          nil
+        end
       end
       
       def reset_builder
         Thread::current[BUILDER_KEY] = nil
       end
       
-      def is_developer_mode?
-        @developer_mode ||= (defined?(::RPM_DEVELOPER) && ::RPM_DEVELOPER)
-      end
   end
 
   # a builder is created with every sampled transaction, to dynamically
@@ -178,7 +214,10 @@ module NewRelic::Agent
   class TransactionSampleBuilder
     attr_reader :current_segment
     
-    def initialize
+    include ParamNormalizer
+    
+    def initialize(capture_params=true)
+      @capture_params = capture_params
       @sample = NewRelic::TransactionSample.new
       @sample.begin_building
       @current_segment = @sample.root_segment
@@ -216,6 +255,18 @@ module NewRelic::Agent
       @current_segment = nil
     end
     
+    def scope_depth
+      depth = -1        # have to account for the root
+      current = @current_segment
+      
+      while(current)
+        depth += 1
+        current = current.parent_segment
+      end
+      
+      depth
+    end
+    
     def freeze
       @sample.freeze unless sample.frozen?
     end
@@ -225,11 +276,30 @@ module NewRelic::Agent
     end
     
     def set_transaction_info(path, request, params)
+      
+      
       @sample.params[:path] = path
-      @sample.params[:request_params] = params.clone
-      @sample.params[:request_params].delete :controller
-      @sample.params[:request_params].delete :action
+      
+      if @capture_params
+        params = normalize_params params
+        
+        @sample.params[:request_params].merge!(params)
+        @sample.params[:request_params].delete :controller
+        @sample.params[:request_params].delete :action
+      end
+      
       @sample.params[:uri] = request.path if request
+    end
+    
+    def set_transaction_cpu_time(cpu_time)
+      @sample.params[:cpu_time] = cpu_time
+    end
+    
+    def add_request_parameters(params)
+      
+      params = normalize_params params
+      
+      @sample.params[:request_params].merge!(params)
     end
     
     def sample
