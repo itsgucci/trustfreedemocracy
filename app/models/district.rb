@@ -94,11 +94,11 @@ class District < ActiveRecord::Base
   end
   
   # todo: remove this
-  def top_priority
-    article = articles.focuses.first(:order => 'focus_count DESC, support_count DESC')
-    return nil if article.nil?
-    article.focus_count == 0 ? nil : article
-  end
+  # def top_priority
+  #   article = articles.focuses.first(:order => 'focus_count DESC, support_count DESC')
+  #   return nil if article.nil?
+  #   article.focus_count == 0 ? nil : article
+  # end
   
   def top_supported_articles(number = 1)
     #todo clean this up. last is dodgy at best.

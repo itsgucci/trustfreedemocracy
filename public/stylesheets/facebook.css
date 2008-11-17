@@ -17,6 +17,7 @@ body {
 }
 #content {
   margin-top: 1em;
+  margin-bottom: 5em;
 }
 #footer {
   display: none;
