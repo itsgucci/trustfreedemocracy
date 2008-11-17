@@ -39,7 +39,7 @@
 			<p id="current_user"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy"><%= login_logout_link %></span>
 			</p>
 			<ul class="horizontal district larger">
-				<li style="cursor:pointer" <%= current_page?('/') ? 'class="active" style="background:#FF5A00;" ' : 'OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>
+				<li <%= current_page?('/') ? 'class="active" style="background:#FF5A00;cursor:pointer" ' : 'style="cursor:pointer" OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>
 				<%- if current_community %>
 					<%#- current_community.ancestors.reverse.each do |community| %>
 					<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
