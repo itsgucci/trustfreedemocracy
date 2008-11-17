@@ -12,6 +12,9 @@ body {
   bottom: 0;
   background: #FF5A00;
 }
+#navigation .faint {
+  color: #fff;
+}
 .district {
   background: none;
 }
