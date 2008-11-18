@@ -104,6 +104,17 @@ line-height: normal;
 text-align: left;
 }
 
+#the_whole_of_the_law {
+text-align:center;
+position:fixed;
+left:50%;
+bottom:0;
+color:#fff;
+z-index:420;
+margin:0;
+line-height:1em;
+}
+
 #home_icon:hover {
 background: #ff5a00;
 }
@@ -140,6 +151,15 @@ text-decoration: none;
 margin: 0;
 font-size: smaller;
 display:inline;
+}
+
+#interest_id {
+border: none;
+padding: 0;
+color: #fff;
+font-weight:normal;
+background:inherit;
+width: 10em;
 }
 
 #current_user {
@@ -224,6 +244,12 @@ width: 100%;
 text-align: right;
 color: #fff;
 background-color: #FF5A00;
+}
+
+#strength {
+float: left;
+font-size: 20px;
+padding-left: 0.38em;
 }
 
 .scroll_box {

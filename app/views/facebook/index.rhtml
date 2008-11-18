@@ -11,36 +11,37 @@
 				<p>Please Login</p>
 				<%- end %>
 			</div>
-				<div class="box">
-					<h2 class="header">Facebook</h2>
-					<p style="float:left"><%= image_tag facebook_user.pic %></p>
-					<p><%= facebook_user.name %></p>
-					<p>ID <%= facebook_user.id %></p>
-				</div>
-				
-			</div>
-			<div class="left_column golden_big">
-				<%- if logged_in? && current_user.facebook_id.to_i == facebook_user.id.to_i %>
-				<p>You are good to go</p>
-				<p>Your Accounts are Linked</p>
-				<p class="huge">Let's <%= link_to "TrustFreeDemocracy", '/' %></p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>You can <%= link_to "sever the Link", '/facebook/disassociate', :confirm => "Yeah, are you sure?", :method => :post %> to Facebook any time</p>
-				<%- elsif !logged_in? %>
-				<%= render :partial => '/sessions/login' %>
-				<p>If you do not have a TrustFreeDemocracy account, <%= link_to "create one", '/signup' %></p>
-				<%- else %>
-				<div class="box">
-					<p class="error">Your Facebook and TrustFreeDemocracy accounts are unlinked</p>
-					<p>TrustFreeDemocracy and Faceook can cooperate to share relevant information when linked</p>
-					<p>Linking accounts lets you receive TrustFreeDemocracy notification through Facebook's Newsfeed, use one login for both places, easily share your political motivations with established friends, and of course, poke</p>
-					<%- form_tag '/facebook/associate' do %>
-					<p>I would like to <%= submit_tag "Link My Accounts" %></p>
-					<%- end %>
-				</div>				
+			<div class="box">
+				<h2 class="header">Facebook</h2>
+				<%- unless facebook_user.pic.blank? %>
+				<p style="float:left"><%= image_tag facebook_user.pic %></p>
 				<%- end %>
+				<p><%= facebook_user.name %></p>
+				<p>ID <%= facebook_user.id %></p>
 			</div>
-		</div>	
+				
+		</div>
+		<div class="left_column golden_big">
+			<%- if logged_in? && current_user.facebook_id.to_i == facebook_user.id.to_i %>
+			<p>You are good to go</p>
+			<p>Your Accounts are Linked</p>
+			<p class="huge">Let's <%= link_to "TrustFreeDemocracy", '/' %></p>
+			<p>&nbsp;</p>
+			<p>&nbsp;</p>
+			<p>You can <%= link_to "sever the Link", '/facebook/disassociate', :confirm => "Yeah, are you sure?", :method => :post %> to Facebook any time</p>
+			<%- elsif !logged_in? %>
+			<%= render :partial => '/sessions/login' %>
+			<p>If you do not have a TrustFreeDemocracy account, <%= link_to "create one", '/signup' %></p>
+			<%- else %>
+			<div class="box">
+				<p class="error">Your Facebook and TrustFreeDemocracy accounts are unlinked</p>
+				<p>TrustFreeDemocracy and Faceook can cooperate to share relevant information when linked</p>
+				<p>Linking accounts lets you receive TrustFreeDemocracy notification through Facebook's Newsfeed, use one login for both places, easily share your political motivations with established friends, and of course, poke</p>
+				<%- form_tag '/facebook/associate' do %>
+				<p>I would like to <%= submit_tag "Link My Accounts" %></p>
+				<%- end %>
+			</div>				
+			<%- end %>
+		</div>
 	</div>
 </div>

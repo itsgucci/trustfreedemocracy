@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_community
   def current_community
-    @current_community ||= (community_login_from_session || nil)
+    @current_community ||= (community_login_from_session || Community.first)
   end
   def current_community=(new_community)
     session[:community] = (new_community.nil? || new_community.is_a?(Symbol)) ? nil : new_community.id
@@ -81,8 +81,8 @@ class ApplicationController < ActionController::Base
   
   helper_method :facebook_user
   def facebook_user
-    return nil unless facebook_session
-    facebook_session.user
+    return nil unless session[:facebook_session] && !session[:facebook_session].expired?
+    session[:facebook_session].user
   end
          
   helper_method :current_zip
