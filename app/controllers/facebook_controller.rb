@@ -1,6 +1,7 @@
 class FacebookController < ApplicationController
   
   ensure_authenticated_to_facebook
+  ensure_application_is_installed_by_facebook_user
   
   def index
     #login via facebook
@@ -32,12 +33,7 @@ class FacebookController < ApplicationController
     redirect_to :back
   end
   
-  def article
-    @article = Article.find(params[:id])
-    render :template => 'articles/show'
-  end
-  
-  def show
+  def profile
     @fb_user = session[:facebook_session].user
     @user = User.find_by_facebook_id(@fb_user.id)
   end

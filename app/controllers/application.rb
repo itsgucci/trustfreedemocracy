@@ -81,8 +81,8 @@ class ApplicationController < ActionController::Base
   
   helper_method :facebook_user
   def facebook_user
-    return nil unless session[:facebook_session]
-    session[:facebook_session].user
+    return nil unless facebook_session
+    facebook_session.user
   end
          
   helper_method :current_zip
