@@ -10,9 +10,12 @@ class CertificationController < ApplicationController
   before_filter :login_required, :only => [:redeem, :destroy]
   before_filter :valid_api_user, :only => [:create]
   
+  def show
+    redirect_to "/"
+  end
+  
   def create
-    # should be retrieved from the "valid_api_user" and NOT hardcoded
-    external_source = "registarr"
+    external_source = params[:api_user]
 
     name = params[:name]
     districts = ActiveSupport::JSON.decode(params[:memberships])
@@ -56,9 +59,10 @@ class CertificationController < ApplicationController
   
   private
   def valid_api_user
-    unless params[:api_key] == "666"
+    debugger
+    user = ApiUser.find_by_login params[:api_user]
+    unless user && params[:api_key] == user.password
       render :text => "You are not authorized"
-      return false
     end
   end
   

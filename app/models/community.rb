@@ -67,6 +67,16 @@ class Community < ActiveRecord::Base
     0
   end
   
+  def assets
+    100
+  end
+  def liabilities
+    articles.sum(:cost)
+  end
+  def cost_per_hour
+    articles.sum(:cost_per_hour)
+  end
+  
   def district_represented(representative)
     districts.all(:include => :representative).each do |district|
       return district if district.representative == representative

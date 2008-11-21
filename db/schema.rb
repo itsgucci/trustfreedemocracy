@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081024102003) do
+ActiveRecord::Schema.define(:version => 20081118111538) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 20081024102003) do
     t.datetime "created_at"
     t.boolean  "processed",                 :default => false, :null => false
     t.integer  "community_id"
+  end
+
+  create_table "api_users", :force => true do |t|
+    t.string   "login"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "article_versions", :force => true do |t|
@@ -52,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20081024102003) do
     t.integer  "session",                                                            :default => 0
     t.integer  "focus_count",                                                        :default => 0
     t.string   "number"
+    t.decimal  "cost_per_hour",                       :precision => 8,  :scale => 2
   end
 
   add_index "articles", ["district_id"], :name => "district"
@@ -185,6 +193,13 @@ ActiveRecord::Schema.define(:version => 20081024102003) do
     t.datetime "created_at",                     :null => false
     t.datetime "ended_at"
     t.boolean  "certified",   :default => false
+  end
+
+  create_table "facebook_templates", :force => true do |t|
+    t.string   "bundle_id"
+    t.string   "template_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "interests", :force => true do |t|

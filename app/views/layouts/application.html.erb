@@ -33,7 +33,7 @@
 	</script>
 </head>
 <body id="trustfreedemocracy">
-	<p id="the_whole_of_the_law" class="smaller facebook_hidden">Do what thou wilt</p>
+	<p id="the_whole_of_the_law" class="smaller facebook_hidden">Do what thou intend</p>
 	<div id="padding">
 		<div id="navigation">
 			<p id="current_user"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy"><%= login_logout_link %></span>
@@ -147,10 +147,10 @@
 				<li style="display:none"><%= link_to_function 'jump', visual_effect(:grow, :bookmarks, :direction => 'top-right'), :help => "Quickly navigate with a Jump" %></li>
 				<li style="display:none"><%= toggle_certified_link %></li>
 				<li style="display:none"><%= toggle_help_link %></li>
-				<li style="display:none"><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
+				<li><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
 				<li><a href="/options" >options </a></li>
 				<li><a href="/about" help="Find out about this website">about</a></li>
-				<li><a href="/why">why</a></li>
+				<li style="display:none"><a href="/why">why</a></li>
 			</ul>
 		</div>
 	</div>

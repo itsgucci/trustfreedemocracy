@@ -5,7 +5,7 @@ class FacebookController < ApplicationController
   
   def index
     #login via facebook
-    unless logged_in?
+    if params[:f] == "1"
       if self.current_user = User.find_by_facebook_id(facebook_user.id)
         flash[:notice] = "<p>Aloha, #{current_user.name}</p>"
         redirect_to '/'

@@ -193,9 +193,9 @@ class CommunitiesController < ApplicationController
     @community = Community.find(params[:id], :include => :representatives)
     render :partial => 'representatives'
   end
-  def show_calendar
+  def show_budget
     @community = Community.find(params[:id])
-    render :partial => 'calendar'
+    render :partial => 'budget'
   end
   def show_minutes
     @community = Community.find(params[:id])
