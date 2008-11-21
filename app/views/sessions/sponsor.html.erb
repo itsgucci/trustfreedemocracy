@@ -1,0 +1,40 @@
+<div class="box">
+	<h1 class="header">Sponsor TrustFreeDemocracy</h1>
+	<div class="body">
+		<div class="right_column golden_small box">
+			<h2 class="header">Fuel Democracy</h2>
+			<div class="body">
+				<%- form_tag '/fps/redirect_cbui' do %>
+					<%= image_tag 'APMark.jpg', :style => "float: left; margin-right: 1em; width: 138px" %>
+					<p><%= text_field_tag "Amount", "20", :size => 2, :class => "right" %> USD</p>
+					<%= hidden_field_tag "CallerTokenId", "B2GRDC1C3PLGA7H8QTVJ4DUAPWHVWEZ4RXUBX8RU1EVRZ7ZT33NFTE1SXBEGHLVG" %>
+					<%= hidden_field_tag "RecipientTokenId", "B5GRPCKC3ZLHA7F8QTVZ4JUAGWLVWIZDRXMBQ8RT1NVRE7HT3RNLTENSKBE5H1VF" %>
+					<p><%= submit_tag 'Donate Online' %></p>
+				<%- end %>
+				<p>or send checks to:</p>
+				<p>
+					Trust Free Democracy<br />
+					PO Box 59<br />
+					Papaikou, HI 96781<br />
+					United States of America
+				</p>
+			</div>
+		</div>
+		<div class="left_column golden_big">
+			<p>TrustFreeDemocracy survives on my contributions</p>
+			<p>I make the difference</p>
+			<div class="hidden">
+			<p>Time To Live: assets / cost per hour</p>
+			<p>Assets: cash reserve</p>
+			<p>Cash Reserve: 3,000 USD</p>
+			<p>Liabilities: fixed costs + variable costs</p>
+			<p>Fixed Costs: salary</p>
+			<p>Salary: 100,000 USD / year</p>
+			<p>Variable Costs: server + bandwidth + storage</p>
+			<p>Server: .10 USD / hour</p>
+			<p>Bandwidth: .10 USD / GB</p>
+			<p>Storage: .10 USD / GB</p>
+			</div>
+		</div>
+	</div>
+</div>
