@@ -59,7 +59,6 @@ class CertificationController < ApplicationController
   
   private
   def valid_api_user
-    debugger
     user = ApiUser.find_by_login params[:api_user]
     unless user && params[:api_key] == user.password
       render :text => "You are not authorized"
