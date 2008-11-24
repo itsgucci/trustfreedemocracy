@@ -1,4 +1,4 @@
-<div class="box rounded articles">
+<div class="box rounded articles <%= certified_class @article %>">
 	<div class="header" id="l<%= @article.id %>">
 		<h1 class="number" help="Share this Motion with <%= article_url(@article) %>"><%= h @article.number %></h1>
 		<div style="float:left; margin-right: 0.38em;" help="This Pie represents Support for <%= @article.number %>">

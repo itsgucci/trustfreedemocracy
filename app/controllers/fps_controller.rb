@@ -10,6 +10,29 @@ class FpsController < ApplicationController
   require 'rexml/document'
   require 'time'
 
+  def get_current_balance
+    # generate a unique ID for this request
+    debugger
+    unique_id = Time.now.to_i.to_s 
+    # prepare the REST request hash
+    call = { 'Operation' => 'GetAccountBalance' }
+    # make the REST call
+    @success = false
+		@fps_response = AWS::FPS::Query.do(call)
+		rexml_doc = REXML::Document.new(@fps_response)
+		elements = rexml_doc.root.elements
+    @xml_out = pretty_xml(rexml_doc)
+		unless elements["Status"].nil?
+		  @status = elements["Status"].text
+      @request_id = elements["RequestId"].text
+  		if @status == "Success"
+  		  @success = true
+  		  render :text => @CallerTokenId = elements["AvailableBalance"].text
+  		end
+  	end
+  end
+  
+  
   def get_caller_token
     # generate a unique ID for this request
     unique_id = Time.now.to_i.to_s 
@@ -72,7 +95,7 @@ class FpsController < ApplicationController
       # params for the Amazon Payments Co-branded Pipeline redirect
   		cbui_params = { 'transactionAmount' => amount,
   		                'pipelineName' => 'SingleUse',
-    		              'paymentReason' => 'Gift to Trust Free Democracy',
+    		              'paymentReason' => 'In Support of TrustFreeDemocracy',
     		              'callerReference' => 'SenderToken-' + unique_id }
 
       # params for the return URL - the page that is opened after the token request is processed. 
@@ -124,7 +147,7 @@ class FpsController < ApplicationController
 		if @status == "Success"
 		  @success = true
 		  @TransactionId = elements["TransactionResponse"].elements['TransactionId'].text
-		  Ticket.create(:transaction_id => @TransactionId, :amount => @Amount, :currency => @Currency)
+		  Ticket.create(:transaction_id => @TransactionId, :worth => @Amount - @Currency, :community_id => 8, :amount => @Amount, :currency => @Currency)
 		end
   end
   

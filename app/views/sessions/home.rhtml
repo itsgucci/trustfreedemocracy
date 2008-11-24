@@ -14,14 +14,20 @@
 				</div>
 			<%- else %>
 				<div class="box">
-					<p>I can actively control <%= link_to current_community.name, current_community %> via virtual democracy</p>
-					<p class="facebook_hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
+					<p>We have a virtual copy of <%= link_to current_community.name, current_community %></p>
+					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
 					<p class="the_truth">Trust Free Democracy encapsulates the legislative process and provides a usable interface for mere mortals</p>
-					<p>More simply, I can use this website to <%= link_to "propose ideas", new_article_path, :title => "Do something about it, now. Click here to create and introduce a new Motion to the People of #{current_name}. This is where the process starts" %>, <%= link_to "develop legislation", '/ideas', :title => "Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of #{current_name}. Contribute your strengths" %>, <%= link_to "corroborate the agenda", '/proposals', :title => "Have it our way. Click here to choose your Top Priority and establish the Agenda of #{current_full_name}. What is your Priority?" %>, <%= link_to "control legislature", "/comites", :title => "Watch democracy work. Click here to track Motions traveling through the legislative process of #{h current_community.name}. Monitor your legislator's behavior, know the decisions made on your behalf" %>, <%= link_to "vote", '/legislations', :title => "Yes or No, you decide. Click here to Vote on Motions in #{h current_community.name}. Register your vote to enable accountable representation" %>, and <%= link_to "promulgate", "/laws", :title => "Don't be scared, knowledge is power. Promulgation is the publication and proclamation of laws. Click here to view the laws that govern" %> in <%= h current_community.name %> with equal influence and ease</p>
+					<p>Now is the time to get involved, I have the opportunity to:</p>
+					<ul class="p_padding">
+						<li><%= link_to "Propose" %> new ideas to the community</li>
+						<li><%= link_to "Develop", '/ideas' %> ideas into legislation</li>
+						<li><%= link_to "Corroborate", '/proposals' %> which proposal should enter legislature next</li>
+						<li><%= link_to "Control", "/comites" %> my legislator by watching back</li>
+						<li><%= link_to "Vote", '/legislations' %> to advise and ensure acceptable representation</li>
+						<li><%= link_to "Promulgation", "/laws" %> is a record of all laws, past and present</li>
+					</ul>
+					<p>TrustFreeDemocracy is <%= link_to "open source software", "http://github.com/itsgucci/trustfreedemocracy/tree/master" %> that helps me express concerns, share information with the community, advise and track my representatives, and build consensus to get real results</p>
 					<p class="the_truth">TrustFreeDemocracy's paramount principle is the mere speculation that when every constituent publicly ensures de jure liberty online, then establishing legitimate communal liberty is, in reality, as trivially de facto as publishing the collected consensus</p>
-					<p>TrustFreeDemocracy helps me express concerns, share information with the community, track representatives, and get real results</p>
-					<p>TrustFreeDemocracy's free copy of <%= h current_community.name %> enables me to register my voice and elect legislators accountable for representation</p>
-					<p>Find more <%= link_to "about Trust Free Democracy", "/about" %>, <%= link_to "why Trust Free Democracy", "/why" %>, or instantly govern new world democracy, right now 5&gt;</p>
 					<p class="the_truth">When the people lead, the leaders will follow<span>, so let's have beans at every meal!</span></p>
 					<p class="larger"></p>
 					<p class="larger"></p>
@@ -38,7 +44,7 @@
 						<%- else %>
 						<ul class="orangelist scroll_box">
 							<%- current_user.district_memberships.each do |district| %>
-							<li><%= link_to( district.full_name, district ) %></li>
+							<li><%= link_to( district.full_name, district.community ) %></li>
 							<%- end %>
 						</ul>
 						<%- end %>

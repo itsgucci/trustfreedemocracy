@@ -1,9 +1,6 @@
-require 'ruby-debug'
-
-class ArticlesController < ApplicationController  
+class ArticlesController < ApplicationController    
   
   before_filter :login_required, :except => [:index, :new, :show, :show_action, :show_support, :show_discussion, :show_focus, :show_reports, :show_results, :show_vote, :show_management]
-  #before_filter :login_required, :only => [:create, :destroy, :endorse, :unendorse, :add_support, :remove_support, :move_into_session, :vote]
   #before_filter :district_membership_required, :only => [:new, :create, :endorse, :unendorse]
   #before_filter :community_membership_required, :only => [:add_support, :remove_support, :vote]
   

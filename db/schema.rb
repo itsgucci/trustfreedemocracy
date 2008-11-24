@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081118111538) do
+ActiveRecord::Schema.define(:version => 20081123035103) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -308,6 +308,19 @@ ActiveRecord::Schema.define(:version => 20081118111538) do
 
   create_table "tags", :force => true do |t|
     t.string "name", :default => "", :null => false
+  end
+
+  create_table "tickets", :force => true do |t|
+    t.integer  "worth",           :limit => 10, :precision => 10, :scale => 0
+    t.integer  "community_id"
+    t.string   "transaction_id"
+    t.text     "amazon_response"
+    t.string   "currency",                                                     :default => "leaf"
+    t.integer  "amount",          :limit => 10, :precision => 10, :scale => 0
+    t.string   "fee_currency",                                                 :default => "USD"
+    t.integer  "fee_amount",      :limit => 10, :precision => 10, :scale => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|

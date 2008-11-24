@@ -21,6 +21,8 @@ class Community < ActiveRecord::Base
   
   has_many :pages, :as => :pageable
   
+  has_many :tickets
+  
   acts_as_commentable
   
   named_scope :visible, :conditions => { :visible => true }
@@ -68,10 +70,10 @@ class Community < ActiveRecord::Base
   end
   
   def assets
-    100
+    tickets.sum(:amount)
   end
   def liabilities
-    articles.sum(:cost)
+    articles.sum(:cost) + tickets.sum(:fee_amount)
   end
   def cost_per_hour
     articles.sum(:cost_per_hour)

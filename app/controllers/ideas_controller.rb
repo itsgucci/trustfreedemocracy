@@ -3,9 +3,9 @@ class IdeasController < ApplicationController
   def index
     
     if current_district
-      @list = current_district.articles.if_certified( certification_filter? ).drafts#.tag_filter(sieve.tags)
+      @list = current_district.articles.drafts#.tag_filter(sieve.tags) .if_certified( certification_filter? )
     else
-      @list = current_community.articles.if_certified( certification_filter? ).drafts#.tag_filter(sieve.tags)
+      @list = current_community.articles.drafts#.tag_filter(sieve.tags) .if_certified( certification_filter? )
     end
     
     respond_to do |format|

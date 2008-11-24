@@ -22,19 +22,8 @@
 		</div>
 		<div class="left_column golden_big">
 			<p>TrustFreeDemocracy survives on my contributions</p>
-			<p>I make the difference</p>
-			<div class="hidden">
-			<p>Time To Live: assets / cost per hour</p>
-			<p>Assets: cash reserve</p>
-			<p>Cash Reserve: 3,000 USD</p>
-			<p>Liabilities: fixed costs + variable costs</p>
-			<p>Fixed Costs: salary</p>
-			<p>Salary: 100,000 USD / year</p>
-			<p>Variable Costs: server + bandwidth + storage</p>
-			<p>Server: .10 USD / hour</p>
-			<p>Bandwidth: .10 USD / GB</p>
-			<p>Storage: .10 USD / GB</p>
-			</div>
+			<%- @community = Community.find(8) %>
+			<%= render :partial => 'communities/budget' %>
 		</div>
 	</div>
 </div>

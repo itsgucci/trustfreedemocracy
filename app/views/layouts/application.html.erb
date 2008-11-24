@@ -57,7 +57,7 @@
 					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "Corroborate", {:controller => '/proposals'} %></li>
 					<li help="Watch democracy work. Click here to track Motions traveling through the legislative process of <%= h current_community.name %>. Monitor your legislator's behavior, know the decisions made on your behalf">&gt;<%= link_to_unless_current "Control", {:controller => '/comites'} %></li>
 					<li help="Yes or No, you decide. Click here to Vote on Motions in <%= h current_community.name %>. Register your vote to enable accountable representation">&gt;<%= link_to_unless_current "Vote", {:controller => '/legislations'} %></li>
-					<li help="Knowledge is power. Click here to view the Results of Motions tried in <%= h current_community.name %>. Find the laws that impact your life">&gt;<%= link_to_unless_current "Promulgate", {:controller => '/laws'} %></li>
+					<li help="Knowledge is power. Click here to view the Results of Motions tried in <%= h current_community.name %>. Find the laws that impact your life">&gt;<%= link_to_unless_current "Promulgation", {:controller => '/laws'} %></li>
 				</ul>
 				<%- end %>
 				<ul class="right_links">
@@ -96,7 +96,7 @@
 					</div>
 				</div>
 				<div id="bookmarks" style="display: none; width: 100%">
-					<%= render :partial => 'layouts/bookmarks' %>
+					<%#= render :partial => 'layouts/bookmarks' %>
 				</div>
 			</div>
 			<%- if flash[:error] %>
@@ -147,7 +147,7 @@
 				<li style="display:none"><%= link_to_function 'jump', visual_effect(:grow, :bookmarks, :direction => 'top-right'), :help => "Quickly navigate with a Jump" %></li>
 				<li style="display:none"><%= toggle_certified_link %></li>
 				<li style="display:none"><%= toggle_help_link %></li>
-				<li style="display:none"><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
+				<li style=""><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
 				<li><a href="/options" >options </a></li>
 				<li><a href="/about" help="Find out about this website">about</a></li>
 				<li style="display:none"><a href="/why">why</a></li>
