@@ -1,19 +1,17 @@
-	<%- if help_enabled? %>
-	<p class="help">Below are the main options for navigating legislation, you should notice these links can also be found on the top bar</p>
-	<%- end %>
 <%- current = current_district || current_community %>
 <div class="left_column golden_big">
 	<p class="larger">There are <%= number_with_delimiter current.articles.size %> Motions available</p>
 
-	<p>To find relevant legislation search to the right, or browse by stage:</p>
-	<ol>
-		<li><%= link_to "Propose", new_article_path %> a new idea to the community</li>
-		<li><%= link_to "Develop", :controller => :ideas %> ideas into complete legislation with peers</li>
-		<li><%= link_to "Corroborate", :controller => :proposals %> the agenda and prioritize what enters legislature</li>
-		<li><%= link_to "Control", :controller => :comites %> legislature vigilantly by paying attention</li>
-		<li><%= link_to "Vote", :controller => :legislations %> to ensure transparent representation</li>
-		<li><%= link_to "Promulgate", :controller => :laws %> and review the public record</li>
-	</ol>
+	<div class="box">
+		<h2 class="header">Most Supported Legislation</h2>
+		<div class="body">
+			<ul class="orangelist">
+				<%- current.articles.most_supported(13).each do |article| %>
+				<li><span class="dull">(<%= article.support_count %>)</span> <%= link_to truncate(article.name, 300), article %></li>
+				<%- end %>
+			</ul>
+		</div>
+	</div>
 </div>
 <div class="right_column golden_small">
 	<div class="box">
@@ -29,13 +27,14 @@
 		</div>
 	</div>
 	<div class="box">
-		<h2 class="header">Popular</h2>
-		<div class="body">
-			<ul class="orangelist">
-				<%- current.articles.most_supported(7).each do |article| %>
-				<li><%= link_to truncate(article.name, 32), article %></li>
-				<%- end %>
-			</ul>
-		</div>
-	</div>
+		<h2 class="header">Browse by Stage</h2>
+		<ol class="body">
+			<li><%= link_to "Propose", new_article_path %> a new idea to the community</li>
+			<li><%= link_to "Develop", :controller => :ideas %> ideas into complete legislation with peers</li>
+			<li><%= link_to "Corroborate", :controller => :proposals %> the agenda and prioritize what enters legislature</li>
+			<li><%= link_to "Control", :controller => :comites %> legislature vigilantly by paying attention</li>
+			<li><%= link_to "Vote", :controller => :legislations %> to ensure transparent representation</li>
+			<li><%= link_to "Promulgation", :controller => :laws %> of laws, past and present</li>
+		</ol>
+	</div>	
 </div>
