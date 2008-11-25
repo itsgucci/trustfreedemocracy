@@ -1,6 +1,9 @@
 <%- if current_community.in_session? %>
 <div class="box">
-	<h1 class="header">Being Considered in <%= h current_community.name %></h1>
+	<div class="header">
+		<h1>Legislation in <%= h current_community.name %></h1>
+		<%= will_paginate @list %>
+	</div>
 	<div class="body">
 	<%- if @list.empty? %>
 		<p class="error">Presently there are no Motions in Legislature</p>
@@ -27,9 +30,6 @@
 			</tbody>
 		</table>	
 	<%- end %>
-	</div>
-	<div class="footer">
-		<%= will_paginate @list %>
 	</div>
 </div>
 <%- else %>

@@ -3,7 +3,7 @@
 	<p class="larger">There are <%= number_with_delimiter current.articles.size %> Motions available</p>
 
 	<div class="box">
-		<h2 class="header">Most Supported Legislation</h2>
+		<h2 class="header">Supported Legislation</h2>
 		<div class="body">
 			<ul class="orangelist">
 				<%- current.articles.most_supported(13).each do |article| %>

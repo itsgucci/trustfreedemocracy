@@ -1,7 +1,10 @@
 <%- if help_enabled? %>
 <div class="container rounded help">
-	<p>Together we can collaborate as a community to evolve ingenious ideas into legendary legislation</p>
-	<p>All of the Motions in this section are malleable and can be edited by their respective authors. All Motions are open for support and discussion by the community. If you have a suggestion for the author, share it in the discussion section of the Motion.</p>
-	<p>The Motions below are sorted by most supported first. Select any Motion to view it in further detail.</p>
+	<p><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
+	<div id="page_help_content" style="display:none">
+		<p>Together we can collaborate as a community to evolve ingenious ideas into legendary legislation</p>
+		<p>All of the Motions in this section are malleable and can be edited by their respective authors. All Motions are open for support and discussion by the community. If you have a suggestion for the author, share it in the discussion section of the Motion.</p>
+		<p>The Motions below are sorted by most supported first. Select any Motion to view it in further detail.</p>
+	</div>
 </div>
 <%- end %>

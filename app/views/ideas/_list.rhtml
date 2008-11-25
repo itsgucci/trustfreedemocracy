@@ -1,6 +1,9 @@
 <%#= render :partial => 'shared/tag_filter', :locals => { :tags => current_district.tags }  %>
 <div class="box">
-	<h1 class="header">Develop Legislation in <%= current_district ? h(current_district.name) : h(current_community.name) %></h1>
+	<div class="header">
+		<h1>Develop Legislation in <%= current_district ? h(current_district.name) : h(current_community.name) %></h1>
+		<%= will_paginate @list %>
+	</div>
 	<div style="display: none">
 		tabs: newest, mine, most supported, supported by me
 	</div>

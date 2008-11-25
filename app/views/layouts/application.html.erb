@@ -39,7 +39,7 @@
 			<p id="current_user"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy"><%= login_logout_link %></span>
 			</p>
 			<ul class="horizontal district larger">
-				<li <%= current_page?('/') ? 'class="active" style="background:#FF5A00;cursor:pointer" ' : 'style="cursor:pointer" OnMouseOut="$(\'home_icon\').childElements()[0].src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon').childElements()[0].src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif") : image_tag("logo.png") %>
+				<li <%= current_page?('/') ? 'class="active" style="background:#FF5A00;cursor:pointer" ' : 'style="cursor:pointer" OnMouseOut="$(\'home_icon_img\').src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon_img').src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif", :id => 'home_icon_img') : image_tag("logo.png", :id => 'home_icon_img') %>
 				<%- if current_community %>
 					<%#- current_community.ancestors.reverse.each do |community| %>
 					<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
@@ -116,9 +116,9 @@
 			</div>
 			<%- end %>
 			<%- if false && help_enabled? %>
-			<div id="page_help" class="flash rounded help">
-				<p style="text-align:center;"><%= link_to_function "How do I use this page?", visual_effect(:toggle_blind, :page_help_content), :style => "display:block" %></p>
-				<div id="page_help_content" class="body" style="display:none">
+			<div id="page_help" class="container rounded" style="float:right">
+				<p class="help rounded" style="width:auto;display:inline;"><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
+				<div id="page_help_content" class="body help" style="display:none">
 					<%= yield :page_help %>				
 				</div>
 			</div>

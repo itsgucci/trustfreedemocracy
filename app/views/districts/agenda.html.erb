@@ -1,8 +1,11 @@
 <%- if help_enabled? %>
 <div class="container rounded help">
-	<p>Determining which piece of legislation should enter <%= h current_community.name %> next is simple</p>
-	<p>This section shows the Agenda of <%= h current_district.name %>. Each constituent is asked to select one Motion as their exclusive Top Priority. The Motion with the most collective Top Priority is the strongest choice for sponsorship into <%= h current_community.name %> by <%= current_district.representative ? current_district.representative.name : "the legislator" %> </p>
-	<p>Motions are sorted by most collective Top Priority. Select a Motion from below to be your Top Priority. You may change your Top Priority at any time. </p>
+	<p><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
+	<div id="page_help_content" style="display:none">
+		<p>Determining which piece of legislation should enter <%= h current_community.name %> next is simple</p>
+		<p>This section shows the Agenda of <%= h current_district.name %>. Each constituent is asked to select one Motion as their exclusive Top Priority. The Motion with the most collective Top Priority is the strongest choice for sponsorship into <%= h current_community.name %> by <%= current_district.representative ? current_district.representative.name : "the legislator" %> </p>
+		<p>Motions are sorted by most collective Top Priority. Select a Motion from below to be your Top Priority. You may change your Top Priority at any time. </p>
+	</div>
 </div>
 <%- end %>
 <%- if current_district %>

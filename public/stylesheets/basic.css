@@ -539,7 +539,7 @@ color: #333;
 margin-bottom: 10px;
 }
 .help a {
-color: #fff;
+color: #666;
 }
 .help .header {
 padding: 3px 7px;
@@ -983,4 +983,20 @@ background: none;
 font-size: 138%;
 line-height: 110%;
 margin-top: 0.78em;
+}
+
+.header .pagination {
+font-size: normal;
+line-height: normal;
+margin-top: 0;
+}
+.header .pagination a {
+color: #ccc;
+}
+.header .pagination .current {
+color: #fff;
+font-weight: bolder;
+}
+.pagination .disabled {
+display:none;
 }

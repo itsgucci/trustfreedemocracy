@@ -1,8 +1,11 @@
 <%- if help_enabled?%>
 <div class="container help rounded">
-	<p>This page enables you to introduce a new idea to your peers</p>
-	<p>Simply fill out the form below to introduce a new motion to <%= h current_community.name %></p>
-	<p>By introducing a motion, you are the author and have the sole ablity to modify its content. Once introduced, your motion will be publicly accessible under Develop Legislation for <%= h current_community.name %> where you can collaborate with other constituents to refine your motion into great legislation</p>
+	<p><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
+	<div id="page_help_content" style="display:none">
+		<p>This page enables you to introduce a new idea to your peers</p>
+		<p>Simply fill out the form below to introduce a new motion to <%= h current_community.name %></p>
+		<p>By introducing a motion, you are the author and have the sole ablity to modify its content. Once introduced, your motion will be publicly accessible under Develop Legislation for <%= h current_community.name %> where you can collaborate with other constituents to refine your motion into great legislation</p>
+	</div>
 </div>
 <%- end %>
 <div class="box">

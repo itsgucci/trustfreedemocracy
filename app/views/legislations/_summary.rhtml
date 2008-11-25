@@ -1,9 +1,12 @@
 <%- if help_enabled? %>
 <div class="container help rounded">
-	<p>All of the legislation listed below is open for Vote</p>
+	<p><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
+	<div id="page_help_content" style="display:none">
+		<p>All of the legislation listed below is open for Vote</p>
 		<p>This means you can inform <%= current_district ? current_district.representative ? current_district.representative.name : "your legislator" : "your legislator" %> how to represent you by voting to approve, oppose, vote present or of course, you have the right to remain silent and abstain from taking a position</p>
 		<p>If we expect our legislators to represent us, we must tell them how</p>
 		<p>Every Motion traveling through Legislature comes up for a Vote on the floor. Before your legislator makes a decision on your behalf, we enable you to cast your vote. This way, legislators can consider the collected consensus during deliberation</p>
+	</div>
 </div>
 <%- end %>
 <%- if false && current_community.in_session? %>

@@ -1,5 +1,8 @@
 <div class="box">
-	<h1 class="header">Calendared for Vote <%= h current_community.name %></h1>
+	<div class="header">
+		<h1>Calendared for Vote <%= h current_community.name %></h1>
+		<%= will_paginate @list %>
+	</div>
 	<div class="body">
 		<%- if !current_community.in_session? %>
 		<p class="larger"><%= current_community.name %> is not currently in session</p>
@@ -22,7 +25,6 @@
 			<%- end %>
 			</tbody>
 		</table>
-		<%= will_paginate @list %>
 		<%- end %>		
 	</div>
 </div>
