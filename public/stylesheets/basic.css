@@ -288,7 +288,7 @@ overflow: auto;
 .top_links {
 /*background: #ff8b3e;*/
 background-color: #ff5a00;
-padding: 3px 7px 3px 1.23em;
+padding: 3px 7px 3px 0.5em;
 margin: 0;
 font-size: small;
 }
