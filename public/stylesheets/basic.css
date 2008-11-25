@@ -89,9 +89,8 @@ color: #333;
 text-align: left;
 }
 table tbody tr {
-/* maybe have a bottom border?
-border-bottom: 1px #ccc solid;*/
-padding-bottom: 7px;
+border-bottom: 1px #ccc solid;
+padding: 5em;
 }
 table td {
 vertical-align: top;

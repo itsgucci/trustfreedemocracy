@@ -1,7 +1,7 @@
 class LegislationsController < ApplicationController  
       
   def index
-    @list = current_community.articles.if_certified( certification_filter? ).legislations.paginate(:page => params[:page], :per_page => 13)#.tag_filter(sieve.tags)
+    @list = current_community.articles.if_certified( certification_filter? ).legislations.paginate(:page => params[:page], :per_page => 7)#.tag_filter(sieve.tags)
     
     render :template => 'shared/list'
   end

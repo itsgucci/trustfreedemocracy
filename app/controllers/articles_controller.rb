@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
   #before_filter :community_membership_required, :only => [:add_support, :remove_support, :vote]
   
   def index
-    @articles = current_community.articles.search params[:search], :page => params[:page], :per_page => 13, :order => "support_count DESC"
+    @articles = current_community.articles.search params[:search], :page => params[:page], :per_page => 7, :order => "support_count DESC"
         
     respond_to do |format|
       format.html # show.html.erb

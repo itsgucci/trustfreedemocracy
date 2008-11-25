@@ -5,7 +5,7 @@ class ComitesController < ApplicationController
     #@comites = current_district.parent.comites.find(:all)
     #@unassigned_articles = current_district.parent.children.map(&:articles_in_comite).flatten - current_district.articles.in_comite
     
-    @list = current_community.articles.if_certified(certification_filter?).in_comite.paginate(:page => params[:page], :per_page => 13)
+    @list = current_community.articles.if_certified(certification_filter?).in_comite.paginate(:page => params[:page], :per_page => 7)
     render :template => '/shared/list'
   end
   
