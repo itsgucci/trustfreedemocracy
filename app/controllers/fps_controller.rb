@@ -147,7 +147,7 @@ class FpsController < ApplicationController
 		if @status == "Success"
 		  @success = true
 		  @TransactionId = elements["TransactionResponse"].elements['TransactionId'].text
-		  Ticket.create(:transaction_id => @TransactionId, :worth => @Amount - @Currency, :community_id => 8, :amount => @Amount, :currency => @Currency)
+		  Ticket.create(:transaction_id => @TransactionId, :community_id => 8, :amount => @Amount, :currency => @Currency)
 		end
   end
   
@@ -175,12 +175,12 @@ class FpsController < ApplicationController
   	ticket.amazon_response = @xml_out
   	ticket.fee_amount = fee_amount
   	ticket.fee_currency = fee_currency
+  	ticket.worth = ticket.amount - BigDecimal.new(fee_amount)
   	ticket.save
   end
 
   
   def index
-    redirect_to :action => 'get_caller_token'
   end
   
   private
