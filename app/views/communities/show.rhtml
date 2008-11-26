@@ -1,6 +1,6 @@
 <div class="box">
 	<div class="header">
-		<h1 style="float:left"><%= h( @community.name ) %>: All Districts</h1>
+		<h1 style="float:left"><%= h( @community.name ) %>: All Regions</h1>
 		<p style="float:right">
 			<%- if @community.certified? current_user %>
 			<span help="This is your present status with this Government. Click here to leave <%= h @community.name %>"><%= link_to "Certified Member", certify_community_path %></span>

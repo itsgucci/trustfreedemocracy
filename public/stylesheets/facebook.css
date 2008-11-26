@@ -50,3 +50,7 @@ p, .p_padding {
 #site_navigation {
   margin-top: 3px;
 }
+
+.uncertified {
+opacity: 1;
+}

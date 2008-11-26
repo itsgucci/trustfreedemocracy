@@ -1,19 +1,19 @@
 <%- current = current_district || current_community %>
 <div class="left_column golden_big">
-	<p class="larger">There are <%= number_with_delimiter current.articles.size %> Motions available</p>
-
 	<div class="box">
 		<h2 class="header">Supported Legislation</h2>
 		<div class="body">
 			<ul class="orangelist">
-				<%- current.articles.most_supported(13).each do |article| %>
-				<li><span class="dull">(<%= article.support_count %>)</span> <%= link_to truncate(article.name, 300), article %></li>
+				<%- current.articles.if_certified(certification_filter?).most_supported(7).each do |article| %>
+				<li><span class="dull">(<%= article.support_count %>)</span> <%= link_to truncate(article.name, 130), article %></li>
 				<%- end %>
 			</ul>
 		</div>
 	</div>
 </div>
 <div class="right_column golden_small">
+	<p class="larger" style="padding:0;padding-bottom:0.37em"><%= number_with_delimiter current.articles.size %> Legislative Items Tracked</p>
+	
 	<div class="box">
 		<h2 class="header">Search</h2>
 		<div class="body">

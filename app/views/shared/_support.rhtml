@@ -1,9 +1,12 @@
 <div class="two_columns">
 	<%- if help_enabled? %>
-	<div class="help">
+	<div class="help rounded">
+	<p><%= link_to_function "Help", visual_effect(:toggle_blind, :support_page_help_content) %></p>
+	<div id="support_page_help_content" style="display:none">
 		<p>Support illuminates Motions, and by supporting this Motion, you make it easier for others to find it</p>
 		<p>Many search and sort functions order Motions by most supported, so more supported items are naturally more visible</p>
 		<p>You may support many Motions simultaneously and support may be withdrawn at any time</p>
+	</div>
 	</div>
 	<%- end %>
 	<div class="left_column golden_big">

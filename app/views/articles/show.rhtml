@@ -5,7 +5,7 @@
 			<%= @width = 50; render :partial => 'articles/support_image' %>
 		</div>
 		<h2 class="title" help="">
-			<span class="dull">A <%= @article.article_type.name %>: </span>
+			<span class="dull"><%= @article.article_type.name %>: </span>
 			<%- if false && logged_in? && @article.draft? && current_user.has_privilege?('edit article', @article) %>
 			<span class="inline_form">
 				<%= editable_content( :content => { :text => @article.title.blank? ? "Click here to edit the title" : @article.title, 

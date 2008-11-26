@@ -97,10 +97,9 @@ class ApplicationController < ActionController::Base
   
   helper_method :certification_filter?
   def certification_filter?
-    session[:certification_filter] || false
+    session[:certification_filter]
   end
   def toggle_certification_filter
-    session[:certification_filter] ||= false
     session[:certification_filter] = !session[:certification_filter]
   end
   

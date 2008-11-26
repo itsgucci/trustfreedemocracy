@@ -1,4 +1,4 @@
-<div class="comment two_columns" id="comment<%= comment.id %>">
+<div class="comment two_columns <%= certified_class comment %>" id="comment<%= comment.id %>">
 	<div class="right_column golden_small smaller">
 		<p><%= comment.number %> on <%= link_to "#{ comment.commentable.number } - #{ h comment.commentable.title }", :controller => 'articles', :action => 'show', :id => comment.commentable.id %></p>
 		<p><%= comment.created_at.strftime('%Y.%m.%d %I:%M%p').downcase %></p>

@@ -1,7 +1,10 @@
 <%- if help_enabled? %>
-<div class="help">
+<div class="help rounded">
+<p><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
+<div id="page_help_content" style="display:none">
 	<p>Voting enables your Legislator to make a conscious decision on your behalf</p>
 	<p>This page acts as a window into the voting realm</p>
+</div>
 </div>
 <%- end %>
 <div class="left_column golden_big">

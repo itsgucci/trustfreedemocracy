@@ -1,5 +1,5 @@
 <h2>Vital Factors</h2>
 <p>Time to live: <%= number_with_precision (@community.assets - @community.liabilities) / @community.cost_per_hour, 2 %> hours</p>
-<p>Reserves: <%= @community.assets %></p>
-<p>Cost per hour: <%= @community.cost_per_hour %></p>
-<p>Outstanding Debt: <%= @community.liabilities %></p>
+<p>Reserves: <%= number_with_delimiter number_with_precision(@community.assets, 2) %> USD</p>
+<p>Cost per hour: <%= number_with_delimiter number_with_precision(@community.cost_per_hour, 2) %> USD</p>
+<p>Outstanding Debt: <%= number_with_delimiter number_with_precision(@community.liabilities, 2) %> USD</p>

@@ -3,3 +3,4 @@ private_config/
 log/
 db/sphinx/
 id_rsa-gsg-keypair
+lib/open-uri.rb

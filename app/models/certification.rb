@@ -50,8 +50,9 @@ class Certification < ActiveRecord::Base
   end
   
   def self.end(district, user)
-    cert = Certification.first(:conditions => { :district_id => district.id, :user_id => user.id })
-    cert.end
+    if cert = Certification.first(:conditions => { :district_id => district.id, :user_id => user.id })
+      cert.end
+    end
   end
   def end
     update_attribute('end_date', Time.now)
@@ -60,6 +61,8 @@ class Certification < ActiveRecord::Base
   def assign_to(new_user)
     # block overwriting if user exists (ie, it has been used)
     return nil if used?
+    # remove previous relationships
+    Certification.end(district, new_user)
     # assign it to the user and activate it by starting the time
     self.user = new_user
     self.start_date = Time.now

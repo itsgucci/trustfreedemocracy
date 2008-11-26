@@ -252,7 +252,10 @@ padding-left: 0.38em;
 }
 
 .uncertified {
-/*opacity: 0.61;*/
+opacity: 0.61;
+}
+.certified {
+opacity: 1.0;
 }
 
 .scroll_box {
