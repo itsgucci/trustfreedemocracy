@@ -72,7 +72,7 @@
 				<div class="box">
 					<h2 class="header">Get Certified</h2>
 					<div class="body pretty_form">
-						<p class="">Obtain a certificate and keycode from <%= link_to "Registarr.com", "http://registarr.com" %></p>
+						<p class="">Obtain a certificate and keycode from <%= link_to "Registarr.com", "http://registarr.com", :popup => true %></p>
 						<% form_tag SSL_ROOT + 'certification/redeem' do %>
 						<%# form_tag redeem_certification_url do %>
 							<p><label for="certificate">Certificate:</label><%= text_field_tag :certificate, nil, :size => 7 %></p>
