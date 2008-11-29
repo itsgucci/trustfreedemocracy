@@ -7,9 +7,6 @@
 			<%- elsif @district.member? current_user %>
 			<span help="This is your present status with this Government. Click here to become a certified member or leave <%= h @district.name %>"><%= link_to "Member", certify_district_path %></span>
 			<%- else %>
-				<%- if help_enabled? %>
-				<span class="help facebook_hidden" style="padding: 0.38em">Join Here -></span>
-				<%- end %>
 				<%= link_to "Non-Member", certify_district_path, :help => "This is your present status with this Government. Click here to become a member of #{ h @district.full_name }" %>
 			<%- end %>
 		</p>
