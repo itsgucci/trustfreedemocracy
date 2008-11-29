@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController    
   
-  before_filter :login_required, :except => [:index, :new, :show, :show_action, :show_support, :show_discussion, :show_focus, :show_reports, :show_results, :show_vote, :show_management]
+  before_filter :login_required, :except => [:index, :grid, :new, :show, :show_action, :show_support, :show_discussion, :show_focus, :show_reports, :show_results, :show_vote, :show_management]
   #before_filter :district_membership_required, :only => [:new, :create, :endorse, :unendorse]
   #before_filter :community_membership_required, :only => [:add_support, :remove_support, :vote]
   
@@ -11,6 +11,11 @@ class ArticlesController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @articles }
     end
+  end
+  
+  def grid
+    @articles_grid = initialize_grid(Article, :per_page => 13, :include => [:community, :district])
+    render :action => :grid
   end
   
   def new

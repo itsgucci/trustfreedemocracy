@@ -299,7 +299,10 @@ class Article < ActiveRecord::Base
   named_scope :overridden, :conditions => "stage = 10"
   
   def stage_name
-    ["unknown", "Proposed Idea", "Agenda Item", "In Legislature", "Open for Vote", "Enacted as Law", "Dead", "To Executive", "Signed", "Veto", "OverRide"].at stage
+    Article.stage_names.at stage
+  end
+  def self.stage_names
+    ["unknown", "Proposed Idea", "Agenda Item", "In Legislature", "Open for Vote", "Enacted as Law", "Dead", "To Executive", "Signed", "Veto", "OverRide"]
   end
   
 end
