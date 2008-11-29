@@ -1,0 +1,12 @@
+.wice_grid .desc { background: transparent url(/images/icons/grid/arrow_down.gif) right no-repeat ; padding-right: 18px; text-decoration:none;}
+.wice_grid .asc  { background: transparent url(/images/icons/grid/arrow_up.gif)   right no-repeat ; padding-right: 18px; text-decoration:none;}
+
+.wice_grid th.active_filter  { background-color: peachpuff   ; }
+.wice_grid td.active_filter  { background-color: chocolate   ; }
+
+.wice_grid th.sorted { background-color: darkkhaki   ; }
+.wice_grid td.sorted { background-color: orange   ; }
+
+.custom_dropdown_container { position: relative; }
+.toggle_multi_select_icon { position:absolute; top:0; right:0;  }
+.custom_dropdown { width: 88% }

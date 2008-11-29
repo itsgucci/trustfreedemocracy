@@ -1,0 +1,66 @@
+=== 21/10/2008
+ 
+A bugfix related to custom filters influencing other columns with filters
+A more informative error message if the grid can't find the underlying database column for a view column (incorrect :column_name and :model_class)
+
+=== 8/10/2008
+
+New view helper parameter <tt>:sorting_dependant_row_cycling</tt> - When set to true (by default it is false) the row styles +odd+ and +even+ 
+will be changed only when the content of the cell belonging to the sorted column changes. In other words, rows with identical values in the 
+ordered column will have the same style (color).
+
+=== 3/10/2008
+
+For simple columns like 
+
+  g.column :column_name => 'Username', :attribute_name => 'username'  do |account|  
+    account.username
+  end
+
+the following blockless shortcut can be used:
+
+  g.column :column_name => 'Username', :attribute_name => 'username'
+  
+In this case +attribute_name+ will be used as the method name to send to the ActiveRecord instance.
+
+=== revision 27 (30/09/2008)
+
+* CSV export
+* Custom filters can switch between a dropdown list and a multiple select list, thus allowing to search for records matching
+  more that one value (operator OR)
+
+=== revision 17 (19/08/2008)
+
+* A bug fixed: extra_request_parameters did not propagate to will_paginate page panel. Now it does.
+
+=== revision 13 (6/08/2008)
+
+* File <tt>config.rb</tt> renamed.
+* New parameters for +column+ :
+  * <tt>:boolean_filter_true_label</tt> - overrides the default value for <tt>BOOLEAN_FILTER_TRUE_LABEL</tt> ('+yes+') in the config. 
+    Only has effect in a column with a boolean filter.
+  * <tt>:boolean_filter_false_label</tt> - overrides the default value for <tt>BOOLEAN_FILTER_FALSE_LABEL</tt> ('+no+') in the config. 
+    Only has effect in a column with a boolean filter.
+  * <tt>:filter_all_label</tt> - overrides the default value for <tt>BOOLEAN_FILTER_FALSE_LABEL</tt> ('<tt>--</tt>') in the config. 
+    Has effect in a column with a boolean filter _or_ a custom filter.
+
+=== revision 11
+
+* New row_attributes method to dynamically generate HTML attributes for the <tt><tr></tt> tag:
+
+	<%= grid(@portal_applications_grid) do |g|
+		g.row_attributes{ |portal_application|
+			{:id => "#{@portal_applications_grid.name}_row_#{portal_application.id}"}
+		}
+		
+		g.column{ |portal_application| ... }
+		g.column{ |portal_application| ... }
+	end    -%>
+
+* The column block can now optionally return an array of two values, where the first element is the cell 
+  contents and the second is a hash of HTML attributes to be added for the <td> tag of the current cell.
+
+=== revision 10
+
+* New parameter +grid+ parameter:  <tt>:extra_request_parameters</tt>. 
+  (Read http://redmine.wice.eu/api/wice_grid/classes/Wice/GridViewHelper.html#M000002)

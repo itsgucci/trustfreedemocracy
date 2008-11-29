@@ -1,0 +1,25 @@
+<div class="box" style="max-width:none">
+	<h1 class="header">Tabled Legislation</h1>
+	<div class="body">
+		<%= grid(@articles_grid) do |g|
+			g.column :column_name => 'Democracy', :attribute_name => 'name', :model_class => Community do |article|
+				article.community.name
+			end
+			g.column :column_name => 'Region' do |article|
+				article.district.name if article.district
+			end
+			g.column :column_name => 'Title', :attribute_name => 'title' do |article|
+				truncate(article.title, 200)
+			end
+			g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
+				article.support_count
+			end
+			g.column :column_name => 'Stage', :attribute_name => 'stage', :no_filter => true do |article|
+				article.stage_name
+			end
+			g.column do |article|
+				link_to('show', article)
+			end
+		end -%>	
+	</div>
+</div>
