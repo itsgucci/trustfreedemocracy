@@ -47,6 +47,9 @@ class Community < ActiveRecord::Base
   def in_session?
     true
   end
+  def last_synchronized
+    Time.now
+  end
   
   def article_types
     ArticleType.list

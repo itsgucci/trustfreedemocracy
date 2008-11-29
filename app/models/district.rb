@@ -42,6 +42,11 @@ class District < ActiveRecord::Base
     read_attribute('description') || ""
   end
   
+  
+  def last_synchronized
+    community.last_synchronized
+  end
+  
   def generate_blank_certification
     certifications.generate_blank_certificate
   end
