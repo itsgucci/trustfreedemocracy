@@ -48,7 +48,7 @@ class Community < ActiveRecord::Base
     true
   end
   def last_synchronized
-    Time.now
+    sync_date || Time.now
   end
   
   def article_types
@@ -121,6 +121,11 @@ class Community < ActiveRecord::Base
   def remove_clerk(user)
     role_revoked('clerk', user)
     reload
+  end
+  
+  def adjust_budget(amount, user)
+    text = "Adjustment made by Chairperson #{user.name} for #{amount} USD"
+    tickets.create(:worth => amount, :transaction_id => user.id, :amazon_response => text, :currency => "USD", :amount => amount, :fee_currency => "USD", :fee_amount => 0)
   end
   
 end

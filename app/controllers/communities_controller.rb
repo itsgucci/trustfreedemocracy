@@ -63,6 +63,20 @@ class CommunitiesController < ApplicationController
     redirect_to :back
   end
   
+  def adjust_budget
+    @community = Community.find(params[:id])
+    if current_user.has_privilege?('manage community', @community)
+      if @community.adjust_budget(params[:value], current_user)
+        render :update do |page|
+          page.replace_html 'current_budget', @community.assets
+          page['adjust_budget_form'].reset
+        end
+      else
+        render :text => "Change Failed"
+      end
+    end
+  end
+  
   def update_name
     @community = Community.find(params[:id])
     if current_user.has_privilege?('manage community', @community)
