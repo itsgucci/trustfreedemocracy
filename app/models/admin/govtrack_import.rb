@@ -5,30 +5,28 @@ require 'ruby-debug'
 class Admin::GovtrackImport < ActiveRecord::Base
 
   #@folder = "http://drake.doesntexist.org:3002/~drake/govtrack/us/110"
-  @folder = "http://localhost:3002/~drake/govtrack/us/110"  
+  #@folder = "http://localhost:3002/~drake/govtrack/us/110"  
+  #@folder = "/govtrack/110"
+  @folder = "/Users/drake/Sites/govtrack/us/110"
   
   def self.current_community
     @community ||= Community.find_by_name("United States Congress")
   end
   
   def self.import_bills
-    1.upto 7271 do |n|
+    Dir[@folder + '/bills/*.xml'].each do |path|
       begin
-        import_bill(@folder + "/bills/h" + n.to_s + ".xml")
+        puts "importing #{path}"
+        import_bill( path )
       rescue
-        puts "kill"
+        puts "fail #{path}"
       end
     end
+    current_community.update_attribute 'sync_date', Time.now
   end
-  def self.fix_numbers
-    current_community.articles.each do |article|
-      @article = article
-      if @article.tom_id
-        @article.number = "HR " + @article.number[2..-1]
-        @article.save
-        puts "updated #{ @article.number }"
-      end
-    end
+  
+  def self.import_rolls
+    import_roll(@folder + '/rolls/' + '.xml')
   end
   
   def self.import_bill(xml_link)
@@ -36,7 +34,7 @@ class Admin::GovtrackImport < ActiveRecord::Base
     
     bill = xml.elements["//bill"]
     
-    @article = Article.find_by_tom_id( tom_id_from_xml(bill) ) || Article.new
+    @article = Article.find_by_tom_id( tom_id_from_xml(bill) ) || current_community.articles.new
     
     parse_tom_id bill
     parse_session bill
@@ -54,7 +52,19 @@ class Admin::GovtrackImport < ActiveRecord::Base
       begin
         @article.text = open(base_link + "eh.html" ).read
       rescue
-        @article.text = open(base_link + "ih.html").read
+        begin
+          @article.text = open(base_link + "ih.html").read
+        rescue
+          begin
+            @article.text = open(base_link + "es.html").read          
+          rescue
+            begin
+              @article.text = open(base_link + "pcs.html").read
+            rescue
+              @article.text = open(base_link + "is.html").read
+            end
+          end
+        end
       end
     end
         

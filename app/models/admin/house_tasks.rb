@@ -217,6 +217,21 @@ class Admin::HouseTasks < ActiveRecord::Base
       article.actions << Action.new(:district_id => 2, :created_at => date, :house => house, :action => action, :processed => logged)
     end
   end
+  
+  def self.import_record(date = Time.now.strftime("%Y%m%d"))
+    begin
+      puts "opening #{date}"
+      status = open("http://thomas.loc.gov/cgi-bin/query/B?r110:@FIELD(FLD003+h)+@FIELD(DDATE+#{date})") { |f| Hpricot(f) }
+      nastyness = (status/"//div[@id='content']").html
+      nastyness.grep( /<b>\s*(\d+)\s*\. <\/b>\s*([^\<\>]+?)\s+-- <a href="([\w\W]+?)">\([\w\s]+ - \w+ \d+, \d+\) <\/a><br/i ) do |line|
+        puts ordinal = $1
+    		puts section = $2
+    		puts sectionurl = $3
+      end
+    rescue
+      puts "Connection failed for date: #{date}"
+    end
+  end
     
   def self.output(string)
     puts string
