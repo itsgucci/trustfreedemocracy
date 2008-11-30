@@ -1,5 +1,15 @@
 <h2>Vital Factors</h2>
 <p>Time to live: <%= number_with_precision (@community.assets - @community.liabilities) / @community.cost_per_hour, 2 %> hours</p>
-<p>Reserves: <%= number_with_delimiter number_with_precision(@community.assets, 2) %> USD</p>
+
+<p>Reserves: 
+<span id="current_budget"><%= number_with_delimiter number_with_precision(@community.assets, 2) %></span>
+<%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
++ 
+	<%- form_remote_tag :url => {:controller => :communities, :action => :adjust_budget, :id => @community}, :html => {:style => "display:inline", :id => "adjust_budget_form"} do %>
+	<%= text_field_tag :value, 0 %><%= submit_tag :Adjust %>
+	<%- end %>
+<%- end %>
+ USD</p>
+
 <p>Cost per hour: <%= number_with_delimiter number_with_precision(@community.cost_per_hour, 2) %> USD</p>
-<p>Outstanding Debt: <%= number_with_delimiter number_with_precision(@community.liabilities, 2) %> USD</p>
+<p>Outstanding Debt: <%= Verbal::English::Numbers.to_words @community.liabilities.to_i %> USD</p>
