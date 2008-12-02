@@ -114,6 +114,9 @@ margin:0;
 line-height:1em;
 }
 
+#home_icon {
+padding-right: 0;
+}
 #home_icon:hover {
 background: #ff5a00;
 }
