@@ -1,5 +1,5 @@
 <h2>Vital Factors</h2>
-<p>Time to live: <%= number_with_precision (@community.assets - @community.liabilities) / @community.cost_per_hour, 2 %> hours</p>
+<p>Time to live: <%= number_with_precision( @community.assets / (@community.cost_per_hour * 24), 2) %> days</p>
 
 <p>Reserves: 
 <span id="current_budget"><%= number_with_delimiter number_with_precision(@community.assets, 2) %></span>
@@ -12,4 +12,5 @@
  USD</p>
 
 <p>Cost per hour: <%= number_with_delimiter number_with_precision(@community.cost_per_hour, 2) %> USD</p>
-<p>Outstanding Debt: <%= Verbal::English::Numbers.to_words @community.liabilities.to_i %> USD</p>
+<p>Potential Debt: <%= number_with_delimiter number_with_precision(@community.liabilities, 2) %> USD</p>
+<p>Actual Debt: </p>

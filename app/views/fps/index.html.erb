@@ -4,13 +4,14 @@
 		<div class="right_column golden_small box">
 			<h2 class="header">Fuel Democracy</h2>
 			<div class="body">
-				<%- form_tag '/fps/redirect_cbui' do %>
+				<%- form_tag '/fps/redirect_cbui', :style => "display:none" do %>
 					<%= image_tag 'APMark.jpg', :style => "float: left; margin-right: 1em; width: 138px" %>
 					<p><%= text_field_tag "Amount", "20", :size => 2, :class => "right" %> USD</p>
 					<%= hidden_field_tag "CallerTokenId", "B2GRDC1C3PLGA7H8QTVJ4DUAPWHVWEZ4RXUBX8RU1EVRZ7ZT33NFTE1SXBEGHLVG" %>
 					<%= hidden_field_tag "RecipientTokenId", "B5GRPCKC3ZLHA7F8QTVZ4JUAGWLVWIZDRXMBQ8RT1NVRE7HT3RNLTENSKBE5H1VF" %>
 					<p><%= submit_tag 'Donate Online' %></p>
 				<%- end %>
+				<p><a href='http://www.pledgie.com/campaigns/2045'><img alt='Click here to lend your support to: trustfreedemocracy and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/2045.png?skin_name=chrome' border='0' /></a></p>
 				<p>or send checks to:</p>
 				<p>
 					Trust Free Democracy<br />

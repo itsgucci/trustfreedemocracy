@@ -26,7 +26,15 @@ class Admin::GovtrackImport < ActiveRecord::Base
   end
   
   def self.import_rolls
-    import_roll(@folder + '/rolls/' + '.xml')
+    Dir[@folder + '/rolls/*.xml'].each do |path|
+      begin
+        puts "importing #{path}"
+        import_roll( path )
+      rescue
+        puts "fail #{path}"
+      end
+    end
+    current_community.update_attribute 'sync_date', Time.now
   end
   
   def self.import_bill(xml_link)
@@ -77,6 +85,25 @@ class Admin::GovtrackImport < ActiveRecord::Base
     
     #y @article
     puts "imported " + @article.tom_id
+  end
+  
+  def self.import_roll(xml_link)
+    xml = REXML::Document.new( open( xml_link ))
+    
+    roll_xml = xml.elements["//roll"]
+    
+    puts roll_number = roll_xml.attributes["where"].at(0) + roll_xml.attributes["year"] + "-" + roll_xml.attributes["roll"]
+    roll = current_community.rolls.find_by_number( roll_number ) || current_community.rolls.new(:number => roll_number)
+    
+    
+    
+    #if article_number
+    #  roll.article = current_community.articles.find_by_number( article_number )
+    #end
+    
+    y roll
+    gets
+    
   end
   
   def self.tom_id_from_xml(xml)

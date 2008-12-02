@@ -13,6 +13,8 @@ class Community < ActiveRecord::Base
   has_many :comites
   has_many :articles, :include => :author, :order => "support_count DESC"
   
+  has_many :rolls
+  
   has_many :representatives, :through => :districts
     
   belongs_to :chairperson, :foreign_key => :user_id, :class_name => "User"
@@ -77,6 +79,9 @@ class Community < ActiveRecord::Base
   end
   def liabilities
     articles.sum(:cost) + tickets.sum(:fee_amount)
+  end
+  def potential_debt
+    #articles.
   end
   def cost_per_hour
     articles.sum(:cost_per_hour)

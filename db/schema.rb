@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081129101703) do
+ActiveRecord::Schema.define(:version => 20081202014504) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -295,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20081129101703) do
     t.integer  "novote_count",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "community_id"
   end
 
   create_table "taggings", :force => true do |t|
