@@ -37,6 +37,7 @@ class Article < ActiveRecord::Base
   named_scope :most_supported, lambda { |number| {:order => "support_count ASC", :limit => number} }
   
   define_index do
+    indexes number
     indexes title
     indexes summary
     indexes text
