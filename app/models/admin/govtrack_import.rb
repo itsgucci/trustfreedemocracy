@@ -92,17 +92,29 @@ class Admin::GovtrackImport < ActiveRecord::Base
     
     roll_xml = xml.elements["//roll"]
     
-    puts roll_number = roll_xml.attributes["where"].at(0) + roll_xml.attributes["year"] + "-" + roll_xml.attributes["roll"]
+    roll_number = roll_xml.attributes["where"].at(0) + roll_xml.attributes["year"] + "-" + roll_xml.attributes["roll"]
     roll = current_community.rolls.find_by_number( roll_number ) || current_community.rolls.new(:number => roll_number)
     
+    if bill_xml = roll_xml.elements["//bill"]
+      article_number = bill_xml.attributes["type"] + bill_xml.attributes["number"]
+      roll.article = current_community.articles.find_by_number( article_number )
+    end
+    
+    roll.created_at = roll_xml.attributes["datetime"]
+    roll.session = roll_xml.attributes["session"]
+    roll.house = roll_xml.attributes["where"]
+    roll.aye_count = roll_xml.attributes["aye"]
+    roll.nay_count = roll_xml.attributes["nay"]
+    roll.novote_count = roll_xml.attributes["nv"]
+    roll.present_count = roll_xml.attributes["present"]
+    roll.kind = roll_xml.elements["//type"].text
+    roll.question = roll_xml.elements["//question"].text
+    roll.required = roll_xml.elements["//required"].text
+    roll.result = roll_xml.elements["//result"].text
     
     
-    #if article_number
-    #  roll.article = current_community.articles.find_by_number( article_number )
-    #end
-    
-    y roll
-    gets
+    roll.save
+    puts "eaten out #{roll_number}"
     
   end
   
