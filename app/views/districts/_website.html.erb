@@ -1,0 +1,17 @@
+<div>
+	<%- if logged_in? && current_user.has_privilege?('clerk', @district.community) %>
+		<%=  
+		editable_content( :content => { :text => @page.content.blank? ? "Click here start building #{h @district.name}'s website" : textile( @page.content ), 
+		:options => { :id => "user_disclosure#{@page.id}", :onkeyup => "grow_text_area(this);" } },
+		:url => { :controller => 'users', :action => 'update_disclosure', :id => @page.id },
+		:ajax => { :loadTextURL => "'#{ url_for :controller => 'users', :action => 'get_disclosure', :id => @page.id }'", :rows => 13 }
+		)
+		%>
+	<%- else %>
+		<%- if @district.website %>
+		<%= textile(@district.website) %>
+		<%- else %>
+		<p class="larger"><%= h @district.name %>'s website is blank!</p>
+		<%- end %>
+	<%- end %>
+</div>

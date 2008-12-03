@@ -19,7 +19,7 @@
 	<%= tabs @district.id.to_s, [
 		["Find", "find", render( :partial => 'shared/find' )],
 		["Progress", "action", url_for(:controller => 'districts', :action => 'show_actions', :id => @district)],
-		["Website", "rep", url_for(:controller => 'districts', :action => 'show_representative', :id => @district)],
+		["Website", "website", url_for(:controller => 'districts', :action => 'show_website', :id => @district)],
 		["Blog", "rep_blog", url_for(:controller => 'districts', :action => 'show_rep_blog', :id => @district)],
 			#["Support", "support", url_for(:controller => 'districts', :action => 'show_support', :id => @district)],
 			["Constituents", "people", url_for(:controller => 'districts', :action => 'show_members', :id => @district)]

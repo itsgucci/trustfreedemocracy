@@ -153,7 +153,7 @@ class District < ActiveRecord::Base
   end
   
   def website
-    pages.first
+    pages.first || pages.create
   end
   def blog
     comments

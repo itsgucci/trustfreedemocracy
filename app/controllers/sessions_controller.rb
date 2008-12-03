@@ -44,8 +44,8 @@ class SessionsController < ApplicationController
   end
   
   def set_district
-    session[:district_id] = params[:district_id]
-    @current_district = District.find(session[:district_id])
+    self.current_district = District.find(params[:id])
+    self.current_community = self.current_district.community
     redirect_to :back
   end
   

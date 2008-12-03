@@ -116,6 +116,7 @@ line-height:1em;
 
 #home_icon {
 padding-right: 0;
+padding-left: 0.38em;
 }
 #home_icon:hover {
 background: #ff5a00;
@@ -534,6 +535,9 @@ color: #000;
 .notice {
 border-color: 2px solid green;
 background-color: #669466;
+color: #fff;
+}
+.notice a {
 color: #fff;
 }
 

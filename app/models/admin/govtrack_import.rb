@@ -9,6 +9,8 @@ class Admin::GovtrackImport < ActiveRecord::Base
   #@folder = "/govtrack/110"
   @folder = "/Users/drake/Sites/govtrack/us/110"
   
+  @dist_rep_cache = {}
+  
   def self.current_community
     @community ||= Community.find_by_name("United States Congress")
   end
@@ -91,13 +93,15 @@ class Admin::GovtrackImport < ActiveRecord::Base
     xml = REXML::Document.new( open( xml_link ))
     
     roll_xml = xml.elements["//roll"]
-    
+        
     roll_number = roll_xml.attributes["where"].at(0) + roll_xml.attributes["year"] + "-" + roll_xml.attributes["roll"]
     roll = current_community.rolls.find_by_number( roll_number ) || current_community.rolls.new(:number => roll_number)
     
     if bill_xml = roll_xml.elements["//bill"]
-      article_number = bill_xml.attributes["type"] + bill_xml.attributes["number"]
+      article_type = tom_type_from_govtrack_type bill_xml.attributes["type"]
+      article_number = article_type + bill_xml.attributes["number"]
       roll.article = current_community.articles.find_by_number( article_number )
+      puts "inserted into #{article_number}"
     end
     
     roll.created_at = roll_xml.attributes["datetime"]
@@ -111,15 +115,47 @@ class Admin::GovtrackImport < ActiveRecord::Base
     roll.question = roll_xml.elements["//question"].text
     roll.required = roll_xml.elements["//required"].text
     roll.result = roll_xml.elements["//result"].text
-    
-    
+        
     roll.save
-    puts "eaten out #{roll_number}"
     
+    if roll.roll_votes.empty?
+      # add individual votes
+      roll_xml.elements.each("voter") do |voter|
+        state = state_abbr_to_name( voter.attributes["state"] )
+        district_number = voter.attributes["district"]
+        district_number = "At Large" if district_number == "0"
+        district_name = state+" "+district_number
+        #district = current_community.districts.find_by_name(district_name)
+        district_id, rep_id = dist_rep_cache(district_name)
+        vote = vote_id_from_govtrack_symbol( voter.attributes["vote"] )
+        #roll_vote = roll.roll_votes.new(:community => current_community, :district => district, :user => district.representative, :vote => vote)
+        roll_vote = roll.roll_votes.new(:community => current_community, :district_id => district_id, :user_id => rep_id, :vote => vote)
+        roll_vote.save
+      end
+    end
+        
+    puts "eaten out #{roll_number}"
   end
   
-  def self.tom_id_from_xml(xml)
-    tom_type = case xml.attributes["type"]
+  def self.dist_rep_cache(name)
+    @dist_rep_cache[name] ||= [current_community.districts.find_by_name(name).id, current_community.districts.find_by_name(name).user_id]
+  end
+  
+  def self.vote_id_from_govtrack_symbol(govtrack_symbol)
+    case govtrack_symbol
+    when "+"
+      1
+    when "-"
+      0
+    when "P"
+      2
+    when "0"
+      nil
+    end
+  end
+  
+  def self.tom_type_from_govtrack_type(govtrack_type)
+    case govtrack_type
     when "h"
       "hr"
     when "hr"
@@ -136,7 +172,76 @@ class Admin::GovtrackImport < ActiveRecord::Base
       "sjres"
     when "sc"
       "sconres"
+    else
+      raise "Translation not found for #{govtrack_type}"
     end
+  end
+  def self.state_abbr_to_name(abbr)
+	  @state_abbr ||= {
+     'AL' => 'Alabama',
+     'AK' => 'Alaska',
+     'AS' => 'America Samoa',
+     'AZ' => 'Arizona',
+     'AR' => 'Arkansas',
+     'CA' => 'California',
+     'CO' => 'Colorado',
+     'CT' => 'Connecticut',
+     'DE' => 'Delaware',
+     'DC' => 'District of Columbia',
+     'FM' => 'Micronesia1',
+     'FL' => 'Florida',
+     'GA' => 'Georgia',
+     'GU' => 'Guam',
+     'HI' => 'Hawaii',
+     'ID' => 'Idaho',
+     'IL' => 'Illinois',
+     'IN' => 'Indiana',
+     'IA' => 'Iowa',
+     'KS' => 'Kansas',
+     'KY' => 'Kentucky',
+     'LA' => 'Louisiana',
+     'ME' => 'Maine',
+     'MH' => 'Islands1',
+     'MD' => 'Maryland',
+     'MA' => 'Massachusetts',
+     'MI' => 'Michigan',
+     'MN' => 'Minnesota',
+     'MS' => 'Mississippi',
+     'MO' => 'Missouri',
+     'MT' => 'Montana',
+     'NE' => 'Nebraska',
+     'NV' => 'Nevada',
+     'NH' => 'New Hampshire',
+     'NJ' => 'New Jersey',
+     'NM' => 'New Mexico',
+     'NY' => 'New York',
+     'NC' => 'North Carolina',
+     'ND' => 'North Dakota',
+     'OH' => 'Ohio',
+     'OK' => 'Oklahoma',
+     'OR' => 'Oregon',
+     'PW' => 'Palau',
+     'PA' => 'Pennsylvania',
+     'PR' => 'Puerto Rico',
+     'RI' => 'Rhode Island',
+     'SC' => 'South Carolina',
+     'SD' => 'South Dakota',
+     'TN' => 'Tennessee',
+     'TX' => 'Texas',
+     'UT' => 'Utah',
+     'VT' => 'Vermont',
+     'VI' => 'Virgin Island',
+     'VA' => 'Virginia',
+     'WA' => 'Washington',
+     'WV' => 'West Virginia',
+     'WI' => 'Wisconsin',
+     'WY' => 'Wyoming'
+   }
+   @state_abbr[abbr.upcase]
+ end
+  
+  def self.tom_id_from_xml(xml)
+    tom_type = tom_type_from_govtrack_type xml.attributes["type"]
     "http://hdl.loc.gov/loc.uscongress/legislation." + xml.attributes["session"] + tom_type + xml.attributes["number"]
   end
   

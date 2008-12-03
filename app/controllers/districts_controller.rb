@@ -187,6 +187,27 @@ class DistrictsController < ApplicationController
     redirect_to :back
   end
   
+  def get_website
+    page = Page.find(params[:id])
+    if page.blank?
+      render :text => "Create your website here"
+    else
+      render :text => page.content
+    end
+  end
+  def update_website
+    page = Page.find(params[:id])
+    page.content = params[:value]
+    page.save
+    page.reload
+    render :text => textile(page.content)
+  end
+  def show_website
+    @district = District.find(params[:id])
+    @page = @district.website
+    render :partial => 'website'
+  end
+  
   def show_actions
     @district = District.find(params[:id])
     render(:partial => '/shared/action', :locals => { :actions => @district.actions.paginate(:page => params[:page], :per_page => 13) })

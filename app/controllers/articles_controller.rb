@@ -6,10 +6,13 @@ class ArticlesController < ApplicationController
   
   def index
     @articles = current_community.articles.search params[:search], :page => params[:page], :per_page => 7, :order => "support_count DESC"
-        
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @articles }
+    if @articles.total_entries == 1
+      redirect_to @articles.first
+    else
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @articles }
+      end
     end
   end
   
@@ -69,8 +72,10 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     # set the currents for this article. helps when coming in from an external link
-    self.current_district = @article.district if @article.district
-    self.current_community = @article.community
+    unless current_district || current_community
+      self.current_district = @article.district if @article.district
+      self.current_community = @article.community
+    end
   end
   
   def destroy
