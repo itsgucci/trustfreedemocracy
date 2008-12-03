@@ -53,9 +53,6 @@ class User < ActiveRecord::Base
   
   define_index do
     index :name
-    
-    has community_id
-    has district_id
   end
   
   def district_memberships

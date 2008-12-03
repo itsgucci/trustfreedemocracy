@@ -14,7 +14,7 @@ class Article < ActiveRecord::Base
   belongs_to :community  
   has_one :legislation
   has_many :actions
-  has_many :rolls
+  has_many :rolls, :order => 'created_at DESC'
   
   belongs_to :author, :foreign_key => :user_id, :class_name => "User"
   
