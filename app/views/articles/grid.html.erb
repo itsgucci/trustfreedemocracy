@@ -1,3 +1,4 @@
+<div id="article_target" class="container"></div>
 <div class="box" style="max-width:none">
 	<h1 class="header">Tabled Legislation</h1>
 	<div class="body">
@@ -18,7 +19,7 @@
 				article.stage_name
 			end
 			g.column do |article|
-				link_to('show', article)
+				link_to_remote('show', :url => {:controller => 'articles', :action => 'show', :id => article}, :success => "$('article_target').insert(request.responseText, 'top');")
 			end
 		end -%>	
 	</div>
