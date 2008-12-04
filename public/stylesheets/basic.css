@@ -629,6 +629,10 @@ font-size: 136%;
 line-height: normal;
 }
 
+.budget tr {
+border: 0;
+}
+
 .times {
 font-family: times;
 }
