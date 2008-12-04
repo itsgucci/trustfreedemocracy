@@ -114,13 +114,17 @@ class Admin::GovtrackImport < ActiveRecord::Base
     roll.result = roll_xml.elements["//result"].text
         
     roll.save
-    
-    if roll.roll_votes.empty?
+        
+    if roll.roll_votes.clear
+    #if roll.roll_votes.empty?
       # add individual votes
       roll_xml.elements.each("voter") do |voter|
         state = state_abbr_to_name( state_abbr = voter.attributes["state"] )
         district_number = " " + voter.attributes["district"]
-        district_number = " At Large" if district_number == " 0" && (state_abbr != "VI" || state_abbr != "DC" || state_abbr != "GU" || state_abbr != "PR" || state_abbr != "AS")
+        district_number = " At Large" if district_number == " 0"
+        # remember to thank god for teritories. 
+        district_number = "" if state_abbr == "VI" || state_abbr == "DC" || state_abbr == "GU" || state_abbr == "PR" || state_abbr == "AS"
+        # thanks god
         district_name = state+district_number
         #district = current_community.districts.find_by_name(district_name)
         district_id, rep_id = dist_rep_cache(district_name)
@@ -128,6 +132,7 @@ class Admin::GovtrackImport < ActiveRecord::Base
         #roll_vote = roll.roll_votes.new(:community => current_community, :district => district, :user => district.representative, :vote => vote)
         roll_vote = roll.roll_votes.new(:community => current_community, :district_id => district_id, :user_id => rep_id, :vote => vote)
         roll_vote.save
+        puts vote
       end
     end
         
@@ -177,7 +182,7 @@ class Admin::GovtrackImport < ActiveRecord::Base
 	  @state_abbr ||= {
      'AL' => 'Alabama',
      'AK' => 'Alaska',
-     'AS' => 'America Samoa',
+     'AS' => 'American Samoa',
      'AZ' => 'Arizona',
      'AR' => 'Arkansas',
      'CA' => 'California',
