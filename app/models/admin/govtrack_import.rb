@@ -4,10 +4,7 @@ require 'ruby-debug'
 
 class Admin::GovtrackImport < ActiveRecord::Base
 
-  #@folder = "http://drake.doesntexist.org:3002/~drake/govtrack/us/110"
-  #@folder = "http://localhost:3002/~drake/govtrack/us/110"  
-  #@folder = "/govtrack/110"
-  @folder = "/Users/drake/Sites/govtrack/us/110"
+  @folder = GOVTRACK_FOLDER + "110"
   
   @dist_rep_cache = {}
   
@@ -121,10 +118,10 @@ class Admin::GovtrackImport < ActiveRecord::Base
     if roll.roll_votes.empty?
       # add individual votes
       roll_xml.elements.each("voter") do |voter|
-        state = state_abbr_to_name( voter.attributes["state"] )
-        district_number = voter.attributes["district"]
-        district_number = "At Large" if district_number == "0"
-        district_name = state+" "+district_number
+        state = state_abbr_to_name( state_abbr = voter.attributes["state"] )
+        district_number = " " + voter.attributes["district"]
+        district_number = " At Large" if district_number == " 0" && (state_abbr != "VI" || state_abbr != "DC" || state_abbr != "GU" || state_abbr != "PR" || state_abbr != "AS")
+        district_name = state+district_number
         #district = current_community.districts.find_by_name(district_name)
         district_id, rep_id = dist_rep_cache(district_name)
         vote = vote_id_from_govtrack_symbol( voter.attributes["vote"] )
@@ -230,7 +227,7 @@ class Admin::GovtrackImport < ActiveRecord::Base
      'TX' => 'Texas',
      'UT' => 'Utah',
      'VT' => 'Vermont',
-     'VI' => 'Virgin Island',
+     'VI' => 'U.S. Virgin Islands',
      'VA' => 'Virginia',
      'WA' => 'Washington',
      'WV' => 'West Virginia',
