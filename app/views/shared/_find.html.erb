@@ -1,7 +1,7 @@
-<%- current = current_district || current_community %>
+<%- current = current_community %>
 <div class="left_column golden_big">
 	<div class="box">
-		<h2 class="header">Supported Legislation</h2>
+		<h2 class="header">Supported Laws</h2>
 		<div class="body">
 			<ul class="orangelist">
 				<%- current.articles.if_certified(certification_filter?).most_supported(7).each do |article| %>
@@ -12,7 +12,7 @@
 	</div>
 </div>
 <div class="right_column golden_small">
-	<p class="larger" style="padding:0;padding-bottom:0.37em"><%= number_with_delimiter current.articles.size %> Legislations On Tap</p>
+	<p class="larger" style="padding:0;padding-bottom:0.37em"><%= number_with_delimiter current.articles.size %> Laws On Record</p>
 	<p class="smaller dull" style="padding:0;padding-bottom:0.37em">Synced <%= current.last_synchronized.strftime('%A %d %B %G %r') %></p>
 	<div class="box">
 		<h2 class="header">Search</h2>

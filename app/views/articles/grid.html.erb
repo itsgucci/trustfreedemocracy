@@ -1,26 +1,15 @@
-<div id="article_target" class="container"></div>
-<div class="box" style="max-width:none">
-	<h1 class="header">Tabled Legislation</h1>
-	<div class="body">
-		<%= grid(@articles_grid) do |g|
-			g.column :column_name => 'Democracy', :attribute_name => 'name', :model_class => Community do |article|
-				article.community.name
-			end
-			g.column :column_name => 'Region' do |article|
-				article.district.name if article.district
-			end
-			g.column :column_name => 'Title', :attribute_name => 'title' do |article|
-				truncate(article.title, 200)
-			end
-			g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
-				article.support_count
-			end
-			g.column :column_name => 'Stage', :attribute_name => 'stage', :no_filter => true do |article|
-				article.stage_name
-			end
-			g.column do |article|
-				link_to_remote('show', :url => {:controller => 'articles', :action => 'show', :id => article}, :success => "$('article_target').insert(request.responseText, 'top');")
-			end
-		end -%>	
+<div id="browse_box" class="box" style="display:;max-width: none;position: fixed;margin-top:0">
+	<div class="header">
+		<p style="display:none;float:right; padding:0"><%= link_to_function 'expand', "" %></p>
+		<h1 class=""><span id="extra_header">Browse </span>All Laws</h1>
+	</div>
+	<div id="scroll_body" class="body scroll_box auto_pagination" style="max-height:28em; width: 100%">
+		<%= render :partial => 'grid' %>
+		<%- form_tag('', :method => :get, :id => 'grid_params') do %>
+			<%= dump_filter_parameters_as_hidden_fields(@articles_grid) %>
+			<%= hidden_field_tag :smaller, false %>
+		<%- end %>
+		<div id="bottom_of_list">Loading more Laws <%= image_tag 'indicator.gif', :alt => 'working...' %></div>
 	</div>
 </div>
+<div id="article_target" class="container" style="margin-right: 20%; max-width: auto"></div>

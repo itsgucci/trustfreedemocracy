@@ -5,10 +5,10 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<link rel="icon" type="image/gif" href="<%= image_path "logo.png" %>" />
-	<title><%= current_district ?  "Trust " + h( current_district.full_name ) : "There is Hope" %></title>
+	<title><%= "#{current_community.name}: " if current_community %>There is Hope</title>
 	<%= stylesheet_link_tag 'basic', 'lightbox' %>
 	<%= stylesheet_link_tag 'wice_grid' %>
-	<%= javascript_include_tag :defaults, 'textile', 'tooltip', 'reflection' %>
+	<%= javascript_include_tag :defaults, 'textile', 'tooltip', 'reflection', 'endless' %>
 	<script type="text/javascript">
 		<%- if help_enabled? %>
 		Event.observe(window,"load",function() {
@@ -34,7 +34,7 @@
 	</script>
 </head>
 <body id="trustfreedemocracy">
-	<p id="the_whole_of_the_law" class="smaller facebook_hidden">Do what thou intend</p>
+	<p id="the_whole_of_the_law" class="smaller facebook_hidden">Do what thou wilt</p>
 	<div id="padding">
 		<div id="navigation">
 			<p id="current_user"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="faint" help="Click here to log in or out of TrustFreeDemocracy"><%= login_logout_link %></span>
@@ -52,13 +52,19 @@
 			</ul>
 			<div id="top_links" class="top_links">
 				<%- if current_district || current_community %>
-				<ul id="site_navigation" class="left_links">
+				<ul style="display:none" id="site_navigation" class="left_links">
 					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Propose", new_article_path %></li>
 					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths">&gt;<%= link_to_unless_current "Develop", {:controller => '/ideas'} %></li>
 					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "Corroborate", {:controller => '/proposals'} %></li>
 					<li help="Watch democracy work. Click here to track Motions traveling through the legislative process of <%= h current_community.name %>. Monitor your legislator's behavior, know the decisions made on your behalf">&gt;<%= link_to_unless_current "Control", {:controller => '/comites'} %></li>
 					<li help="Yes or No, you decide. Click here to Vote on Motions in <%= h current_community.name %>. Register your vote to enable accountable representation">&gt;<%= link_to_unless_current "Vote", {:controller => '/legislations'} %></li>
 					<li help="Knowledge is power. Click here to view the Results of Motions tried in <%= h current_community.name %>. Find the laws that impact your life">&gt;<%= link_to_unless_current "Promulgation", {:controller => '/laws'} %></li>
+				</ul>
+				<ul style="" id="site_navigation" class="left_links">
+					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths"><%= link_to_unless_current "Browse all Laws", {:controller => '/table'} %></li>
+					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts">&gt;<%= link_to_unless_current "Change the Laws", new_article_path %></li>
+					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "My Rep's Priority", {:controller => '/proposals'} %></li>
+					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "How am I doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
 				</ul>
 				<%- end %>
 				<ul class="right_links">
@@ -69,7 +75,7 @@
 					<li>
 						<%- form_tag '/articles', :method => 'get' do %>
 							<%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
-							<%= text_field_tag "search", "Search Legislation", :onblur => "if(this.value == '') this.value = 'Search Legislation';", :onclick => "if(this.value == 'Search Legislation') this.value = '';", :size => "14", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
+							<%= text_field_tag "search", "Search All Laws", :onblur => "if(this.value == '') this.value = 'Search All Laws';", :onclick => "if(this.value == 'Search All Laws') this.value = '';", :size => "13", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
 						<%- end %>
 					</li>
 				</ul>

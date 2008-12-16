@@ -10,11 +10,12 @@
 	</div>
 	
 	<%- tabs = [
-			["Website", "disclosure", render(:partial => 'users/disclosure')],
-			["Blog", "blog", url_for(:controller => 'users', :action => 'show_blog', :id => @user)],
+			["Representation", "rep", render(:partial => 'representation')],
+		#	["Website", "disclosure", url_for(:controller => :users, :action => :show_disclosure, :id => @user)],
+		#	["Blog", "blog", url_for(:controller => 'users', :action => 'show_blog', :id => @user)],
 		#	["Notifications", "notify", url_for(:controller => 'users', :action => 'show_notifications', :id => @user)],
-			["Support", "support", url_for(:controller => 'users', :action => 'show_support', :id => @user)],
-		    ["Memberships", "membership", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]
+			["Support", "support", url_for(:controller => 'users', :action => 'show_support', :id => @user)]
+		#    ["Memberships", "membership", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]
 		#	["Authored", "author", url_for(:controller => 'users', :action => 'show_articles', :id => @user)],
 		#	["Comments", "comment", url_for(:controller => 'users', :action => 'show_comments', :id => @user)]
 		#	["Certifications", "certs", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]

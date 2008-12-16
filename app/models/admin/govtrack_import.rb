@@ -45,11 +45,27 @@ class Admin::GovtrackImport < ActiveRecord::Base
     
     parse_tom_id bill
     parse_session bill
-    parse_number
-    parse_article_type bill
+    # parse number
+    #should be off the session, not just putting110 in there. lazy.
+    if match = @article.tom_id.match(/110(\w+)/)
+      @article.number = match[1]
+    end    
+    # parse type
+    case bill.attributes["type"]
+    when "h" || "s":
+      @article_type_id = 1
+    else
+      @article_type_id = 2
+    end
     parse_status bill.elements["//status"]
     parse_title bill.elements["//titles"]
     parse_summary bill.elements["//summary"]
+    bill.elements.each("//relatedbills") do |bill|
+      
+    end
+    bill.elements.each("//subjects") do |term|
+      @article.tag_with term.text
+    end
     
     base_link = xml_link.gsub(/bills\/\S+/,'') + "bills.text/#{ bill.attributes['type'] }/#{ bill.attributes['type'] }#{ bill.attributes['number'] }"
     extensions = [".html", ".xml", "ih.html", "eh.html"]
@@ -253,22 +269,6 @@ class Admin::GovtrackImport < ActiveRecord::Base
   
   def self.parse_session(xml)
     @article.session = xml.attributes["session"]
-  end
-  
-  def self.parse_number
-    #should be off the session, not just putting110 in there. lazy.
-    if match = @article.tom_id.match(/110(\w+)/)
-      @article.number = match[1]
-    end
-  end
-  
-  def self.parse_article_type(xml)
-    case xml.attributes["type"]
-    when "h" || "s":
-      @article_type_id = 1
-    else
-      @article_type_id = 2
-    end
   end
   
   def self.parse_status(xml)

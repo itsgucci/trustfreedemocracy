@@ -3,9 +3,10 @@
 	<div class="help rounded">
 	<p><%= link_to_function "Help", visual_effect(:toggle_blind, :support_page_help_content) %></p>
 	<div id="support_page_help_content" style="display:none">
-		<p>Support illuminates Motions, and by supporting this Motion, you make it easier for others to find it</p>
+		<p>If you like this <%= @article.article_type.name %>, support it!</p>
+		<p>Showing your support helps other people find this Law</p>
 		<p>Many search and sort functions order Motions by most supported, so more supported items are naturally more visible</p>
-		<p>You may support many Motions simultaneously and support may be withdrawn at any time</p>
+		<p>You may support many Laws as you desire</p>
 	</div>
 	</div>
 	<%- end %>

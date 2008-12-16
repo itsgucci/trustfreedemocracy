@@ -109,6 +109,10 @@ class UsersController < ApplicationController
     end
   end
   
+  def show_disclosure
+    @user = User.find(params[:id])
+    render(:partial => 'users/disclosure')
+  end
   def show_memberships
     @user = User.find(params[:id])
     render :partial => 'memberships'

@@ -161,6 +161,7 @@ module Wice
       sorting_dependant_row_cycling = options[:sorting_dependant_row_cycling]
       content = javascript_include_tag 'wice_grid'
       content += "<table #{tag_options(table_html_attrs, true)}>"
+      content += "<thead>"
     
       if options[:upper_pagination_panel]
         content += rendering.pagination_panel{ 
@@ -171,6 +172,7 @@ module Wice
       content += "<tr #{tag_options(header_tr_html_attrs, true)}>"
 
       # first row of column labels with sorting links
+      col_class = "col1"
       rendering.each_column(:in_html) do |column|
         if column.attribute_name 
 
@@ -188,11 +190,13 @@ module Wice
             column.column_name,
             rendering.column_link(column, direction, params, options[:extra_request_parameters]), 
             :class => link_style)
+          css_class = css_class.nil? ? col_class : css_class + ' ' + col_class
           content += content_tag(:th, col_link, Hash.make_hash(:class, css_class))
           column.css_class = css_class
         else
-          content += content_tag(:th, column.column_name)
+          content += content_tag(:th, column.column_name, Hash.make_hash(:class, col_class))
         end
+        col_class = col_class.next
       end
       # rendering first row end
         
@@ -272,6 +276,8 @@ module Wice
         content += '</tr>'
       end
       # rendering second row end
+      
+      content += "</thead>"
 
       rendering.each_column(:in_html) do |column|
         unless column.css_class.blank?
@@ -331,11 +337,9 @@ module Wice
 
       end
       
-
-      content += rendering.pagination_panel(no_rightmost_column){ 
-        will_paginate(grid.resultset, :param_name => "#{grid.name}[page]", :params => options[:extra_request_parameters])
-      }
       content += '</table>'
+
+      #content += will_paginate(grid.resultset, :param_name => "#{grid.name}[page]", :params => options[:extra_request_parameters])
     
       base_link_for_filter = rendering.base_link_for_filter(controller, options[:extra_request_parameters])
       link_for_export      = rendering.link_for_export(controller, 'csv', options[:extra_request_parameters])

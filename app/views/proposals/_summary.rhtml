@@ -9,49 +9,32 @@
 <%- end %>
 <%- if current_district %>
 <div class="box rounded summary">
-	<h2 class="header"><%= h current_district.name %>'s Agenda for <%= h current_district.community.name %></h2>
+	<h1 class="header">Suggested Priority for <%= h current_district.representative.name %></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
 				<div class="two_columns">
 					<div class="left_column half">
-						<%- top_focuses = current_district.articles.focuses.sort { |a,b| b.focus_count <=> a.focus_count } %>
-						<%- ratios = []; labels = "" %>
-						<%- for article in top_focuses#[0..4] %>
-							<%- ratios << (article.focus_count.to_f / current_district.population) * 100 %>
-							<%- labels << article.number << "|" %>
-						<%- end %>
-						<%- rest = ratios.sum - ratios[0..2].sum %>
-						<%- remainder = 100 - ratios.sum %>
-						<%= image_tag "http://chart.apis.google.com/chart?cht=p&chs=320x200&chd=t:" + ratios.join(",") + "," + rest.to_s + "," + remainder.to_s + "&chl=" + labels + "et cetera|indecisive&chf=bg,s,00000000", :style => "float:left" %>
+						<%- @article = current_district.top_priority %>
+						<%= render :partial => 'articles/focus_image' %>
+						<%= @article.focus_count %>
+						<%= @article.title %>
 					</div>
 					<div class="right_column half">
-						<table class="ruler">
-							<thead>
-							<tr><th>Motion</th><th>Top Priority for</th></tr>
-							</thead>
-							<tbody>
-							<%- for article in top_focuses[0..2] %>
-							<tr style="cursor:pointer" onclick="document.location.href='<%= article_url(article) %>'">
-								<td><%= article.number %></td>
-								<td><%= pluralize article.focus_count, "person" %></td>
-							</tr>
-							<%- end %>
-							<tr><td>et cetera</td><td><%= number_to_percentage rest, :precision => 2 %></td></tr>
-							<tr><td>indecisive</td><td><%= number_to_percentage remainder, :precision => 2 %></td></tr>
-							</tbody>
-						</table>
+						
 					</div>
 				</div>
 			</div>
 			<div class="right_column golden_small">
 				<div class="box">
-					<h2 class="header">Your Top Priority</h2>
+					<h2 class="header">My Top Priority</h2>
 					<div class="body">
 						<%- if logged_in? && current_user.focus(current_district) %>
-						<p style="margin-bottom: 15px">Your top priority is <%= link_to (current_user.focus(current_district).article.number + " - " + current_user.focus(current_district).article.title), current_user.focus(current_district).article %></p>
+						<%- @article = current_user.focus(current_district) %>
+						<%= render :partial => 'articles/focus_image' %>
+						<p>Your top priority is <%= link_to (current_user.focus(current_district).article.number + " - " + current_user.focus(current_district).article.title), current_user.focus(current_district).article %></p>
 						<%- else %>
-						<p style="margin-bottom: 15px">Choose your Top Priority from the available priorities.</p>
+						<p>Choose your Top Priority from the available priorities.</p>
 						<%- end %>		
 					</div>
 				</div>

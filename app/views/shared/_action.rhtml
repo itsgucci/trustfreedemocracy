@@ -1,18 +1,14 @@
-<%- if help_enabled? %>
-<p class="help">This section shows Motions that have made progress recently</p>
-<%- end %>
 <%- if actions.empty? %>
 <p class="larger">There is no Progress on record</p>
 <%- else %>
 <table class="ruler">
 	<thead style="display:none">
-		<tr><th>Date</th><th>Motion</th><th>Action</th></tr>
+		<tr><th>Date</th><th>Action</th></tr>
 	</thead>
 	<tbody id="progress">
 		<%- for action in actions %>
 		<tr class="action" style="cursor:pointer" onclick="document.location.href='<%= url_for action.article %>'">
 			<td class="dull smaller"><%#= action.created_at.strftime("%Y.%m.%d %H:%M") %><%= action.created_at.strftime("%m/%d/%y") %></td>
-			<td class="center"><%= h action.article.number %></td>
 			<td><%= h action.action %></td>
 		</tr>
 		<%- end %>

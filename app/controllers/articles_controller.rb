@@ -17,8 +17,13 @@ class ArticlesController < ApplicationController
   end
   
   def grid
-    @articles_grid = initialize_grid(Article, :per_page => 13, :include => [:community, :district])
+    @articles_grid = initialize_grid(Article, :conditions => ['community_id = ?', current_community.id], :per_page => 26, :include => [:community, :district])
+    @smaller = params[:smaller] == 'shrunk'
     render :action => :grid
+  end
+  
+  def govtrack
+    @article = Article.find(params[:id])
   end
   
   def new
@@ -58,7 +63,7 @@ class ArticlesController < ApplicationController
         else
           article.author = current_user
         end    
-          article.actions.create(:house => "O", :action => "New #{ article.article_type.name }: #{ article.title }", :district_id => article.district.id, :processed => true )
+          article.actions.create(:house => "O", :action => "#{ article.article_type.name } Created: #{ article.title }", :district_id => article.district.id, :processed => true )
         flash[:notice] = "<p>This #{ article.article_type.name } is now in the Develop Legislation stage of #{ article.district.name }</p><p>You are the author and may edit this Motion as you see fit</p><p>Share link: #{ article_url(article) }</p>"
         redirect_to article
       else

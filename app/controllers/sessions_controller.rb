@@ -44,8 +44,12 @@ class SessionsController < ApplicationController
   end
   
   def set_district
-    self.current_district = District.find(params[:id])
-    self.current_community = self.current_district.community
+    if params[:id] == "0"
+      self.current_district = nil
+    else
+      self.current_district = District.find(params[:id])
+      self.current_community = self.current_district.community
+    end
     redirect_to :back
   end
   

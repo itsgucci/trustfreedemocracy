@@ -240,6 +240,7 @@ color: #fff;
 }
 
 #footer {
+display:none;
 clear: both;
 position: fixed;
 bottom: 0;
@@ -256,7 +257,7 @@ padding-left: 0.38em;
 }
 
 .uncertified {
-opacity: 0.61;
+/*opacity: 0.61;*/
 }
 .certified {
 opacity: 1.0;
@@ -960,7 +961,7 @@ padding: 0 5px;
 }
 .tab-unselected a {
   padding: 0 6px;
-  color: #a0a0a0;
+  color: #666;
 }
 .tab-unselected a:hover {
 	color: #000;
@@ -997,6 +998,12 @@ background: none;
 font-size: 138%;
 line-height: 110%;
 margin-top: 0.78em;
+}
+.pagination a {
+  display: inline;
+}
+.auto_pagination .pagination {
+  display: none;
 }
 
 .header .pagination {

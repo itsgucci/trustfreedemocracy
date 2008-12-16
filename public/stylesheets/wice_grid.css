@@ -7,6 +7,17 @@
 .wice_grid th.sorted { background-color: darkkhaki   ; }
 .wice_grid td.sorted { background-color: orange   ; }
 
+.wice_grid .odd {
+  background-image: url('/images/f60-14.png');
+}
+.wice_grid tr {
+  border: 0;
+  cursor: pointer;
+}
+.wice_grid td {
+  padding: 0.38em;
+}
+
 .custom_dropdown_container { position: relative; }
 .toggle_multi_select_icon { position:absolute; top:0; right:0;  }
 .custom_dropdown { width: 88% }

@@ -1,5 +1,5 @@
 <div class="box">
-	<h2 class="header">Select your Top Priority for <%= current_name %></h2>
+	<h1 class="header">My Suggested Priority for <%= h current_district.representative.name %></h1>
 	<div class="body">
 		<%- if @list.empty? %>
 		<p class="larger">There are no Motions available to choose from</p>

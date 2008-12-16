@@ -5,6 +5,7 @@
 body {
   font-size:   13px;
   line-height: 18px;
+  background-image: url('/images/background_original.png');
 }
 
 #navigation {
@@ -37,10 +38,10 @@ body {
 .pretty_form label {
 }
 label {
-  font-size: normal;
+  font-size: small;
 }
 input {
-  font-size: normal;
+  font-size: small;
 }
 
 p, .p_padding {
@@ -52,5 +53,5 @@ p, .p_padding {
 }
 
 .uncertified {
-opacity: 1;
+  opacity: 1;
 }

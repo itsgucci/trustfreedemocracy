@@ -1,6 +1,9 @@
+require 'rubygems'
+require 'git'
+
 class Article < ActiveRecord::Base
   
-  #acts_as_versioned
+  #smells_like_git
   #non_versioned_columns << 'article_type_id' << 'tom_id' << 'community_id' << 'certified'
   acts_as_commentable
   acts_as_taggable
@@ -13,7 +16,7 @@ class Article < ActiveRecord::Base
   belongs_to :district
   belongs_to :community  
   has_one :legislation
-  has_many :actions
+  has_many :actions, :order => 'created_at DESC'
   has_many :rolls, :order => 'created_at DESC', :include => :roll_votes
   
   belongs_to :author, :foreign_key => :user_id, :class_name => "User"
@@ -45,6 +48,11 @@ class Article < ActiveRecord::Base
     has community_id
     has support_count
     has focus_count
+  end
+  
+  def cosponsors
+    []
+    # todo, fix this stub. 
   end
   
   def name
@@ -281,10 +289,10 @@ class Article < ActiveRecord::Base
     stage == 8
   end
   def vetoed?
-    stage = 9
+    stage == 9
   end
   def overridden?
-    stage = 10
+    stage == 10
   end
   
   named_scope :unknown, :conditions => "stage = 0"
@@ -303,7 +311,7 @@ class Article < ActiveRecord::Base
     Article.stage_names.at stage
   end
   def self.stage_names
-    ["unknown", "Proposed Idea", "Agenda Item", "In Legislature", "Open for Vote", "Enacted as Law", "Dead", "To Executive", "Signed", "Veto", "OverRide"]
+    ["unknown", "Development", "Priority", "In Legislature", "Open for Vote", "Enacted as Law", "Dead", "To Executive", "Signed", "Veto", "OverRide"]
   end
   
 end

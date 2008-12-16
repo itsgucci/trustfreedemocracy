@@ -1,0 +1,13 @@
+<p class="enourmous"><%= @user.name %> represented 62%</p>
+<%- if @user.districts.empty? %>
+<p class="larger"><%= @user.name %> does not belong to any districts</p>
+<%- else %>
+<ul class="orangelist">
+	<%- for district in @user.district_memberships %>
+	<p><%= link_to h(district.full_name), district %> 100% by <%= h( district.representative.name ) if district.representative %></p>
+	<%#- @user.votes.all(:conditions => {:district_id => district.id }).each do |vote| %>
+		<%#= vote.voteable_id %>
+	<%#- end %>
+	<%- end %>
+</ul>
+<%- end %>

@@ -8,12 +8,7 @@ class CommunitiesController < ApplicationController
   
   def show
     @community = Community.find(params[:id])
-    if current_district && @community == self.current_district.community
-      redirect_to current_district
-    else
-      self.current_district = nil
-      self.current_community = @community
-    end
+    self.current_community = @community
   end
   
   def agenda

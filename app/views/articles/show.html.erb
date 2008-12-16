@@ -1,3 +1,4 @@
+<div id="article<%= @article.id %>">
 <div class="box rounded articles <%= certified_class @article %>">
 	<div class="header" id="l<%= @article.id %>">
 		<h1 class="number" help="Share this Motion with <%= article_url(@article) %>"><%= h @article.number %></h1>
@@ -19,6 +20,7 @@
 			<%- end %>
 		</h2>
 		<h4 class="dull">
+			<%= h @article.community.name %>:
 			<%= @article.stage_name %>
 			 - 
 			Author: 
@@ -46,6 +48,8 @@
 			
 			<%- if @article.tom_id %>
 			 - Original Source: <%= link_to @article.tom_id, @article.tom_id, :popup => true %>
+			<%- else %>
+			 - Original Source: <%= link_to article_url(@article), article_url(@article), :onclick => "return false;" %>
 			<%- end %>
 		</h4>
 		<%= clear_both %>
@@ -53,14 +57,15 @@
 	
 	<%- tabs = [
 			[@article.article_type.name, "article", render( :partial => '/shared/article')],
-			["Progress", "action", url_for(:controller => 'articles', :action => 'show_action', :id => @article)],
+			["Status", "action", url_for(:controller => 'articles', :action => 'show_action', :id => @article)],
 			["Support", "support", url_for(:controller => 'articles', :action => 'show_support', :id => @article)],
 			["Discussion", "discuss", url_for(:controller => 'articles', :action => 'show_discussion', :id => @article)]] %>
-	<%- tabs += [["Top Priority", "focus", url_for(:controller => 'articles', :action => 'show_focus', :id => @article)]] if @article.focus? %>
-	<%- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
 	<%- tabs += [["Vote", "vote", url_for(:controller => 'articles', :action => 'show_vote', :id => @article)]] %>
+	<%- tabs += [["Prioritize", "focus", url_for(:controller => 'articles', :action => 'show_focus', :id => @article)]] if @article.focus? %>
+	<%- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
 	<%#- tabs += [["Results", "result", url_for(:controller => 'articles', :action => 'show_results', :id => @article)]] %>
 	
 	<%= tabs @article.id.to_s, tabs %>
 	<%= clear_both %>
+</div>
 </div>

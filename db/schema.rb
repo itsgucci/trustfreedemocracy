@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081202014504) do
+ActiveRecord::Schema.define(:version => 20081205000924) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20081202014504) do
     t.integer  "focus_count",                                                        :default => 0
     t.string   "number"
     t.decimal  "cost_per_hour",                       :precision => 8,  :scale => 2
+    t.datetime "created_at"
   end
 
   add_index "articles", ["district_id"], :name => "district"

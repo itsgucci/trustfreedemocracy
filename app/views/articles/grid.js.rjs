@@ -1,0 +1,14 @@
+page.insert_html :before, :bottom_of_list, :partial => 'grid'
+if @smaller
+  page.select('.col3').each do |e|
+    e.hide
+  end
+  page.select('.col4').each do |e|
+    e.hide
+  end
+end
+if @articles_grid.resultset.total_pages > @articles_grid.resultset.current_page
+  page.call 'checkScroll'
+else
+  page[:bottom_of_list].hide
+end
