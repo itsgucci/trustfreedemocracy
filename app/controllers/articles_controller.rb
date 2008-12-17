@@ -37,7 +37,6 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    debugger
     if request.post?
       # short circut them if it already exists and return them this
       if params[:article][:tom_id]

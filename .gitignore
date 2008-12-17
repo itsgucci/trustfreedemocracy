@@ -2,5 +2,6 @@ config/
 private_config/
 log/
 db/sphinx/
+db/development.sqlite3
 id_rsa-gsg-keypair
 lib/open-uri.rb

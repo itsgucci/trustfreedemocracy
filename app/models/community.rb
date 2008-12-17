@@ -107,10 +107,10 @@ class Community < ActiveRecord::Base
   end
 
   def chairperson=(user)
-    chairperson.revoke_role( 'chairperson', self ) if chairperson
+    chairperson.revoke_role( 'chair', self ) if chairperson
     write_attribute( :user_id, user.id)
     if save
-      role_granted 'chairperson', user
+      role_granted 'chair', user
     end
   end
   

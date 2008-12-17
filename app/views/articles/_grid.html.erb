@@ -3,11 +3,11 @@
 		{:id => "#{@articles_grid.name}_row_#{article.id}",
 		:onclick => "showArticle(#{article.id}); return false;"}
 	end
+	g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
+		@width = 30; @article = article; render( :partial => 'articles/support_image')
+	end
 	g.column :column_name => 'Number', :attribute_name => 'number' do |article|
 		h(article.number)
-	end
-	g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
-		article.support_count
 	end
 	g.column :column_name => 'Stage', :attribute_name => 'stage', :no_filter => true do |article|
 		article.stage_name

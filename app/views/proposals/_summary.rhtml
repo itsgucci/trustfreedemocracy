@@ -9,7 +9,7 @@
 <%- end %>
 <%- if current_district %>
 <div class="box rounded summary">
-	<h1 class="header">Suggested Priority for <%#= h(current_district.representative.name) %></h1>
+	<h1 class="header">Suggested Priority for <%= current_district.representative ? h(current_district.representative.name) : "my Representative" %></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">

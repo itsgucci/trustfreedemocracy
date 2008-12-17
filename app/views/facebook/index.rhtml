@@ -3,7 +3,7 @@
 	<div class="body">
 		<div class="right_column golden_small">
 			<div class="box">
-				<h2 class="header">TrustFreeDemocracy</h2>
+				<h2 class="header">Democracy Universal</h2>
 				<%- if logged_in? %>
 				<p><%= h current_user.name %></p>
 				<p>id: <%= current_user.id %></p>
@@ -28,13 +28,13 @@
 			<%- if logged_in? && current_user.facebook_id.to_i == facebook_user.id.to_i %>
 			<p>You are good to go</p>
 			<p>Your Accounts are Linked</p>
-			<p class="huge">Let's <%= link_to "TrustFreeDemocracy", '/' %></p>
+			<p class="huge"><%= link_to "Get Started with Democracy Universal", '/' %></p>
 			<p>&nbsp;</p>
 			<p>&nbsp;</p>
 			<p>You can <%= link_to "sever the Link", '/facebook/disassociate', :confirm => "Yeah, are you sure?", :method => :post %> to Facebook any time</p>
 			<%- elsif !logged_in? %>
 			<%= render :partial => '/sessions/login' %>
-			<p>If you do not have a TrustFreeDemocracy account, <%= link_to "create one", '/signup' %></p>
+			<p>If you do not have a Democracy Universal account, <%= link_to "create one", '/signup' %></p>
 			<%- else %>
 			<div class="box">
 				<p class="error">Your Facebook and TrustFreeDemocracy accounts are unlinked</p>

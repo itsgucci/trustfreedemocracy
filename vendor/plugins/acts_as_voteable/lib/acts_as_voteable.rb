@@ -31,7 +31,7 @@ module Juixe
         def votes_for
           votes = Vote.find(:all, :conditions => [
             "voteable_id = ? AND voteable_type = ? AND vote = ?",
-            id, self.type.name, true
+            id, self.type.name, 1
           ])
           votes.size
         end
@@ -39,7 +39,7 @@ module Juixe
         def votes_against
           votes = Vote.find(:all, :conditions => [
             "voteable_id = ? AND voteable_type = ? AND vote = ?",
-            id, self.type.name, false
+            id, self.type.name, 0
           ])
           votes.size
         end

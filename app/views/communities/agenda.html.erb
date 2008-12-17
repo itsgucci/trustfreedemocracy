@@ -11,7 +11,7 @@
 <div class="box">
 	<h1 class="header">Agenda for <%= @community.name %></h1>
 	<div class="body">
-		<table class="ruler">
+		<table class="hidden ruler">
 			<thead><tr><th>District</th><th>Affirmers</th><th>Priority</th></tr></thead>
 			<%- @community.districts.all(:include => :top_priority).each do |district| %>
 			<tr style="cursor:pointer" onclick="document.location.href='<%= agenda_district_path(district) %>'">
@@ -21,5 +21,7 @@
 			</tr>
 			<%- end %>
 		</table>
+		<%= render :partial => 'minutes' %>
 	</div>
 </div>
+
