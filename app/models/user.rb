@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   end
     
   def focus(district)
-    endorsements.find(:first, :conditions => ["ended_at is NULL and district_id = ?", district.id])
+    endorsements.find(:first, :conditions => ["ended_at = ? and district_id = ?", nil, district.id])
   end
   def top_priorities(district = nil)
     if district

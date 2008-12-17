@@ -29,6 +29,9 @@
 			      :collection => potential_reps_collection
 			   ) 
 			%> <%= link_to ">", @community.chairperson %>
+				<%- if current_district && current_district.representative %>
+				 - Representative: <%= h current_district.representative.name %>
+				<%- end %>
 			<%- else %>
 			Chairperson: <%= @community.chairperson ? !@community.chairperson.login.blank? ? link_to( h(@community.chairperson.name), @community.chairperson) : @community.chairperson.name : "Unassigned" %>
 				<%- if current_district && current_district.representative %>

@@ -9,17 +9,16 @@
 </div>
 <%- end %>
 <div class="box">
-	<h1 class="header">Create a Law in <%= h current_community.name %></h1>
+	<h1 class="header">Change the Laws in <%= h current_community.name %></h1>
 	<div class="body">
-		<p>Which type of Law would you like to introduce?</p>
 		<%- form_for @article do |f| %>
+			<p>Introduce a new Law</p>
 			<%- type = current_community.article_types[0] %>
 			<p><input type="radio" value="1" name="type" id="type_1" onclick="$('submit_section').show();$('district_section').show();$('summary_section').show();$('title_section').show();$('budget_section').show();$('proposal_section').show(); $('submit_button').value='Introduce to '+$('article_district_id').options[$('article_district_id').selectedIndex].text; $('proposal_label').innerHTML='Your Bill:'" /> <label for="type_<%= type.id %>"><%= type.name %> - <%= type.description %></label></p>
 			<%- type = current_community.article_types[1] %>
 			<p><input type="radio" value="2" name="type" id="type_2" onclick="$('submit_section').show();$('district_section').show();$('summary_section').show();$('title_section').show();$('budget_section').hide();$('proposal_section').show(); $('submit_button').value='Introduce to '+$('article_district_id').options[$('article_district_id').selectedIndex].text; $('proposal_label').innerHTML='Your Resolution:'" /> <label for="type_<%= type.id %>"><%= type.name %> - <%= type.description %></label></p>
 			<%- type = current_community.article_types[2] %>
 			<p><input type="radio" value="3" name="type" id="type_3" onclick="$('submit_section').show();$('district_section').hide();$('summary_section').show();$('title_section').show();$('budget_section').hide();$('proposal_section').show(); $('submit_button').value='Introduce to <%= current_community.name %>'; $('proposal_label').innerHTML='Details of Concern:'" /> <label for="type_<%= type.id %>"><%= type.name %> - <%= type.description %></label></p>
-			
 			<div id="title_section" style="display:none">
 				<p style="margin-top: 1em">What is the Title of your Law? <span class="dull smaller">Choose wisely, once introduced the Title is immutable</span></p>
 				<p><label for="article_title" style="display:none">Title</label><%= f.text_field 'title', :class => "larger", :style => "width: 97%" %></p>	

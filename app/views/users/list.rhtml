@@ -5,7 +5,7 @@
 	<div class="body">
 		<table class="ruler">
 			<thead>
-				<tr><th>Joined</th><th>Name</th><th>Memberships</th></tr>
+				<tr><th>Joined</th><th>Name</th><th>Representation</th></tr>
 			</thead>
 		<%- @users.each do |user| %>
 			<tr style="cursor:pointer" onclick="document.location.href='<%= url_for user %>'">

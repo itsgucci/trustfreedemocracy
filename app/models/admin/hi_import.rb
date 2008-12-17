@@ -6,7 +6,9 @@ require 'net/http'
 
 class Admin::HiImport < ActiveRecord::Base
   
-  @community = Community.find_by_name('Hawaii State Congress')
+  def current_community
+    @community ||= Community.find_by_name('Hawaii State Congress')
+  end
   
   def self.first_import
     create_districts
@@ -55,20 +57,20 @@ class Admin::HiImport < ActiveRecord::Base
     rows = page.at("//div[@id='maincontent']/table").children[3..-1]
     rows.each do |row|
       line = row.at('//td[2]')
-      District.create(:community => @community, :name => "House " + line.html) if line
+      District.create(:community => current_community, :name => "House " + line.html) if line
     end
     page = open("http://capitol.hawaii.gov/site1/senate/members/members.asp") { |f| Hpricot(f) }
     rows = page.at("//div[@id='maincontent']/table").children[3..-1]
     rows.each do |row|
       line = row.at('//td[2]')
-      District.create(:community => @community, :name => "Senate " + line.html) if line
+      District.create(:community => current_community, :name => "Senate " + line.html) if line
     end
   end
   
   def self.import_reports
     doc = open("http://capitol.hawaii.gov/session2008/commreports/") { |f| Hpricot(f) }
     puts "loaded reports page"
-    @community.articles.each do |article|
+    current_community.articles.each do |article|
       if title = article.title
         if number = title.match(/\d+/)
           puts "working on bill #{ number }"
@@ -131,7 +133,7 @@ class Admin::HiImport < ActiveRecord::Base
   end
   
   def self.import_actions
-    @community.articles[116..-1].each do |article|
+    current_community.articles[116..-1].each do |article|
       if title = article.title
         if number = title.match(/\d+/)
           import_action("HB #{ number[0] }")
@@ -161,7 +163,7 @@ class Admin::HiImport < ActiveRecord::Base
     begin
       puts "Importing #{url}"
       doc = open(url) { |f| Hpricot(f) }
-      article = Article.find_or_create_by_tom_id(:tom_id => url, :community_id => @community.id)
+      article = Article.find_or_create_by_tom_id(:tom_id => url, :community_id => current_community.id)
       header_section = doc.search("//p[@class='ChamberHeading']")
       article.title = doc.at("//p[@class='MeasureNumberHeading']").html + " " + header_section[1].html + ": " + doc.at("//p[@class='ReportTitle']/i").html
       article.summary = doc.at("//p[@class='Description']/i").html

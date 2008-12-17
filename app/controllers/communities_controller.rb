@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController  
   
-  before_filter :login_required, :except => [:index, :show, :agenda, :show_actions, :show_info, :show_members, :show_reps, :show_calendar, :show_minutes, :show_charter]
+  before_filter :login_required, :except => [:index, :show, :agenda, :show_actions, :show_info, :show_members, :show_reps, :show_calendar, :show_minutes, :show_charter, :show_budget]
   
   def index
     @communities = Community.all

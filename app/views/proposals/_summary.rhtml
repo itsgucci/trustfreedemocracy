@@ -9,16 +9,18 @@
 <%- end %>
 <%- if current_district %>
 <div class="box rounded summary">
-	<h1 class="header">Suggested Priority for <%= h current_district.representative.name %></h1>
+	<h1 class="header">Suggested Priority for <%#= h(current_district.representative.name) %></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
 				<div class="two_columns">
 					<div class="left_column half">
-						<%- @article = current_district.top_priority %>
-						<%= render :partial => 'articles/focus_image' %>
-						<%= @article.focus_count %>
-						<%= @article.title %>
+						<%- if current_district.top_priority %>
+							<%- @article = current_district.top_priority %>
+							<%= render :partial => 'articles/focus_image' %>
+							<%= @article.focus_count %>
+							<%= @article.title %>
+						<%- end %>
 					</div>
 					<div class="right_column half">
 						

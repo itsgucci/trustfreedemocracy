@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081205000924) do
+ActiveRecord::Schema.define(:version => 20081217002024) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -63,9 +63,9 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.datetime "created_at"
   end
 
-  add_index "articles", ["district_id"], :name => "district"
-  add_index "articles", ["stage"], :name => "stage"
   add_index "articles", ["community_id"], :name => "community"
+  add_index "articles", ["stage"], :name => "stage"
+  add_index "articles", ["district_id"], :name => "district"
 
   create_table "articles_supporters", :force => true do |t|
     t.integer  "article_id",                         :null => false
@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
   end
 
   add_index "certifications", ["user_id"], :name => "user"
-  add_index "certifications", ["district_id"], :name => "district"
 
   create_table "comite_stages", :force => true do |t|
     t.integer  "comite_id",                                :null => false
@@ -156,10 +155,10 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.boolean  "certified",                       :default => false
   end
 
-  add_index "comments", ["user_id"], :name => "fk_comments_user"
-  add_index "comments", ["commentable_type", "commentable_id"], :name => "type_and_id"
-  add_index "comments", ["category_code"], :name => "category"
   add_index "comments", ["created_at"], :name => "created"
+  add_index "comments", ["category_code"], :name => "category"
+  add_index "comments", ["commentable_type", "commentable_id"], :name => "type_and_id"
+  add_index "comments", ["user_id"], :name => "fk_comments_user"
 
   create_table "communities", :force => true do |t|
     t.integer  "parent_id",      :default => 0,    :null => false
@@ -172,8 +171,8 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.datetime "sync_date"
   end
 
-  add_index "communities", ["name"], :name => "name"
   add_index "communities", ["parent_id"], :name => "parent_id"
+  add_index "communities", ["name"], :name => "name"
 
   create_table "districts", :force => true do |t|
     t.integer "community_id",                                        :null => false
@@ -185,7 +184,6 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.integer "top_priority"
   end
 
-  add_index "districts", ["community_id"], :name => "community"
   add_index "districts", ["certifications_count"], :name => "residences"
 
   create_table "endorsements", :force => true do |t|
@@ -264,11 +262,9 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.datetime "created_on",  :null => false
   end
 
-  add_index "representative_votes", ["article_id", "district_id"], :name => "art_dist", :unique => true
-  add_index "representative_votes", ["article_id"], :name => "article"
-  add_index "representative_votes", ["district_id"], :name => "district"
-  add_index "representative_votes", ["user_id"], :name => "user"
   add_index "representative_votes", ["district_id", "article_id"], :name => "district_article"
+  add_index "representative_votes", ["article_id"], :name => "article"
+  add_index "representative_votes", ["article_id", "district_id"], :name => "art_dist", :unique => true
 
   create_table "roll_votes", :force => true do |t|
     t.integer  "roll_id"
@@ -306,22 +302,22 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.datetime "created_at",    :null => false
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string "name", :default => "", :null => false
   end
 
   create_table "tickets", :force => true do |t|
-    t.integer  "worth",           :limit => 10, :precision => 10, :scale => 0
+    t.integer  "worth",           :limit => 10
     t.integer  "community_id"
     t.string   "transaction_id"
     t.text     "amazon_response"
-    t.string   "currency",                                                     :default => "leaf"
-    t.integer  "amount",          :limit => 10, :precision => 10, :scale => 0
-    t.string   "fee_currency",                                                 :default => "USD"
-    t.integer  "fee_amount",      :limit => 10, :precision => 10, :scale => 0
+    t.string   "currency",                      :default => "leaf"
+    t.integer  "amount",          :limit => 10
+    t.string   "fee_currency",                  :default => "USD"
+    t.integer  "fee_amount",      :limit => 10
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -333,7 +329,7 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.string   "salt",                      :limit => 40, :default => "", :null => false
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
-    t.string   "remember_token",                          :default => "", :null => false
+    t.string   "remember_token",                          :default => ""
     t.datetime "remember_token_expires_at"
     t.string   "zip",                       :limit => 20, :default => "", :null => false
     t.string   "facebook_id"
@@ -350,14 +346,15 @@ ActiveRecord::Schema.define(:version => 20081205000924) do
     t.datetime "created_at",                                  :null => false
   end
 
-  create_table "zip_fips", :primary_key => "zip", :force => true do |t|
-    t.string "po_name",          :limit => 20
-    t.string "state_county_fip", :limit => 5
-    t.string "state_fip",        :limit => 2
-    t.string "state",            :limit => 50
-    t.string "county_fip",       :limit => 3
-    t.string "county",           :limit => 50
-    t.float  "zip_squaremile",                 :default => 0.0
+  create_table "zip_fips", :id => false, :force => true do |t|
+    t.integer "zip",                                             :null => false
+    t.string  "po_name",          :limit => 20
+    t.string  "state_county_fip", :limit => 5
+    t.string  "state_fip",        :limit => 2
+    t.string  "state",            :limit => 50
+    t.string  "county_fip",       :limit => 3
+    t.string  "county",           :limit => 50
+    t.float   "zip_squaremile",                 :default => 0.0
   end
 
 end

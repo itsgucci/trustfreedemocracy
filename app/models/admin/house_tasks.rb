@@ -6,7 +6,9 @@ require 'net/http'
 
 class Admin::HouseTasks < ActiveRecord::Base
   
-  @community = Community.find_by_name "United States Congress"
+  def current_community
+    @community ||= Community.find_by_name('United States Congress')
+  end
   
   def self.first_import
     create_districts
@@ -38,7 +40,7 @@ class Admin::HouseTasks < ActiveRecord::Base
             user = User.create(:name => first + " " + last, :salt => "")
             user.save_without_validation
             state = $3; district = $4
-            district = District.create(:name => "#{state} #{district}", :community_id => @community.id, :user_id => user.id)
+            district = District.create(:name => "#{state} #{district}", :community_id => current_community.id, :user_id => user.id)
             puts "created #{state} #{district} with rep #{first} #{last}"
           end
         end

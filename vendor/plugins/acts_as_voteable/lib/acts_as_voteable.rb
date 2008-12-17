@@ -30,16 +30,16 @@ module Juixe
       module InstanceMethods
         def votes_for
           votes = Vote.find(:all, :conditions => [
-            "voteable_id = ? AND voteable_type = ? AND vote = TRUE",
-            id, self.type.name
+            "voteable_id = ? AND voteable_type = ? AND vote = ?",
+            id, self.type.name, true
           ])
           votes.size
         end
         
         def votes_against
           votes = Vote.find(:all, :conditions => [
-            "voteable_id = ? AND voteable_type = ? AND vote = FALSE",
-            id, self.type.name
+            "voteable_id = ? AND voteable_type = ? AND vote = ?",
+            id, self.type.name, false
           ])
           votes.size
         end

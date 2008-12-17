@@ -1,10 +1,20 @@
+<%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
+<div>
+	<%- form_for District.new(:community_id => current_community.id) do |f| %>
+	<p>district: <%= f.text_field 'name' %></p>
+	<p>description: <%= f.text_field 'description' %></p>
+	<%= f.hidden_field 'community_id' %>
+	<p><%= submit_tag "New" %></p>
+	<%- end %>
+</div>
+<%- end %>
 <table>
 	<thead>
-		<tr><th>Representative</th><th>District</th><th>Location</th></tr>
+		<tr><th>Representative</th><th>Region</th><th>Description</th></tr>
 	</thead>	
-<%- @community.districts.each do |dist| %>
+	<%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
+	<%- @community.districts.each do |dist| %>
 	<tr>
-		<%- if logged_in? && current_user.has_privilege?('manage districts', @community) %>
 		<td>
 			<%= in_place_select_editor( :content => {
 			       :element => 'span',
@@ -60,11 +70,15 @@
 			  ) 
 			%>
 		</td>
-		<%- else %>
+	</tr>
+	<%- end %>
+	<%- else %>
+	<%- @community.districts.each do |dist| %>
+	<tr>
 		<td><%= dist.representative ? link_to( dist.representative.name, dist.representative ) : "unknown" %></td>
 		<td class=""><%= link_to dist.name, dist %></td>
 		<td class="golden_big"><%= dist.description.blank? ? "No Description" : h(dist.description) %></td>
-		<%- end %>
 	</tr>
+	<%- end %>
 <%- end %>
 </table>

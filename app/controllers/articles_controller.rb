@@ -1,3 +1,4 @@
+require 'ruby-debug'
 class ArticlesController < ApplicationController    
   
   before_filter :login_required, :except => [:index, :grid, :new, :show, :show_action, :show_support, :show_discussion, :show_focus, :show_reports, :show_results, :show_vote, :show_management]
@@ -5,6 +6,7 @@ class ArticlesController < ApplicationController
   #before_filter :community_membership_required, :only => [:add_support, :remove_support, :vote]
   
   def index
+    redirect_to('/table') and return
     @articles = current_community.articles.search params[:search], :page => params[:page], :per_page => 7, :order => "support_count DESC"
     if @articles.total_entries == 1
       redirect_to @articles.first
@@ -35,8 +37,8 @@ class ArticlesController < ApplicationController
   end
   
   def create
+    debugger
     if request.post?
-      
       # short circut them if it already exists and return them this
       if params[:article][:tom_id]
         if article = Article.find_by_tom_id(params[:article][:tom_id])
@@ -51,20 +53,16 @@ class ArticlesController < ApplicationController
       article.community = current_community
       article.article_type_id = params[:type]
       article.cost = "0" if article.cost.nil?
-      #certify the article
+      #certify the article todo, this needs to be more robust to cover community
       if article.district
         article.certified = article.district.certified? current_user
       else
         article.certified = false
       end
+      article.author = current_user
       if article.save
-        if logged_in? && has_privilege?('set author') && params[:user_id]
-          article.author = User.find(params[:user_id])
-        else
-          article.author = current_user
-        end    
-          article.actions.create(:house => "O", :action => "#{ article.article_type.name } Created: #{ article.title }", :district_id => article.district.id, :processed => true )
-        flash[:notice] = "<p>This #{ article.article_type.name } is now in the Develop Legislation stage of #{ article.district.name }</p><p>You are the author and may edit this Motion as you see fit</p><p>Share link: #{ article_url(article) }</p>"
+        article.actions.create(:house => "O", :action => "#{ article.article_type.name } Created: #{ article.title }", :district_id => article.district_id, :processed => true )
+        flash[:notice] = "<p>This #{ article.article_type.name } is now in the Development stage</p><p>You are the author and may edit this Motion as you see fit</p><p>Share link: #{ article_url(article) }</p>"
         redirect_to article
       else
         render :action => 'new'

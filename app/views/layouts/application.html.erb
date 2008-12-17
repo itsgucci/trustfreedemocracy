@@ -62,9 +62,9 @@
 				</ul>
 				<ul style="" id="site_navigation" class="left_links">
 					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths"><%= link_to_unless_current "Browse all Laws", {:controller => '/table'} %></li>
-					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts">&gt;<%= link_to_unless_current "Change the Laws", new_article_path %></li>
-					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "My Rep's Priority", {:controller => '/proposals'} %></li>
-					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "How am I doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
+					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Change the Laws", new_article_path %></li>
+					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?"><%= link_to_unless current_page?( :controller => 'proposals'), "My Rep's Priority", {:controller => '/proposals'} %></li>
+					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?"><%= link_to_unless logged_in? && current_page?( user_path(current_user)), "How am I doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
 				</ul>
 				<%- end %>
 				<ul class="right_links">
@@ -75,7 +75,7 @@
 					<li>
 						<%- form_tag '/articles', :method => 'get' do %>
 							<%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
-							<%= text_field_tag "search", "Search All Laws", :onblur => "if(this.value == '') this.value = 'Search All Laws';", :onclick => "if(this.value == 'Search All Laws') this.value = '';", :size => "13", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
+							<%= text_field_tag "search", "Search All Laws", :onblur => "if(this.value == '') this.value = 'Search All Laws';", :onclick => "if(this.value == 'Search All Laws') this.value = '';", :size => "11", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
 						<%- end %>
 					</li>
 				</ul>
@@ -164,10 +164,12 @@
 	<!-- magic little lightbox code for login -->
 	<div id="overlay" onclick="hideBox()" style="display:none"></div>
 	<!-- click outside to exit, desired><div id="overlay" style="display:none"></div><-->
+	<%- unless logged_in? %>
 	<div class="lightbox" id="login_required" style="display:none">
 	    <img class="close" src="/images/close.gif" onclick="hideBox()" alt="Close" title="Cancel my participation" style="width: 36px; height: 36px;" />
 		<iframe src="<%= SSL_ROOT + 'sessions/login_iframe' %>" width="100%" height="265px"></iframe>
 	</div>
+	<%- end %>
 	<script type="text/javascript">
 	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

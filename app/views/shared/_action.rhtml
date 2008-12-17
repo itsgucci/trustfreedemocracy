@@ -2,13 +2,14 @@
 <p class="larger">There is no Progress on record</p>
 <%- else %>
 <table class="ruler">
-	<thead style="display:none">
-		<tr><th>Date</th><th>Action</th></tr>
+	<thead>
+		<tr><th>Date</th><th>House</th><th>Action</th></tr>
 	</thead>
 	<tbody id="progress">
 		<%- for action in actions %>
-		<tr class="action" style="cursor:pointer" onclick="document.location.href='<%= url_for action.article %>'">
-			<td class="dull smaller"><%#= action.created_at.strftime("%Y.%m.%d %H:%M") %><%= action.created_at.strftime("%m/%d/%y") %></td>
+		<tr class="action">
+			<td class="dull smaller"><%= action.created_at.strftime("%m/%d/%y") %></td>
+			<td><%= h action.house %></td>
 			<td><%= h action.action %></td>
 		</tr>
 		<%- end %>

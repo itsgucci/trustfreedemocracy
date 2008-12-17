@@ -125,7 +125,7 @@ class Article < ActiveRecord::Base
   
   def support_percentage
     return 0 if support_count == 0
-    ((support_count.to_f / community.population) * 100)
+    ((support_count.to_f / community.tax_population) * 100)
   end
   def support_entity
     if draft? || focus?
@@ -238,26 +238,26 @@ class Article < ActiveRecord::Base
     if draft?
       if update_attribute('stage', 2)
         action = "#{ title } has been finalized and is now a possible Priority"
-        actions << Action.new(:district_id => district.id, :house => "O", :action => action, :processed => true)
+        actions << Action.new(:community_id => community_id, :district_id => district_id, :house => "O", :action => action, :processed => true)
       end
     end
   end
   def move_to_comite
     if update_attribute('stage', 3)
       action = "#{ title } has entered Legislature"
-      actions << Action.new(:district_id => district.id, :house => "O", :action => action, :processed => true)
+      actions << Action.new(:community_id => community_id, :district_id => district_id, :house => "O", :action => action, :processed => true)
     end
   end
   def move_to_vote
     if update_attribute('stage', 4)
       action = "#{ title } is now open for Vote"
-      actions << Action.new(:district_id => district.id, :house => "O", :action => action, :processed => true)
+      actions << Action.new(:community_id => community_id, :district_id => district_id, :house => "O", :action => action, :processed => true)
     end
   end
   def kill
     if update_attribute('stage', 6)
       action = "#{ title } has been Killed"
-      actions << Action.new(:district_id => district.id, :house => "O", :action => action, :processed => true)
+      actions << Action.new(:community_id => community_id, :district_id => district_id, :house => "O", :action => action, :processed => true)
     end
   end
   

@@ -10,14 +10,14 @@ class DistrictsController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :show }
   
-  def change_district
-    if params[:id] == "0"
-      self.current_district = nil
-    else
-      self.current_district = District.find(params[:id])
-    end
-    redirect_to :back
-  end
+  # def change_district
+  #   if params[:id] == "0"
+  #     self.current_district = nil
+  #   else
+  #     self.current_district = District.find(params[:id])
+  #   end
+  #   redirect_to :back
+  # end
   
   def show
     if params[:id] == "0"
