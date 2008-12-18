@@ -5,9 +5,16 @@
 <ul class="orangelist">
 	<%- for district in @user.district_memberships %>
 	<p><%= link_to h(district.full_name), district %> 100% by <%= h( district.representative.name ) if district.representative %></p>
-	<%#- @user.votes.all(:conditions => {:district_id => district.id }).each do |vote| %>
-		<%#= vote.voteable_id %>
-	<%#- end %>
+	<%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
+		<%= vote.voteable_id %>
+	<%- end %>
 	<%- end %>
 </ul>
+<%- end %>
+
+<%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
+	<%- article = Article.find(vote.voteable_id) %>
+	<%= article.title %>
+	<%= vote.vote %>
+	<%= article.represented?(current_user, current_district.representative) %>
 <%- end %>

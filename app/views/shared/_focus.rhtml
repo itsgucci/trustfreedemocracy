@@ -11,7 +11,7 @@
 			</div>
 			<div class="right_column half" style="">
 				<ul id="user_focus_list<%= @article.id %>" class="scrolling_box orangelist">
-					<%- for user in @article.active_endorsers %>
+					<%- for user in @article.endorsers %>
 						<li id="user_focuser<%= @article.id.to_s + '_' + user.id.to_s %>"><%= link_to user.name, user %></li>
 					<%- end %>
 				</ul>

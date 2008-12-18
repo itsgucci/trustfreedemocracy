@@ -24,7 +24,7 @@ class Article < ActiveRecord::Base
   has_many :articles_supporters, :dependent => :destroy
   has_many :supporters, :through => :articles_supporters, :source => :user
   
-  has_many :endorsements, :dependent => :destroy
+  has_many :endorsements, :dependent => :destroy, :conditions => { :ended_at => nil }
   has_many :endorsers, :through => :endorsements, :source => :user
     
   has_many :comite_stages
@@ -35,7 +35,7 @@ class Article < ActiveRecord::Base
   named_scope :if_certified, lambda { |certified| certified ? { :conditions => { :certified => true } } : {} }
   named_scope :tag_filter, lambda { |tag_array| { :include => :taggings, :conditions => ['taggings.tag_id IN (?)', tag_array] } }
   
-  named_scope :active_endorsers, :include => :endorsements, :conditions => 'endorsements.ended_at IS NULL'
+  #named_scope :active_endorsers, :include => :endorsements, :conditions => ['endorsements.ended_at = ?', nil]
   
   named_scope :most_supported, lambda { |number| {:order => "support_count ASC", :limit => number} }
   
@@ -157,17 +157,13 @@ class Article < ActiveRecord::Base
   end
   
   def unendorse(user)
-    if endorsement = Endorsement.first(:conditions => ["user_id = ? AND district_id = ? AND ended_at is NULL", user.id, self.district_id])
+    if endorsement = Endorsement.first(:conditions => ["user_id = ? AND district_id = ? AND ended_at = ?", user.id, self.district_id, nil])
       Article.transaction do
         endorsement.update_attribute('ended_at', Time.now)
         Article.decrement_counter('focus_count', self.id)
       end
       true
     end
-  end
-  
-  def active_endorsers
-    endorsers.all(:conditions => "ended_at is NULL", :order => 'created_at')
   end
   
   def voted?(user)
@@ -192,6 +188,19 @@ class Article < ActiveRecord::Base
   end
   def votes_present
     votes.all(:conditions => { :voteable_type => 'Article', :voteable_id => id, :vote => 2 }).size
+  end
+  
+  def represented?(user, representative)
+    return false unless voted?(user) && voted?(representative)
+    if ratified_by?(user) && ratified_by?(representative)
+      true
+    elsif opposed_by?(user) && opposed_by?(representative)
+      true
+    elsif present_by?(user) && present_by?(representative)
+      true
+    else
+      false
+    end
   end
 
   def assigned_to_comite?

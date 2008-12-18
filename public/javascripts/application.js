@@ -195,15 +195,16 @@ function center(element){
 }
 
 var loaded_articles = new Array();
+var smaller = false;
 function showArticle(id) {
-  if ($F('smaller') != 'shrunk') {
+  if (!smaller) {
     // scale it and hide it to the right
     new Effect.Morph('browse_box', {style: 'width:18%'});
     new Effect.Move('browse_box', { x: $('content').getWidth() - $('content').getWidth() * .21 }); 
     new Effect.multiple($$('.col3'), Effect.Fade, {speed: 0});
     new Effect.multiple($$('.col4'), Effect.Fade, {speed: 0});
     new Effect.Fade('extra_header');
-    $('smaller').value = 'shrunk'
+    smaller = true;
   }
   if (loaded_articles.include(id)) {
     Effect.ScrollTo( 'article'+id);

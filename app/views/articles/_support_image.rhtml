@@ -1,1 +1,3 @@
-<%= image_tag GoogleChart.pie(@article.support_percentage, 100 - @article.support_percentage).to_url, :style => "width:#{ @width || '200'}px", :alt => "Support: " + number_to_percentage(@article.support_percentage, :precision => 2).to_s, :title => "Support: " + number_to_percentage(@article.support_percentage.to_s, :precision => 2) %>
+<div class="support_image<%= @article.id %>" style="width:<%= @width || '200' %>px">
+	<%= image_tag GoogleChart.pie(@article.support_percentage, 100 - @article.support_percentage).to_url, :alt => "Support: " + number_to_percentage(@article.support_percentage, :precision => 2).to_s, :title => "Support: " + number_to_percentage(@article.support_percentage.to_s, :precision => 2), :style => "width:100%" %>
+</div>

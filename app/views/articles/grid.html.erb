@@ -7,7 +7,6 @@
 		<%= render :partial => 'grid' %>
 		<%- form_tag('', :method => :get, :id => 'grid_params') do %>
 			<%= dump_filter_parameters_as_hidden_fields(@articles_grid) %>
-			<%= hidden_field_tag :smaller, false %>
 		<%- end %>
 		<div id="bottom_of_list">Loading more Laws <%= image_tag 'indicator.gif', :alt => 'working...' %></div>
 	</div>

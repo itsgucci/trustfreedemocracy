@@ -8,8 +8,8 @@
 		)
 		%>
 	<%- else %>
-		<%- if @district.website %>
-		<%= textile(@district.website) %>
+		<%- if @district.website.content %>
+		<%= textile(@district.website.content) %>
 		<%- else %>
 		<p class="larger"><%= h @district.name %>'s website is blank!</p>
 		<%- end %>
