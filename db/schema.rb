@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081217002024) do
+ActiveRecord::Schema.define(:version => 20081228032903) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -24,6 +24,14 @@ ActiveRecord::Schema.define(:version => 20081217002024) do
   create_table "api_users", :force => true do |t|
     t.string   "login"
     t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "article_texts", :force => true do |t|
+    t.integer  "article_id"
+    t.string   "version"
+    t.text     "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,29 +51,29 @@ ActiveRecord::Schema.define(:version => 20081217002024) do
 
   create_table "articles", :force => true do |t|
     t.string   "tom_id",          :limit => 1000
-    t.integer  "community_id",                                                                          :null => false
+    t.integer  "community_id",                                       :null => false
     t.integer  "district_id"
     t.integer  "user_id"
-    t.integer  "article_type_id",                                                    :default => 1,     :null => false
+    t.integer  "article_type_id",                 :default => 1,     :null => false
     t.text     "title"
     t.text     "summary"
-    t.text     "text",            :limit => 16777215
-    t.integer  "stage",           :limit => 1,                                       :default => 1,     :null => false
-    t.decimal  "cost",                                :precision => 20, :scale => 2
+    t.integer  "stage",           :limit => 1,    :default => 1,     :null => false
+    t.decimal  "cost"
     t.integer  "version"
-    t.datetime "updated_at",                                                                            :null => false
-    t.boolean  "certified",                                                          :default => false, :null => false
-    t.integer  "support_count",                                                      :default => 0
-    t.integer  "session",                                                            :default => 0
-    t.integer  "focus_count",                                                        :default => 0
+    t.datetime "updated_at",                                         :null => false
+    t.boolean  "certified",                       :default => false, :null => false
+    t.integer  "support_count",                   :default => 0
+    t.integer  "session",                         :default => 0
+    t.integer  "focus_count",                     :default => 0
     t.string   "number"
-    t.decimal  "cost_per_hour",                       :precision => 8,  :scale => 2
+    t.decimal  "cost_per_hour"
     t.datetime "created_at"
+    t.integer  "article_text_id"
   end
 
-  add_index "articles", ["community_id"], :name => "community"
-  add_index "articles", ["stage"], :name => "stage"
   add_index "articles", ["district_id"], :name => "district"
+  add_index "articles", ["stage"], :name => "stage"
+  add_index "articles", ["community_id"], :name => "community"
 
   create_table "articles_supporters", :force => true do |t|
     t.integer  "article_id",                         :null => false
@@ -155,10 +163,10 @@ ActiveRecord::Schema.define(:version => 20081217002024) do
     t.boolean  "certified",                       :default => false
   end
 
-  add_index "comments", ["created_at"], :name => "created"
-  add_index "comments", ["category_code"], :name => "category"
-  add_index "comments", ["commentable_type", "commentable_id"], :name => "type_and_id"
   add_index "comments", ["user_id"], :name => "fk_comments_user"
+  add_index "comments", ["commentable_type", "commentable_id"], :name => "type_and_id"
+  add_index "comments", ["category_code"], :name => "category"
+  add_index "comments", ["created_at"], :name => "created"
 
   create_table "communities", :force => true do |t|
     t.integer  "parent_id",      :default => 0,    :null => false
@@ -171,8 +179,8 @@ ActiveRecord::Schema.define(:version => 20081217002024) do
     t.datetime "sync_date"
   end
 
-  add_index "communities", ["parent_id"], :name => "parent_id"
   add_index "communities", ["name"], :name => "name"
+  add_index "communities", ["parent_id"], :name => "parent_id"
 
   create_table "districts", :force => true do |t|
     t.integer "community_id",                                        :null => false
@@ -262,9 +270,9 @@ ActiveRecord::Schema.define(:version => 20081217002024) do
     t.datetime "created_on",  :null => false
   end
 
-  add_index "representative_votes", ["district_id", "article_id"], :name => "district_article"
-  add_index "representative_votes", ["article_id"], :name => "article"
   add_index "representative_votes", ["article_id", "district_id"], :name => "art_dist", :unique => true
+  add_index "representative_votes", ["article_id"], :name => "article"
+  add_index "representative_votes", ["district_id", "article_id"], :name => "district_article"
 
   create_table "roll_votes", :force => true do |t|
     t.integer  "roll_id"
@@ -302,8 +310,8 @@ ActiveRecord::Schema.define(:version => 20081217002024) do
     t.datetime "created_at",    :null => false
   end
 
-  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
   add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
     t.string "name", :default => "", :null => false

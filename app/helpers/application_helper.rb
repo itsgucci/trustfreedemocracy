@@ -17,7 +17,9 @@ module ApplicationHelper
     if logged_in?
       link_to "logout", '/logout', :help => 'Click here to logout of your Account'
     else
-      link_to "Login", '/login', :help => 'Click here to Sign in to your Account', :style => "font-weight: bold"
+      link_to( "Login", '/login', :help => 'Click here to Sign in to your Account', :style => "font-weight: bold" ) + 
+      " <fb:login-button size=\"small\" background=\"white\" length=\"short\"></fb:login-button>"
+      #escaped and ugly. thanks zuckerberg
     end
   end
   
@@ -92,23 +94,8 @@ module ApplicationHelper
     return ret
   end
   
-  def ajax_module_link(module_name, object)
-    link_to_remote module_name,
-		 	:url => { :controller => '/modules', :action => 'load_module', 
-		 	          :type => object.class, :type_id => object.id, 
-		 	          :module => module_name }
-  end
-  
-  def render_module(module_name, object)
-    render :partial => '/modules/' + module_name + '/' + module_name, :locals => { :object => object }
-  end
-  
   def new_page_link(text, object)
     link_to text, :controller => 'pages', :action => 'new', :for_type => object.class, :for_id => object
-  end
-  
-  def description_generator
-    %W(war atrocities women hunger american terrorism wal-mart children oil propaganda waste corruption fish baseball sports salmon red green blue orange white racism liberty freedom peace money greed wealth popularity contest wicked cricket unlawful lawful just shower).rand
   end
   
   def interest_select

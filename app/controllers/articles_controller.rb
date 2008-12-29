@@ -53,14 +53,16 @@ class ArticlesController < ApplicationController
       article.article_type_id = params[:type]
       article.cost = "0" if article.cost.nil?
       #certify the article todo, this needs to be more robust to cover community
+      article.author = current_user
       if article.district
         article.certified = article.district.certified? current_user
       else
-        article.certified = false
+        article.certified = article.community.certified? current_user
       end
-      article.author = current_user
       if article.save
-        article.actions.create(:house => "O", :action => "#{ article.article_type.name } Created: #{ article.title }", :district_id => article.district_id, :processed => true )
+        article.set_current_version "DU"
+        article.text = params[:text]
+        article.actions.create(:house => "DU", :action => "#{ article.article_type.name } Created: #{ article.title }", :district_id => article.district_id, :processed => true )
         flash[:notice] = "<p>This #{ article.article_type.name } is now in the Development stage</p><p>You are the author and may edit this Motion as you see fit</p><p>Share link: #{ article_url(article) }</p>"
         redirect_to article
       else

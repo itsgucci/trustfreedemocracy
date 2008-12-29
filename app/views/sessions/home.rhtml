@@ -1,5 +1,5 @@
 <div class="box rounded">
-	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> where your voice is law</span></h1>
+	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> where <strong>your</strong> voice makes <strong>laws</strong></span></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
@@ -14,7 +14,8 @@
 				</div>
 			<%- else %>
 				<div class="box">
-					<p>It is easy to make the world a better place with personal democracy</p>
+					<p>Make the world a better place right now with sensible laws</p>
+					<p><%= link_to current_community.name, current_community %> is online! We connect you directly to your representative and enable you to cast a direct vote and engage in open discussion about issues that are important to you. </p>
 					<p>Our online version of <%= link_to current_community.name, current_community %> enables <strong>you</strong> to take an active role in democracy. We encourage people to come together as a community to make laws that make sense, to us, and them. We offer a certification program enabling registered voters to validate their voices and cast official votes. We hope that when the people lead, the leaders will follow.</p>
 					<p>Help unite people in respectable consensus with Democracy Universal</p>
 					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
@@ -43,7 +44,20 @@
 				<div class="box">
 					<h2 class="header">Get Started</h2>
 					<div class="body">
-						<p><%= link_to "Create a new Account", "/signup", :class => "larger" %> <br />or <%= link_to "Sign In", "/login", :class => "larger" %></p>	
+						<p>
+							<div class="p_padding" style="padding: 0 0.5em">
+								<fb:login-button size="medium" background="white" length="long"></fb:login-button>
+							</div>
+						</p>
+						<p> <%= link_to "Create a new Account", "/signup", :class => "larger" %> <br />or <%= link_to_function "Sign In", visual_effect(:toggle_blind, :the_q), :class => "larger" %></p>
+						<div id="the_q" style="display:none">
+							<% form_tag SSL_ROOT + 'sessions/create' do %>
+								<p><label for="user_login" help="This is the login name you chose when creating your account. If you do not have an account click Create an Account below">Email</label> <%= text_field_tag :login, nil, :size => 13 %></p>
+								<p><label for="user_password" help="This is your password. Keep it secret, keep it safe.">Password</label> <%= password_field_tag 'password', nil, :size => 10  %></p>	
+								<p style="float:left"><%= check_box_tag 'remember_me' %> <label for="remember_me" class="smaller">remember me</label></p>
+								<p class="" style="font-size: large"><%= submit_tag "Login" %></p>
+							<% end %>
+						</div>
 					</div>
 				</div>
 				<%- end %>

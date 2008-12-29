@@ -4,7 +4,7 @@ padding: 0;
 }
 
 body {
-background: url('/images/background.png') #fff no-repeat fixed;
+background: url('/images/background_original.png') #fff no-repeat fixed;
 /*  background: url('/images/real_background.gif') #fff no-repeat fixed;*/
 color: #333;
 font-size: 16px;
@@ -228,7 +228,7 @@ min-height: 420px;
 }
 #content > .box, #content > .container {
   margin: 1em;
-  max-width: 1000px;
+  max-width: 920px;
   /*min-width: 920px;*/
 }
 

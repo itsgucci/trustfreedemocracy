@@ -67,28 +67,11 @@ class Admin::GovtrackImport < ActiveRecord::Base
       @article.tag_with term.text
     end
     
-    base_link = xml_link.gsub(/bills\/\S+/,'') + "bills.text/#{ bill.attributes['type'] }/#{ bill.attributes['type'] }#{ bill.attributes['number'] }"
-    extensions = [".html", ".xml", "ih.html", "eh.html"]
-    begin
-      @article.text = open( base_link + ".html" ).read
-    rescue
-      begin
-        @article.text = open(base_link + "eh.html" ).read
-      rescue
-        begin
-          @article.text = open(base_link + "ih.html").read
-        rescue
-          begin
-            @article.text = open(base_link + "es.html").read          
-          rescue
-            begin
-              @article.text = open(base_link + "pcs.html").read
-            rescue
-              @article.text = open(base_link + "is.html").read
-            end
-          end
-        end
-      end
+    # this should grab all versions of the bill
+    Dir[@folder + "/bills.text/#{ type }/#{ number }[^0-9]*.html"].each do |path|
+      next if path.match /gen\.html$/ # do not include govtrack generated reports
+      version = path.match(/(\w*).html$/)
+      @article.text = open(path).read
     end
         
     @article.community = current_community

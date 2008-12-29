@@ -1,7 +1,7 @@
 <div class="box budget">
 	<h2 class="header">Budget</h2>
 	<%- if @article.cost.nil? || @article.cost == 0 %>
-	<p>The Budget has not been disclosed</p>
+	<p>No Budget available</p>
 	<%- else %>
 	<div class="left_column golden_big">
 		<p class="larger"><%= number_with_delimiter @article.budget %> USD</p>

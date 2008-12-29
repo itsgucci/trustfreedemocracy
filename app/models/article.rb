@@ -3,8 +3,6 @@ require 'git'
 
 class Article < ActiveRecord::Base
   
-  #smells_like_git
-  #non_versioned_columns << 'article_type_id' << 'tom_id' << 'community_id' << 'certified'
   acts_as_commentable
   acts_as_taggable
   acts_as_voteable
@@ -12,6 +10,9 @@ class Article < ActiveRecord::Base
   badges_authorizable_object
   
   validates_presence_of :article_type_id
+  
+  belongs_to :article_text
+  has_many :article_texts
     
   belongs_to :district
   belongs_to :community  
@@ -48,6 +49,41 @@ class Article < ActiveRecord::Base
     has community_id
     has support_count
     has focus_count
+  end
+  
+  def text(specific_version = false)
+    if specific_version
+      if article_text = article_texts.find_by_version(specific_version)
+        article_text.text
+      else
+        nil
+      end
+    else
+      article_text_id ? ArticleText.find(article_text_id).text : nil
+    end
+  end
+  def text=(text, version = nil)
+    current_article_text = if version
+      article_texts.find_by_version(version)
+    else
+      article_text
+    end
+    current_article_text ||= article_texts.new #create if not found
+    current_article_text.version = version if version && current_article_text.new_record?
+    current_article_text.text = text
+    current_article_text.save
+  end
+  def versions
+    article_texts.map(&:version)
+  end
+  def set_current_version(version)
+    unless current_article_text = article_texts.find_by_version(version)
+      current_article_text = article_texts.create(:version => version)
+    end
+    update_attribute('article_text_id', current_article_text.id)
+  end
+  def current_version
+    article_text.version
   end
   
   def cosponsors

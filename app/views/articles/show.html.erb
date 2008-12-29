@@ -1,7 +1,7 @@
 <div id="article<%= @article.id %>" class="container">
 <div class="box rounded articles <%= certified_class @article %>">
 	<div class="header" id="l<%= @article.id %>">
-		<h1 class="number" help="Share this Motion with <%= article_url(@article) %>"><%= h @article.number %></h1>
+		<h1 class="number" help="Share this Motion with <%= article_url(@article) %>"><%= link_to h( @article.number ), article_url(@article)%></h1>
 		<div style="float:left; margin-right: 0.38em;" help="This Pie represents Support for <%= @article.number %>">
 			<%= @width = 50; render :partial => 'articles/support_image' %>
 		</div>
@@ -47,9 +47,9 @@
 			<%- end %>
 			
 			<%- if @article.tom_id %>
-			 - Original Source: <%= link_to @article.tom_id, @article.tom_id, :popup => true %>
+			 - Origin: <%= link_to @article.tom_id, @article.tom_id, :popup => true %>
 			<%- else %>
-			 - Original Source: <%= link_to article_url(@article), article_url(@article), :onclick => "return false;" %>
+			 - Origin: <%= link_to "Democracy Universal", article_url(@article), :onclick => "return false;" %>
 			<%- end %>
 		</h4>
 		<%= clear_both %>

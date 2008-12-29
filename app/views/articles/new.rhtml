@@ -9,7 +9,7 @@
 </div>
 <%- end %>
 <div class="box">
-	<h1 class="header">Change the Laws in <%= h current_community.name %></h1>
+	<h1 class="header">Change the Laws of <%= h current_community.name %></h1>
 	<div class="body">
 		<%- form_for @article do |f| %>
 			<p>Introduce a new Law</p>
@@ -24,18 +24,18 @@
 				<p><label for="article_title" style="display:none">Title</label><%= f.text_field 'title', :class => "larger", :style => "width: 97%" %></p>	
 			</div>
 			
-			<div id="district_section" style="display:none;margin-top: 1em">
+			<div id="district_section" style="display:none;margin-top: 1em" <%= 'class="hidden"' if current_community.districts.empty? %>>
 				<p>Introduce to District:</p>
-				<p><%= f.select("district_id", current_community.districts.all.map {|district| [ district.name, district.id ] }, {}, :onchange => "$('submit_button').value='Introduce to '+$('article_district_id').options[$('article_district_id').selectedIndex].text;") %></p>
+				<p><%= f.select("district_id", current_community.districts.all.map {|district| [ district.name, district.id ] }, {:include_blank => true}, :onchange => "$('submit_button').value='Introduce to '+$('article_district_id').options[$('article_district_id').selectedIndex].text;") %></p>
 			</div>
 			
 			<div id="budget_section" style="display:none;margin-top: 1em">
 				<div style="float:left;margin-right:2em">
-					<p style="">Approximate Budget:</p>
+					<p style="">Approximate 5 Year Budget:</p>
 					<p><label for="article_cost" style="display:none">Budget</label><%= f.text_field 'cost', :class => "larger", :style => "width: 11em; text-align: right" %> USD</p>	
 				</div>
 				<div style="">
-					<p style="">Approximate Cost per Hour:</p>
+					<p style="">or Approximate Cost per Hour:</p>
 					<p><label for="article_cost_per_hour" style="display:none">Budget</label><%= f.text_field 'cost_per_hour', :class => "larger", :style => "width: 11em; text-align: right" %> USD</p>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 			
 			<div id="proposal_section" style="display:none">
 				<p id="proposal_label" style="margin-top: 1em">Write the Formal Law (in legal speak):</p>
-				<p><label for="article_text" style="display:none">Formal Proposal</label><%= f.text_area 'text', :class => "larger", :style => "width: 97%", :onkeyup => "grow_text_area(this);", :rows => 5 %></p>
+				<p><label for="article_text" style="display:none">Formal Proposal</label><%= text_area_tag 'text', nil, :class => "larger", :style => "width: 97%", :onkeyup => "grow_text_area(this);", :rows => 5 %></p>
 			</div>
 			
 			<div id="submit_section" style="display:none">

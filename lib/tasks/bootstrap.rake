@@ -1,6 +1,6 @@
 namespace :bootstrap do
   desc "Initializes the Root user Account"
-  task :default_user => [:environment, :default_badges] do
+  task :user_from_input => [:environment, :default_badges] do
     puts "{Setup your root account"
     name = ask "Displayed Name: "
     email = ask "Email address: "
@@ -15,10 +15,31 @@ namespace :bootstrap do
     user.grant_role('admin')
     puts "Root account setup}"
   end
+  task :default_user => [:environment, :default_badges] do
+    name = "Eric Weinert"
+    email = "void@democracyuniversal.com"
+    username = "admin"
+    password = "democracy"
+    if User.exists?(:id => 1)
+      user = User.find 1
+      user.update_attributes( :name => name, :email => email, :login => username, :password => password )
+    else
+      user = User.create(:id => 1, :name => name, :email => email, :login => username, :password => password)
+    end
+    user.grant_role('admin')
+    puts "Default root account setup"
+    puts "username: #{username}"
+    puts "password: #{password}"
+  end
 
   desc "Create the default comment"
-  task :default_community => :environment do
+  task :community_from_input => :environment do
     name = ask "Default legislature name: "
+    Community.create( :name => name )
+  end
+  desc "Create the default comment"
+  task :default_community => :environment do
+    name = "Democracy Universal"
     Community.create( :name => name )
   end
   

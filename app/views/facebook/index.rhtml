@@ -1,18 +1,16 @@
 <div class="box">
-	<h1 class="header">Democracy Universal + Facebook</h1>
+	<h1 class="header">Democracy Universal + Facebook Connect</h1>
 	<div class="body">
 		<div class="right_column golden_small">
+			<%- if logged_in? %>
 			<div class="box">
 				<h2 class="header">Democracy Universal</h2>
-				<%- if logged_in? %>
 				<p><%= h current_user.name %></p>
 				<p>id: <%= current_user.id %></p>
-				<%- else %>
-				<p>Please Login</p>
-				<%- end %>
 			</div>
+			<%- end %>
 			<div class="box">
-				<h2 class="header">Facebook</h2>
+				<h2 class="header">Facebook Connect</h2>
 				<%- if facebook_user.populated? %>
 					<%- unless facebook_user.pic.blank? %>
 					<p style="float:left"><%= image_tag facebook_user.pic %></p>
