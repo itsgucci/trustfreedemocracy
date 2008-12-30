@@ -4,7 +4,9 @@ class FacebookController < ApplicationController
   #ensure_application_is_installed_by_facebook_user
   
   def index
-    self.current_user ||= User.find_by_facebook_id(facebook_user.id)
+    unless logged_in?
+      self.current_user = User.find_by_facebook_id(facebook_user.id)
+    end
     unless logged_in? 
       new_user = User.new
       new_user.facebook_id = facebook_user.id

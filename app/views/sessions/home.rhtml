@@ -28,6 +28,16 @@
 				<div class="box">
 					<h2 class="header">My Democracy</h2>
 					<div class="body">
+						<fb:profile-pic uid="loggedinuser"></fb:profile-pic>
+						<fb:name uid="loggedinuser" useyou="false"></fb:name>
+						server side: 
+						<%- if facebook_user %>
+						<%= h facebook_user.name %>: <%= facebook_user.id %>
+						<%- else %>
+						no facebook_user
+						<%- end %>
+					</div>
+					<div class="body">
 						<%- if current_user.district_memberships.empty? %>
 						<p class="notice">To get started, select your democracy</p>
 						<%- else %>
@@ -48,11 +58,6 @@
 								<fb:login-button size="large" background="white" length="long" onlogin="document.location='/facebook'"></fb:login-button>
 							</div>
 						</p>
-					<div class="body">
-						<fb:profile-pic uid="loggedinuser"></fb:profile-pic>
-						<fb:name uid="loggedinuser"></fb:name>
-						
-					</div>
 				</div>
 				<%- end %>
 				<div class="box">
