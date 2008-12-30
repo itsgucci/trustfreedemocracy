@@ -58,6 +58,16 @@
 								<fb:login-button size="large" background="white" length="long" onlogin="facebook_connected();"></fb:login-button>
 							</div>
 						</p>
+						<div class="body">
+							<fb:profile-pic uid="loggedinuser"></fb:profile-pic>
+							<fb:name uid="loggedinuser" useyou="false"></fb:name>
+							server side: 
+							<%- if facebook_user %>
+							<%= h facebook_user.name %>: <%= facebook_user.id %>
+							<%- else %>
+							no facebook_user
+							<%- end %>
+						</div>
 				</div>
 				<%- end %>
 				<div class="box">

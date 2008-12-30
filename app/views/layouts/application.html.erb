@@ -159,7 +159,7 @@
 	</div>
 	<%- end %>
 	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
-	<script type="text/javascript">FB.init("28c89fa8a706f95c41f58b9e6a2be32a","xd_receiver.htm");</script> 
+	<script type="text/javascript">FB.init("28c89fa8a706f95c41f58b9e6a2be32a","xd_receiver.htm");FB.Facebook.get_sessionState().waitUntilReady(function(){window.location=window.location;});</script> 
 	<script type="text/javascript">
 	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
