@@ -9,7 +9,7 @@ module AuthenticatedSystem
     # Accesses the current user from the session.  Set it to :false if login fails
     # so that future calls do not hit the database.
     def current_user
-      @current_user ||= (login_from_session || login_from_basic_auth || login_from_cookie || :false)
+      @current_user ||= (login_from_session || login_from_facebook || login_from_basic_auth || login_from_cookie || :false)
     end
     
     # Store the given user in the session.
@@ -99,6 +99,11 @@ module AuthenticatedSystem
     # Called from #current_user.  First attempt to login by the user id stored in the session.
     def login_from_session
       self.current_user = User.find_by_id(session[:user]) if session[:user]
+    end
+    
+    # called from #current_user. Attempts to load the user from facebooker credentials
+    def login_from_facebook
+      self.current_user = User.find_by_facebook_id(session[:facebook_session].user.id) if session[:facebook_session] && session[:facebook_session].secure!
     end
 
     # Called from #current_user.  Now, attempt to login by basic authentication information.

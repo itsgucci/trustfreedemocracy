@@ -215,3 +215,8 @@ function showArticle(id) {
   }
   return false;
 }
+
+
+function facebook_connected() {
+  document.location.reload();
+}

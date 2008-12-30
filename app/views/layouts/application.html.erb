@@ -40,7 +40,7 @@
 				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="25px" height="25px"></fb:profile-pic>
 				<%= link_to "logout", '/logout' %>
 			<%- else  %>
-				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="document.location='/facebook';"></fb:login-button></div>
+				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();"></fb:login-button></div>
 			<%- end  %>			
 			</div>
 			<ul class="horizontal district larger">
@@ -152,7 +152,7 @@
 	<!-- magic little lightbox code for login -->
 	<div id="overlay" onclick="hideBox()" style="display:none"></div>
 	<!-- click outside to exit, desired><div id="overlay" style="display:none"></div><-->
-	<%- unless true && logged_in? %>
+	<%- unless true || logged_in? %>
 	<div class="lightbox" id="login_required" style="display:none">
 	    <img class="close" src="/images/close.gif" onclick="hideBox()" alt="Close" title="Cancel my participation" style="width: 36px; height: 36px;" />
 		<iframe src="<%= SSL_ROOT + 'sessions/login_iframe' %>" width="100%" height="265px"></iframe>

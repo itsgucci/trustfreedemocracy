@@ -1,9 +1,12 @@
+require 'ruby-debug'
+
 class FacebookController < ApplicationController
   
   ensure_authenticated_to_facebook
   #ensure_application_is_installed_by_facebook_user
   
   def index
+    debugger
     unless logged_in?
       self.current_user = User.find_by_facebook_id(facebook_user.id)
     end
