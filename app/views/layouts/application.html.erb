@@ -35,11 +35,11 @@
 	<div id="padding">
 		<div id="navigation">
 			<div id="current_user">
-			<%- if true || logged_in? %>
+			<%- if logged_in? %>
 				<fb:name uid=loggedinuser useyou=false></fb:name>
-				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="20px" height="20px"></fb:profile-pic>
+				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="25px" height="25px"></fb:profile-pic>
 			<%- else  %>
-				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short"></fb:login-button></div>
+				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="document.location='/facebook'"></fb:login-button></div>
 			<%- end  %>			
 			</div>
 			<ul class="horizontal district larger">
