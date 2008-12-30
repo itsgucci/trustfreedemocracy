@@ -10,7 +10,7 @@ class FacebookController < ApplicationController
       new_user.facebook_id = facebook_user.id
       # todo: purge this nasty
       new_user.save_without_validation
-      self.current_user = new_user
+      self.current_user = new_user.reload
     end
     flash[:notice] = "<p>Aloha, <fb:name uid='loggedinuser'></fb:name></p>"
     redirect_to '/'

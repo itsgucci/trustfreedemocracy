@@ -48,17 +48,10 @@
 								<fb:login-button size="large" background="white" length="long" onlogin="document.location='/facebook'"></fb:login-button>
 							</div>
 						</p>
-						<div style="display:none" class="body">
+					<div class="body">
+						<fb:profile-pic uid="loggedinuser"></fb:profile-pic>
+						<fb:name uid="loggedinuser"></fb:name>
 						
-						<p> <%= link_to "Create a new Account", "/signup", :class => "larger" %> <br />or <%= link_to_function "Sign In", visual_effect(:toggle_blind, :the_q), :class => "larger" %></p>
-						<div id="the_q" style="display:none">
-							<% form_tag SSL_ROOT + 'sessions/create' do %>
-								<p><label for="user_login" help="This is the login name you chose when creating your account. If you do not have an account click Create an Account below">Email</label> <%= text_field_tag :login, nil, :size => 13 %></p>
-								<p><label for="user_password" help="This is your password. Keep it secret, keep it safe.">Password</label> <%= password_field_tag 'password', nil, :size => 10  %></p>	
-								<p style="float:left"><%= check_box_tag 'remember_me' %> <label for="remember_me" class="smaller">remember me</label></p>
-								<p class="" style="font-size: large"><%= submit_tag "Login" %></p>
-							<% end %>
-						</div>
 					</div>
 				</div>
 				<%- end %>

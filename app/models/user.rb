@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :email, :password, :name, :zip, :awareness
   
   named_scope :system_generated_users, :conditions => "login = ''"
-  named_scope :authenticated_users, :conditions => "login != ''"
+  named_scope :authenticated_users, :conditions => "login != '' OR facebook_id IS NOT NULL"
   
   define_index do
     index :name

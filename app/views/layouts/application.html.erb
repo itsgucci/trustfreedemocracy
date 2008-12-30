@@ -40,7 +40,7 @@
 				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="25px" height="25px"></fb:profile-pic>
 				<%= link_to "logout", '/logout' %>
 			<%- else  %>
-				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="document.location='/facebook?f=1';"></fb:login-button></div>
+				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="document.location='/facebook';"></fb:login-button></div>
 			<%- end  %>			
 			</div>
 			<ul class="horizontal district larger">
@@ -56,14 +56,6 @@
 			</ul>
 			<div id="top_links" class="top_links">
 				<%- if current_district || current_community %>
-				<ul style="display:none" id="site_navigation" class="left_links">
-					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Propose", new_article_path %></li>
-					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths">&gt;<%= link_to_unless_current "Develop", {:controller => '/ideas'} %></li>
-					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?">&gt;<%= link_to_unless current_page?( :action => 'agenda'), "Corroborate", {:controller => '/proposals'} %></li>
-					<li help="Watch democracy work. Click here to track Motions traveling through the legislative process of <%= h current_community.name %>. Monitor your legislator's behavior, know the decisions made on your behalf">&gt;<%= link_to_unless_current "Control", {:controller => '/comites'} %></li>
-					<li help="Yes or No, you decide. Click here to Vote on Motions in <%= h current_community.name %>. Register your vote to enable accountable representation">&gt;<%= link_to_unless_current "Vote", {:controller => '/legislations'} %></li>
-					<li help="Knowledge is power. Click here to view the Results of Motions tried in <%= h current_community.name %>. Find the laws that impact your life">&gt;<%= link_to_unless_current "Promulgation", {:controller => '/laws'} %></li>
-				</ul>
 				<ul style="" id="site_navigation" class="left_links">
 					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths"><%= link_to_unless_current "Browse all Laws", {:controller => '/table'} %></li>
 					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Propose a Change", new_article_path %></li>
@@ -126,14 +118,6 @@
 				</div>
 			</div>
 			<%- end %>
-			<%- if false && help_enabled? %>
-			<div id="page_help" class="container rounded" style="float:right">
-				<p class="help rounded" style="width:auto;display:inline;"><%= link_to_function "Help", visual_effect(:toggle_blind, :page_help_content) %></p>
-				<div id="page_help_content" class="body help" style="display:none">
-					<%= yield :page_help %>				
-				</div>
-			</div>
-			<%- end %>
 			<%= yield  %>
 			<%= clear_both %>
 		</div>
@@ -168,7 +152,7 @@
 	<!-- magic little lightbox code for login -->
 	<div id="overlay" onclick="hideBox()" style="display:none"></div>
 	<!-- click outside to exit, desired><div id="overlay" style="display:none"></div><-->
-	<%- unless logged_in? %>
+	<%- unless true && logged_in? %>
 	<div class="lightbox" id="login_required" style="display:none">
 	    <img class="close" src="/images/close.gif" onclick="hideBox()" alt="Close" title="Cancel my participation" style="width: 36px; height: 36px;" />
 		<iframe src="<%= SSL_ROOT + 'sessions/login_iframe' %>" width="100%" height="265px"></iframe>
