@@ -38,8 +38,9 @@
 			<%- if logged_in? %>
 				<fb:name uid=loggedinuser useyou=false></fb:name>
 				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="25px" height="25px"></fb:profile-pic>
+				<%= link_to "logout", '/logout' %>
 			<%- else  %>
-				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="document.location='/facebook'"></fb:login-button></div>
+				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="document.location='/facebook?f=1';"></fb:login-button></div>
 			<%- end  %>			
 			</div>
 			<ul class="horizontal district larger">
@@ -65,7 +66,7 @@
 				</ul>
 				<ul style="" id="site_navigation" class="left_links">
 					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths"><%= link_to_unless_current "Browse all Laws", {:controller => '/table'} %></li>
-					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Change the Laws", new_article_path %></li>
+					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Propose a Change", new_article_path %></li>
 					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?"><%= link_to_unless current_page?( :controller => 'proposals'), "My Rep's Priority", {:controller => '/proposals'} %></li>
 					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?"><%= link_to_unless logged_in? && current_page?( user_path(current_user)), "How am I doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
 				</ul>

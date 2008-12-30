@@ -1,5 +1,5 @@
 <div class="box rounded">
-	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> where <strong>your</strong> voice makes <strong>laws</strong></span></h1>
+	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> making laws through facebook</span></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
@@ -14,10 +14,10 @@
 				</div>
 			<%- else %>
 				<div class="box">
-					<p>Make the world a better place right now with sensible laws</p>
-					<p><%= link_to current_community.name, current_community %> is online! We connect you directly to your representative and enable you to cast a direct vote and engage in open discussion about issues that are important to you. </p>
-					<p>Our online version of <%= link_to current_community.name, current_community %> enables <strong>you</strong> to take an active role in democracy. We encourage people to come together as a community to make laws that make sense, to us, and them. We offer a certification program enabling registered voters to validate their voices and cast official votes. We hope that when the people lead, the leaders will follow.</p>
-					<p>Help unite people in respectable consensus with Democracy Universal</p>
+					<p>Join your friends to make the world a better place</p>
+					<p>Take an active role in <%= link_to current_community.name, current_community %> by connecting directly with elected representatives and the people they represent. Enjoy open discussion with peers, protect your rights with accountable voting, and let democracy work for you.</p>
+					<p>We encourage people to come together as a community to make laws that make sense, to us, and them. We hope that when the people lead, the leaders will follow. To enable grassroots leadership, we offer a certification program enabling registered voters to validate their voices and cast certified votes.</p>
+					<p>Help unite humanity in consensus with Democracy Universal</p>
 					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
 					<p>Find out more <%= link_to "about Democracy Universal", '/about' %></p>
 				</div>
@@ -45,7 +45,7 @@
 					<h2 class="header">Get Started</h2>
 					<p>
 							<div class="p_padding" style="padding: 0 0.5em">
-								<fb:login-button size="large" background="white" length="long" onlogin=""></fb:login-button>
+								<fb:login-button size="large" background="white" length="long" onlogin="document.location='/facebook'"></fb:login-button>
 							</div>
 						</p>
 						<div style="display:none" class="body">

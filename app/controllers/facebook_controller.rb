@@ -4,33 +4,14 @@ class FacebookController < ApplicationController
   #ensure_application_is_installed_by_facebook_user
   
   def index
-    #login via facebook
-    if params[:f] == "1"
-      if self.current_user = User.find_by_facebook_id(facebook_user.id)
-        flash[:notice] = "<p>Aloha, #{current_user.name}</p>"
-        redirect_to '/'
-        return false
-      end
+    self.current_user ||= User.find_by_facebook_id(facebook_user.id)
+    unless logged_in? 
+      new_user = User.new(:facebook_id => facebook_user.id)
+      new_user.save_without_validation
+      self.current_user = new_user
     end
-    @user = facebook_user
-  end
-  
-  def associate
-    if logged_in? && facebook_user
-      self.current_user.facebook_id = facebook_user.id
-      self.current_user.save
-      flash[:notice] = "<p>Successfully Linked with Facebook #{facebook_user.id}</p>"
-      #redirect_to '/facebook'
-      redirect_to '/'
-      return true
-    end
-    flash[:error] = "<p>Association failed</p>"
-    redirect_to :back
-  end
-  def disassociate
-    current_user.update_attribute('facebook_id', nil)
-    flash[:notice] = "<p>No longer linked to Facebook</p>"
-    redirect_to :back
+    flash[:notice] = "<p>Aloha, <fb:name uid='loggedinuser'></fb:name></p>"
+    redirect_to '/'
   end
   
   def profile
