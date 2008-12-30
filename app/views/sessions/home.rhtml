@@ -43,12 +43,13 @@
 				<%#= render :partial => 'sessions/login' %>
 				<div class="box">
 					<h2 class="header">Get Started</h2>
-					<div class="body">
-						<p>
+					<p>
 							<div class="p_padding" style="padding: 0 0.5em">
-								<fb:login-button size="medium" background="white" length="long"></fb:login-button>
+								<fb:login-button size="large" background="white" length="long" onlogin=""></fb:login-button>
 							</div>
 						</p>
+						<div style="display:none" class="body">
+						
 						<p> <%= link_to "Create a new Account", "/signup", :class => "larger" %> <br />or <%= link_to_function "Sign In", visual_effect(:toggle_blind, :the_q), :class => "larger" %></p>
 						<div id="the_q" style="display:none">
 							<% form_tag SSL_ROOT + 'sessions/create' do %>

@@ -34,8 +34,14 @@
 <body id="trustfreedemocracy">
 	<div id="padding">
 		<div id="navigation">
-			<p id="current_user"><%- if logged_in? %><%= link_to h(current_user.name), current_user, :help => "This is your name, it appears when you are logged in to TrustFreeDemocracy. Click here to visit your profile" %><%- end  %>	<span class="" help="Click here to log in or out of TrustFreeDemocracy"><%= login_logout_link %></span>
-			</p>
+			<div id="current_user">
+			<%- if true || logged_in? %>
+				<fb:name uid=loggedinuser useyou=false></fb:name>
+				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="20px" height="20px"></fb:profile-pic>
+			<%- else  %>
+				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short"></fb:login-button></div>
+			<%- end  %>			
+			</div>
 			<ul class="horizontal district larger">
 				<li <%= current_page?('/') ? 'class="active" style="background:#FF5A00;cursor:pointer" ' : 'style="cursor:pointer" OnMouseOut="$(\'home_icon_img\').src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon_img').src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif", :id => 'home_icon_img') : image_tag("logo.png", :id => 'home_icon_img') %>
 				<%- if current_community %>

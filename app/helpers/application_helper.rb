@@ -17,8 +17,8 @@ module ApplicationHelper
     if logged_in?
       link_to "logout", '/logout', :help => 'Click here to logout of your Account'
     else
-      link_to( "Login", '/login', :help => 'Click here to Sign in to your Account', :style => "font-weight: bold" ) + 
-      " <fb:login-button size=\"small\" background=\"white\" length=\"short\"></fb:login-button>"
+      #link_to( "Login", '/login', :help => 'Click here to Sign in to your Account', :style => "font-weight: bold" ) + 
+      " <div style=\"position:relative; top: 2px;\"><fb:login-button size=\"medium\" background=\"white\" length=\"short\"></fb:login-button></div>"
       #escaped and ugly. thanks zuckerberg
     end
   end
