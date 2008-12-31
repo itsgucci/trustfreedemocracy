@@ -9,7 +9,9 @@ class FacebookController < ApplicationController
     #session[:facebook_session].secure_from_connect!
     #debugger
     unless logged_in?
-      self.current_user = User.find_by_facebook_id(facebook_user.id)
+      if user= User.find_by_facebook_id(facebook_user.id)
+        self.current_user = user
+      end
     end
     unless logged_in? 
       new_user = User.new
