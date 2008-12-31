@@ -136,7 +136,7 @@ module Facebooker
     end
       
     def auth_token
-      @auth_token ||= params[:auth_token] || post 'facebook.auth.createToken'
+      @auth_token ||= post 'facebook.auth.createToken'
     end
     
     def infinite?
@@ -154,7 +154,11 @@ module Facebooker
     def secure!
       response = post 'facebook.auth.getSession', :auth_token => auth_token
       secure_with!(response['session_key'], response['uid'], response['expires'], response['secret'])
-    end    
+    end
+    
+    def secure_from_connect!
+      secure_with!(session[api_key + '_session_key'], session[api_key + '_user'], session[api_key + '_expires'], session[api_key + '_ss'])
+    end
     
     def secure_with!(session_key, uid = nil, expires = nil, secret_from_session = nil)
       @session_key = session_key
