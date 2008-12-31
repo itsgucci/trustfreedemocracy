@@ -136,7 +136,11 @@ module Facebooker
     end
       
     def auth_token
-      @auth_token ||= params[:auth_token] || post 'facebook.auth.createToken'
+      if params[:auth_token]
+        params[:auth_token]
+      else
+        @auth_token ||= post 'facebook.auth.createToken'
+      end
     end
     
     def infinite?
