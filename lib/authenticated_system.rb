@@ -103,7 +103,7 @@ module AuthenticatedSystem
     
     # called from #current_user. Attempts to load the user from facebooker credentials
     def login_from_facebook
-      self.current_user = User.find_by_facebook_id(session[:facebook_session].user.id) if session[:facebook_session] && !session[:facebook_session].expired?
+      self.current_user = User.find_by_facebook_id(session[:facebook_session].user.id) if session[:facebook_session] && session[:facebook_session].secured?
     end
 
     # Called from #current_user.  Now, attempt to login by basic authentication information.
