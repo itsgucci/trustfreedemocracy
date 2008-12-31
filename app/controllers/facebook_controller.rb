@@ -6,8 +6,8 @@ class FacebookController < ApplicationController
   #ensure_application_is_installed_by_facebook_user
   
   def index
-    session[:facebook_session].secure_from_connect!
-    debugger
+    #session[:facebook_session].secure_from_connect!
+    #debugger
     unless logged_in?
       self.current_user = User.find_by_facebook_id(facebook_user.id)
     end
