@@ -101,7 +101,7 @@ module AuthenticatedSystem
       self.current_user = User.find_by_id(session[:user]) if session[:user]
     end
     
-    # called from #current_user. Attempts to load the user from facebooker credentials
+    # called from #current_user. Attempts to load the user from facebook credentials
     def login_from_facebook
       self.current_user = User.find_by_facebook_id(facebook_user) if fbsession && fbsession.ready?
     end

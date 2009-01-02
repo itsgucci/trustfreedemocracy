@@ -27,18 +27,9 @@
 				<%- if logged_in? %>
 				<div class="box">
 					<h2 class="header">My Democracy</h2>
-					<div class="body">
+					<div class="hidden">
 						<p>logged in with uid:<%= current_user.id %></p>
 						<p>logged in with fbid:<%= facebook_user %></p>
-						<fb:profile-pic uid="loggedinuser"></fb:profile-pic>
-						<fb:name uid="loggedinuser" useyou="false"></fb:name>
-						server side: 
-						<%- if facebook_user %>
-						<fb:profile-pic uid="<%= facebook_user %>"></fb:profile-pic>
-						<fb:name uid="<%= facebook_user %>" useyou="false"></fb:name>
-						<%- else %>
-						no facebook_user
-						<%- end %>
 					</div>
 					<div class="body">
 						<%- if current_user.district_memberships.empty? %>

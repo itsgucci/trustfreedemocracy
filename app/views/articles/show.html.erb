@@ -43,7 +43,7 @@
 			                            ) %>
 				</span>
 			<%- else %>
-				<%= link_to_unless( @article.author.nil?, @article.author_name, @article.author ) %> 
+				<fb:name uid="<%= @article.author.facebook_id %>">
 			<%- end %>
 			
 			<%- if @article.tom_id %>
