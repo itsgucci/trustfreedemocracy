@@ -11,7 +11,7 @@
 	<div class="box">
 		<h3>My Vote</h3>
 		<div class="left_column golden_small">
-		<% form_remote_tag :url => { :controller => 'articles', :action => 'vote', :id => @article.id } do %>			
+		<% form_remote_tag :url => { :controller => 'articles', :action => 'vote', :id => @article.id }, :complete => "FB.XFBML.Host.parseDomTree()" do %>			
 			<p style="overflow:visible; width: 10em;"><%= radio_button_tag 'vote', "aye", @article.ratified_by?(current_user) %>&nbsp;<label for="vote_aye">Approve</label></p>
 			<p style="overflow:visible; width: 10em;"><%= radio_button_tag 'vote', "nay", @article.opposed_by?(current_user) %> <label for="vote_nay">Oppose</label></p>
 			<p style="overflow:visible; width: 10em;"><%= radio_button_tag 'vote', "present", @article.present_by?(current_user) %> <label for="vote_present">Present</label></p>
