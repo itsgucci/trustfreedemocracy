@@ -218,5 +218,5 @@ function showArticle(id) {
 
 
 function facebook_connected() {
-  document.location = '/facebook';
+  //document.location = '/facebook';
 }
