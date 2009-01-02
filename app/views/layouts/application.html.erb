@@ -36,13 +36,12 @@
 	<div id="padding">
 		<div id="navigation">
 			<div id="current_user">
-			<%- if logged_in? %>
-				<fb:name uid=loggedinuser useyou=false></fb:name>
-				<fb:profile-pic uid="loggedinuser" facebook-logo="false" width="25px" height="25px"></fb:profile-pic>
-				<%= link_to "logout", '/logout' %>
-			<%- else  %>
-				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();"></fb:login-button></div>
-			<%- end  %>			
+				<%- if logged_in? %>
+				<fb:name uid="loggedinuser" useyou="false"></fb:name>
+				<fb:profile-pic uid="loggedinuser" width="25px" height="25px"></fb:profile-pic>
+				<%#= link_to "logout", '/logout' %>
+				<%- end  %>
+				<div style="position:relative; top: 2px;"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();" autologoutlink="true"></fb:login-button></div>
 			</div>
 			<ul class="horizontal district larger">
 				<li <%= current_page?('/') ? 'class="active" style="background:#FF5A00;cursor:pointer" ' : 'style="cursor:pointer" OnMouseOut="$(\'home_icon_img\').src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon_img').src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif", :id => 'home_icon_img') : image_tag("logo.png", :id => 'home_icon_img') %>
