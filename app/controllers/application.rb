@@ -81,8 +81,8 @@ class ApplicationController < ActionController::Base
   
   helper_method :facebook_user
   def facebook_user
-    return nil unless session[:facebook_session] && !session[:facebook_session].expired?
-    session[:facebook_session].user
+    return nil unless fbsession.ready?
+    fbsession.session_user_id
   end
          
   helper_method :current_zip

@@ -28,11 +28,14 @@
 				<div class="box">
 					<h2 class="header">My Democracy</h2>
 					<div class="body">
+						<p>logged in with uid:<%= current_user.id %></p>
+						<p>logged in with fbid:<%= facebook_user %></p>
 						<fb:profile-pic uid="loggedinuser"></fb:profile-pic>
 						<fb:name uid="loggedinuser" useyou="false"></fb:name>
 						server side: 
 						<%- if facebook_user %>
-						<%= h facebook_user.name %>: <%= facebook_user.id %>
+						<fb:profile-pic uid="<%= facebook_user %>"></fb:profile-pic>
+						<fb:name uid="<%= facebook_user %>" useyou="false"></fb:name>
 						<%- else %>
 						no facebook_user
 						<%- end %>
@@ -63,7 +66,7 @@
 							<fb:name uid="loggedinuser" useyou="false"></fb:name>
 							server side: 
 							<%- if facebook_user %>
-							<%= h facebook_user.name %>: <%= facebook_user.id %>
+							<%= facebook_user %>
 							<%- else %>
 							no facebook_user
 							<%- end %>
