@@ -67,7 +67,7 @@ function loadPane(pane, src) {
   }
 }
 function reloadPane(pane, src) {
-  new Ajax.Updater(pane, src, {asynchronous:1, evalScripts:true, onLoading:function(request){pane.innerHTML='<div style="text-align:center"><img alt="Wait" src="/images/indicator.png" style="margin: 0 auto; height: 240px" /></div>'}})
+  new Ajax.Updater(pane, src, {asynchronous:1, evalScripts:true, onComplete:function(request){FB.XFBML.Host.parseDomTree()}, onLoading:function(request){pane.innerHTML='<div style="text-align:center"><img alt="Wait" src="/images/indicator.png" style="margin: 0 auto; height: 240px" /></div>'}})
 }
 
 // enable the table ruler
