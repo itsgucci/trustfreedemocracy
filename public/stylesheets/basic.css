@@ -791,13 +791,15 @@ width: 37%;
 }
 
 .orangelist {
-font-size: bigger;
 list-style: url('/images/list.png');
 }
-.orangelist a {
+.invisilist {
+list-style:none;
+}
+.orangelist a, .invisilist a {
 color: #555;
 }
-.orangelist a:hover {
+.orangelist a:hover, .invisilist a:hover {
 color: #FF9400;
 text-decoration: none;
 }
