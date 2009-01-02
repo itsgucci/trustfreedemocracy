@@ -15,7 +15,7 @@ class FacebookController < ApplicationController
       new_user.save_without_validation
       self.current_user = new_user.reload
     end
-    flash[:notice] = "<p>Aloha, <fb:name uid='loggedinuser' useyou='false'></fb:name></p>"
+    flash[:notice] = "<p>Aloha, <fb:name uid='loggedinuser' useyou='false' linked='false'></fb:name>. Welcome to Democracy Universal</p>"
     redirect_to '/'
   end
   

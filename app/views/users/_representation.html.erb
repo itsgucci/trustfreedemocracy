@@ -1,4 +1,4 @@
-<p class="enourmous"><%= @user.name %> represented <%= number_to_percentage rand * 100, :precision => 2 %></p>
+<p class="enourmous"><fb:name uid="<%= @user.facebook_id %>" linked="false" possessive="true"> represented <%= number_to_percentage rand * 100, :precision => 2 %></p>
 <%- if @user.districts.empty? %>
 <p class="larger"><%= @user.name %> does not belong to any districts</p>
 <%- else %>
@@ -14,7 +14,7 @@
 
 <%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
 	<%- article = Article.find(vote.voteable_id) %>
-	<%= article.title %>
-	<%= vote.vote %>
-	<%= article.represented?(current_user, current_district.representative) %>
+	<%= article.number %>: <%= article.title %>
+	<%= vote_in_english vote %>
+	<%= article.represented?(current_user, current_district.representative) if current_district && current_district.representative %>
 <%- end %>

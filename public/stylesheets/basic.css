@@ -540,6 +540,9 @@ color: #fff;
 .notice a {
 color: #fff;
 }
+.notice a.FB_Link {
+  color: #fff;
+}
 
 .help {  
 /*background: url('/images/ff0-84.png');
