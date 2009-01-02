@@ -6,12 +6,9 @@ class FacebookController < ApplicationController
   
   def index    
     #debugger
-    unless logged_in?
-      if user= User.find_by_facebook_id(facebook_user)
-        self.current_user = user
-      end
-    end
-    unless logged_in? 
+    if user= User.find_by_facebook_id(facebook_user)
+      self.current_user = user
+    else
       new_user = User.new
       new_user.facebook_id = facebook_user
       # todo: purge this nasty
