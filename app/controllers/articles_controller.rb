@@ -132,7 +132,7 @@ class ArticlesController < ApplicationController
           image.update(image_tag GoogleChart.pie(@article.support_percentage, 100 - @article.support_percentage).to_url, :alt => "Support: " + number_to_percentage(@article.support_percentage, :precision => 2).to_s, :title => "Support: " + number_to_percentage(@article.support_percentage.to_s, :precision => 2), :style => "width:100%")
         end
         page.replace_html "support_area#{ @article.id }", :partial => 'articles/withdraw_support', :locals => { :object => @article }
-        page.insert_html :bottom, "user_supporter_list#{ @article.id }", "<li id='user_supporter#{ @article.id.to_s + '_' + current_user.id.to_s }'>#{ link_to current_user.name, { :controller => 'users', :action => 'show', :id => current_user.id } }</li>"     
+        page.insert_html :bottom, "user_supporter_list#{ @article.id }", "<li id='user_supporter#{ @article.id.to_s + '_' + current_user.id.to_s }'><fb:profile-pic uid='loggedinuser'></fb:profile-pic> <fb:name uid='loggedinuser' useyou='false'></fb:name></li>"     
         page.visual_effect :highlight, "user_supporter#{ @article.id.to_s + '_' + current_user.id.to_s }", :start_color => '"#ff6600"', :end_color => '"#ffffff"'
         #page.call 'function Reflection.add' "($('support_image#{ @article.id }'))"
         page.replace_html "support_summary#{ @article.id }", :partial => 'articles/support_summary'

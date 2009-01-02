@@ -25,7 +25,7 @@
 			<div class="right_column half" style="">
 				<ul id="user_supporter_list<%= @article.id %>" class="scrolling_box orangelist" style='<%= "height: 10em;" if @article.supporters.size > 10 %>'>
 					<%- for user in @article.supporters %>
-						<li id="user_supporter<%= @article.id.to_s + '_' + user.id.to_s %>"><%= link_to user.name, user %></li>
+						<li id="user_supporter<%= @article.id.to_s + '_' + user.id.to_s %>"><fb:profile-pic uid="<%= user.facebook_id %>"><fb:name uid="<%= user.facebook_id %>"></li>
 					<%- end %>
 				</ul>
 			</div>

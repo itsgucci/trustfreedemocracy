@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081228032903) do
+ActiveRecord::Schema.define(:version => 20090102082119) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -71,9 +71,9 @@ ActiveRecord::Schema.define(:version => 20081228032903) do
     t.integer  "article_text_id"
   end
 
-  add_index "articles", ["district_id"], :name => "district"
-  add_index "articles", ["stage"], :name => "stage"
   add_index "articles", ["community_id"], :name => "community"
+  add_index "articles", ["stage"], :name => "stage"
+  add_index "articles", ["district_id"], :name => "district"
 
   create_table "articles_supporters", :force => true do |t|
     t.integer  "article_id",                         :null => false
@@ -163,10 +163,10 @@ ActiveRecord::Schema.define(:version => 20081228032903) do
     t.boolean  "certified",                       :default => false
   end
 
-  add_index "comments", ["user_id"], :name => "fk_comments_user"
-  add_index "comments", ["commentable_type", "commentable_id"], :name => "type_and_id"
-  add_index "comments", ["category_code"], :name => "category"
   add_index "comments", ["created_at"], :name => "created"
+  add_index "comments", ["category_code"], :name => "category"
+  add_index "comments", ["commentable_type", "commentable_id"], :name => "type_and_id"
+  add_index "comments", ["user_id"], :name => "fk_comments_user"
 
   create_table "communities", :force => true do |t|
     t.integer  "parent_id",      :default => 0,    :null => false
@@ -179,8 +179,8 @@ ActiveRecord::Schema.define(:version => 20081228032903) do
     t.datetime "sync_date"
   end
 
-  add_index "communities", ["name"], :name => "name"
   add_index "communities", ["parent_id"], :name => "parent_id"
+  add_index "communities", ["name"], :name => "name"
 
   create_table "districts", :force => true do |t|
     t.integer "community_id",                                        :null => false
@@ -271,8 +271,8 @@ ActiveRecord::Schema.define(:version => 20081228032903) do
   end
 
   add_index "representative_votes", ["article_id", "district_id"], :name => "art_dist", :unique => true
-  add_index "representative_votes", ["article_id"], :name => "article"
   add_index "representative_votes", ["district_id", "article_id"], :name => "district_article"
+  add_index "representative_votes", ["article_id"], :name => "article"
 
   create_table "roll_votes", :force => true do |t|
     t.integer  "roll_id"
@@ -310,8 +310,8 @@ ActiveRecord::Schema.define(:version => 20081228032903) do
     t.datetime "created_at",    :null => false
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
 
   create_table "tags", :force => true do |t|
     t.string "name", :default => "", :null => false
@@ -352,6 +352,7 @@ ActiveRecord::Schema.define(:version => 20081228032903) do
     t.integer  "voteable_id",                                 :null => false
     t.integer  "vote",          :limit => 2
     t.datetime "created_at",                                  :null => false
+    t.datetime "updated_on"
   end
 
   create_table "zip_fips", :id => false, :force => true do |t|

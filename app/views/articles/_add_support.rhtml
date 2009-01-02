@@ -1,7 +1,6 @@
 <% form_remote_tag :url => { :controller => 'articles', :action => 'add_support', :id => @article.id } do %>
 	<div>
-		<%= check_box_tag :support, "1", false, :id => "support_checkbox#{ @article.id }" %> 
-		<label for="support_checkbox<%= @article.id %>">I<%= ", #{ h current_user.name }," if logged_in? %> would like to Support this <%= @article.article_type.name %></label>
+		<fb:profile-pic uid="loggedinuser"></fb:profile-pic> <fb:name uid="loggedinuser" useyou="false"></fb:name>
 	</div>
-	<%= accountable_submit_tag 'Add my Support' %>
+	<%= accountable_submit_tag "Support this #{ @article.article_type.name }" %>
 <% end %>

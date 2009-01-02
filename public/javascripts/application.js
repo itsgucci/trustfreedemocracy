@@ -195,8 +195,20 @@ function center(element){
 }
 
 var loaded_articles = new Array();
-var smaller = false;
 function showArticle(id) {
+  shrinkTable();
+  if (loaded_articles.include(id)) {
+    Effect.ScrollTo( 'article'+id);
+  }
+  else {
+    new Ajax.Request('/a/' + id, {asynchronous:true, evalScripts:true, onSuccess:function(request){$('article_target').insert(request.responseText);Effect.ScrollTo('article'+id, {offset: -68});}, onComplete:function(request){FB.XFBML.Host.parseDomTree();} });    
+    loaded_articles.push(id)
+  }
+  return false;
+}
+
+var smaller = false;
+function shrinkTable() {
   if (!smaller) {
     // scale it and hide it to the right
     new Effect.Morph('browse_box', {style: 'width:18%'});
@@ -206,14 +218,11 @@ function showArticle(id) {
     new Effect.Fade('extra_header');
     smaller = true;
   }
-  if (loaded_articles.include(id)) {
-    Effect.ScrollTo( 'article'+id);
+}
+function restoreTable() {
+  if (smaller) {
+    
   }
-  else {
-    new Ajax.Request('/a/' + id, {asynchronous:true, evalScripts:true, onSuccess:function(request){$('article_target').insert(request.responseText);Effect.ScrollTo('article'+id, {offset: -68});}});    
-    loaded_articles.push(id)
-  }
-  return false;
 }
 
 
