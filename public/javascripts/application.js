@@ -219,4 +219,5 @@ function showArticle(id) {
 
 function facebook_connected() {
   //document.location = '/facebook';
+  FB.Facebook.get_sessionState().waitUntilReady(function() { document.location = '/facebook'; }); 
 }
