@@ -4,7 +4,11 @@ class FacebookController < ApplicationController
   
   before_filter :require_facebook_login
   
-  def index    
+  def index
+    debugger
+    if cookies["#{FACEBOOK['key']}_session_key"]
+      fbsession.activate_with_previous_session(cookies["#{FACEBOOK['key']}_session_key"])
+    end
     #debugger
     if user= User.find_by_facebook_id(facebook_user)
       self.current_user = user
