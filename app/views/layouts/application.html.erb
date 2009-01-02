@@ -36,11 +36,12 @@
 	<div id="padding">
 		<div id="navigation">
 			<div id="current_user">
-				<div style="position:relative; top: 2px; float: right; padding-left: 7px"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();" autologoutlink="true"></fb:login-button></div>
 				<%- if logged_in? %>
+				<div style="position:relative; top: -2px; float: right; padding-left: 7px"><%= link_to_function image_tag("facebook/logout_medium.gif", :alt => "logout"), 'FB.Connect.logoutAndRedirect("/logout")' %></div>
 				<fb:name uid="loggedinuser" useyou="false"></fb:name>
 				<fb:profile-pic uid="loggedinuser" width="25px" height="25px" facebook-logo="true"></fb:profile-pic>
-				<%#= link_to "logout", '/logout' %>
+				<%- else  %>
+				<div style="position:relative; top: 2px; padding-left: 7px"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();"></fb:login-button></div>
 				<%- end  %>
 			</div>
 			<ul class="horizontal district larger">
