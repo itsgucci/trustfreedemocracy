@@ -23,16 +23,16 @@
 			<%= render :partial => 'receipt', :locals => {:vote => Vote.first(:conditions => {:voteable_type => 'Article', :voteable_id => @article.id, :user_id => current_user.id})} %>
 		</div>
 	</div>
+</div>
+<div class="left_column golden_big">
 	<div id="tally_container">
 		<%= render :partial => 'tally' %>
 	</div>
-</div>
-<div class="left_column golden_big">
 	<div class="box">
 		<h3 class="header">Official Vote</h3>
 		<div class="body">
 			<%- if @article.rolls.empty? %>
-			<p class="larger">This Motion has no official votes on it</p>
+			<p class="larger"><%= current_district.representative.name if current_district && current_district.representative %> Your representative has not voted on this <%= @article.article_type.name %></p>
 			<%- else %>
 				<%- @article.rolls.each do |roll| %>
 					<h3 style="margin-top:0.78em"><span class="dull"><%= roll.created_at.strftime("%B %d, %Y") %></span> Roll <%= h roll.number %></h3>

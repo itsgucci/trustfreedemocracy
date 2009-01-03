@@ -1,4 +1,4 @@
-<p class="enourmous">Represented <%= number_to_percentage rand * 100, :precision => 2 %></p>
+<p class="enourmous">Represented <%= number_to_percentage @user.total_representation, :precision => 2 %></p>
 <%- if @user.districts.empty? %>
 <p class="larger"><%= @user.name %> does not belong to any districts</p>
 <%- else %>

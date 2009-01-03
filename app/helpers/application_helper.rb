@@ -34,8 +34,7 @@ module ApplicationHelper
   end
   
   def help_enabled?
-    # we want help on by default, so if it doesnt exist or it is on, display it.
-	  session[:help].nil? || session[:help] == true
+	  session[:help]
 	end
 	
 	def help_box(string)

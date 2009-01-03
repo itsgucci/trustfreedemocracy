@@ -1,13 +1,17 @@
 <%= error_messages_for 'comment' %>
 
 <!--[form:comment]-->
-<%- if comment %>
-<p>Topic: <%= h comment.title %></p>
-<%- else %>
-<label for="comment_title">Topic:</label>
-<%= text_field 'comment', 'title'  %>
-<br/>
-<%- end %>
-<label for="comment_comment"></label>
-<%= text_area 'comment', 'comment', :rows => 5, :onkeyup => "grow_text_area(this);", :value => "Message...", :onblur => "if(this.value == '') this.value = 'Message...';", :onfocus => "if(this.value == 'Message...') this.value = '';" %>
+
+<div class="two_columns">
+	<div class="left_column golden_small">
+		<label for="comment_title">Title</label>
+		<%= text_field 'comment', 'title', :size => 18 %>	
+	</div>
+	<div class="right_column golden_big">
+		<label for="comment_comment">Link </label>
+		<%= text_field 'comment', 'comment' %>	
+	</div>
+</div>
+
+<%#= text_area 'comment', 'comment', :rows => 5, :onkeyup => "grow_text_area(this);", :value => "Message...", :onblur => "if(this.value == '') this.value = 'Message...';", :onfocus => "if(this.value == 'Message...') this.value = '';" %>
 <!--[eoform:comment]-->

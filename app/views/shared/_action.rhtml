@@ -3,13 +3,13 @@
 <%- else %>
 <table class="ruler">
 	<thead>
-		<tr><th>Date</th><th>House</th><th>Action</th></tr>
+		<tr><th>Date</th><th>Where</th><th>Action</th></tr>
 	</thead>
 	<tbody id="progress">
 		<%- for action in actions %>
 		<tr class="action">
 			<td class="dull smaller"><%= action.created_at.strftime("%m/%d/%y") %></td>
-			<td><%= h action.house %></td>
+			<td><%= {"DU" => "Democracy Universal", "H" => "House", "S" => "Senate"}[action.house] %></td>
 			<td><%= h action.action %></td>
 		</tr>
 		<%- end %>

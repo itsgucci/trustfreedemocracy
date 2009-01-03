@@ -1,17 +1,18 @@
 <div class="box">
 	<div class="header">
-		<h1>Registered Users</h1>
+		<h1>Connected Users</h1>
 	</div>
 	<div class="body">
 		<table class="ruler">
 			<thead>
-				<tr><th>Joined</th><th>Name</th><th>Representation</th></tr>
+				<tr><th>Joined</th><th>Name</th><th>Represented</th></tr>
 			</thead>
 		<%- @users.each do |user| %>
 			<tr style="cursor:pointer" onclick="document.location.href='<%= url_for user %>'">
-				<td class="dull smaller"><%= user.created_at.strftime("%m/%d/%y") %></td>
-				<td><%= user.name %></td>
-				<td class="dull golden_big"><%= user.community_memberships.map(&:name).to_sentence %></td>
+				<td class="dull smaller"><%= user.created_at.strftime("%D") %></td>
+				<td><fb:profile-pic uid="<%= user.facebook_id %>"></fb:profile-pic><fb:name uid="<%= user.facebook_id %>" capitalize="true"></fb:name></td>
+				<td class="dull golden_big"><%= number_to_percentage user.total_representation, :precision => 2 %></td>
+				<td class="dull golden_big hidden"><%= user.community_memberships.map(&:name).to_sentence %></td>
 			</tr>
 		<%- end %>
 		</table>

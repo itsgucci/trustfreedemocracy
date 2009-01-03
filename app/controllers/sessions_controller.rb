@@ -83,7 +83,7 @@ class SessionsController < ApplicationController
 
   def destroy
     self.current_user.forget_me if logged_in?
-    cookies.clear
+    cookies.delete :auth_token
     reset_session
     flash[:notice] = "<p>You have been logged out</p>"
     # they are logging out, they should go to a fresh home.

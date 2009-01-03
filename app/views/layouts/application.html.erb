@@ -125,7 +125,7 @@
 		<div id="footer">
 			<p class="larger the_truth">The people were in fact, the fountain of all power, and by resorting to them, all difficulties were got over. -James Madison</p>
 			<p class="the_truth">Your liberty is the state of being free within society from oppressive restrictions imposed by authority on your way of life, behavior, or political views</p>
-			<h1 id="strength" class="dull"><%= link_to "#{User.authenticated_users.size} Strong", users_path, :style => "color: inherit; text-decoration: none" %></h1>
+			<h1 id="strength" class="hidden"><%= link_to "#{User.authenticated_users.size} Strong", users_path, :style => "color: inherit; text-decoration: none" %></h1>
 			<ul class="top_links">
 				<%- if logged_in? && current_user.has_privilege?('certify users', current_community) %>
 				<li><%= link_to "manage certifications", manage_certification_community_path(current_community) %></li>

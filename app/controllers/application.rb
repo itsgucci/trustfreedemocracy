@@ -34,11 +34,7 @@ class ApplicationController < ActionController::Base
    end
 	
 	def help_toggle
-	  if session[:help].nil?
-	    session[:help] = false
-    else
-  	  session[:help] = !session[:help]
-	  end
+	  session[:help] = !session[:help]
 	  redirect_to :back
   end
   

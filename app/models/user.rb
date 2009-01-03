@@ -73,6 +73,10 @@ class User < ActiveRecord::Base
     "U." + id.to_s
   end
   
+  def total_representation
+    rand(100)
+  end
+  
   def contribution_total
     100
   end

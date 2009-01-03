@@ -2,27 +2,20 @@
 	<div id="comments<%= thread_id %>">
 	<% for comment in comments %>
 		<div class="comment_and_reply">
-			<%= render :partial => 'comments/comment_and_reply', :locals => { :comment => comment } %>
+			<%= render :partial => 'comments/comment_display', :locals => { :comment => comment } %>
 		</div>
 	<% end %>
 	</div>
 	<div class="reply">
-		<%= link_to_function 'I would like to say something', update_page { |p| p.visual_effect( :blind_down, "comment_write#{thread_id}" ); p.visual_effect(:fade, "comment_write_show#{thread_id}") }, :id => "comment_write_show#{thread_id}", :class => "comment" %>
-		<div id="comment_write<%= thread_id %>" class="two_columns" style="display:none">
-			<div class="right_column golden_small smaller">
-				<p>Unsaved Comment</p>
-				<p><%= Time.now.strftime('%Y.%m.%d %I:%M%p').downcase %></p>
-				<p>by <%= logged_in? ? current_user.name : "Anonymous" %></p>
-			</div>
-			<div class="left_column golden_big">
+		<div id="comment_write<%= thread_id %>">
+			<div class=" ">
 				<p class="the_truth">ahead of the heard</p>
 				<% form_remote_tag :url => { :controller => 'ratings', :action => 'comment', :id => thread_id, :rateable_type => "Article" } do %>
 					<%= hidden_field_tag 'category', category %>
 					<%= render :partial => "comments/comment" %>
 					<br />
-					<%= accountable_submit_tag "Add My Comment" %>	
+					<%= accountable_submit_tag "Add" %>	
 			
-					 <%= link_to_function 'cancel', update_page { |p| p.visual_effect( :blind_up, "comment_write#{ thread_id }" ); p.visual_effect(:appear, "comment_write_show#{thread_id}") }, :class => 'discreet' %>
 				<% end %>	
 			</div>
 			
