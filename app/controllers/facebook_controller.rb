@@ -10,6 +10,7 @@ class FacebookController < ApplicationController
     #   fbsession.activate_with_previous_session(cookies["#{FACEBOOK['key']}_session_key"])
     # end
     #debugger
+    fbsession.auth_promoteSession
     if user= User.find_by_facebook_id(facebook_user)
       self.current_user = user
     else
