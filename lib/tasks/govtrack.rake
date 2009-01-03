@@ -3,7 +3,7 @@ require 'open-uri'
 require 'ruby-debug'
 
 SESSION = 110
-GOVTRACK_PATH = "/Users/drake/Sites/govtrack/us/#{ SESSION }/"
+GOVTRACK_PATH = "/govtrack/us/#{ SESSION }/"
 COMMUNITY_NAME = "United States Congress"
 
 namespace :govtrack do

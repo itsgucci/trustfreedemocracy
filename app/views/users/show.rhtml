@@ -1,13 +1,5 @@
 <div class="box rounded about">
-	<div class="header">
-		<div class="">
-			<h1 class="inline"><fb:name uid="<%= @user.facebook_id %>" linked="false" possessive="true"></fb:name></h1>
-			<%- if false && @current_user == @user %>
-				<div class="inline discreet"><%= link_to( 'edit', { :action => 'edit', :id => @user } ) %></div>
-			<%- end %>	
-		</div>
-		<%= clear_both %>
-	</div>
+	<h1 class="header"><fb:name uid="<%= @user.facebook_id %>" linked="false" possessive="true"></fb:name></h1>
 	
 	<%- tabs = [
 			["Representation", "rep", render(:partial => 'representation')],
