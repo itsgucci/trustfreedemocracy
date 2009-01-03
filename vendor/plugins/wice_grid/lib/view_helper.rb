@@ -132,6 +132,7 @@ module Wice
       end
 
       options = {
+        :guts_only => false,
         :show_filters => Defaults::SHOW_FILTER, 
         :upper_pagination_panel => Defaults::SHOW_UPPER_PAGINATION_PANEL,
         :sorting_dependant_row_cycling => false,
@@ -142,7 +143,9 @@ module Wice
       rendering = GridRenderer.new(grid)
       block.call(rendering) # calling block containing column() calls
 
-      if grid.output_csv?
+      if options[:guts_only]
+        content = grid_content(grid, table_html_attrs, header_tr_html_attrs, options, rendering)
+      elsif grid.output_csv?
         content = grid_css(grid, rendering)
       else
         content = grid_html(grid, table_html_attrs, header_tr_html_attrs, options, rendering)
@@ -278,6 +281,7 @@ module Wice
       # rendering second row end
       
       content += "</thead>"
+      content += "<tbody id='#{table_html_attrs[:id] + '_target'}'>"
 
       rendering.each_column(:in_html) do |column|
         unless column.css_class.blank?
@@ -337,6 +341,7 @@ module Wice
 
       end
       
+      content += '</tbody>'
       content += '</table>'
 
       #content += will_paginate(grid.resultset, :param_name => "#{grid.name}[page]", :params => options[:extra_request_parameters])
@@ -349,6 +354,102 @@ module Wice
       )
       return content
     end
+    
+    def grid_content(grid, table_html_attrs, header_tr_html_attrs, options, rendering) #:nodoc:
+      
+      content = ""
+      
+      # first row of column labels with sorting links
+      col_class = "col1"
+      rendering.each_column(:in_html) do |column|
+        if column.attribute_name 
+
+          css_class = grid.filtered_by?(column) ? 'active_filter' : nil
+
+          direction = 'asc'
+          link_style = nil
+          if grid.ordered_by?(column)
+            css_class = css_class.nil? ? 'sorted' : css_class + ' sorted'
+            link_style = grid.order_direction
+            direction = 'desc' if grid.order_direction == 'asc'
+          end
+
+          col_link = link_to(
+            column.column_name,
+            rendering.column_link(column, direction, params, options[:extra_request_parameters]), 
+            :class => link_style)
+          css_class = css_class.nil? ? col_class : css_class + ' ' + col_class
+          column.css_class = css_class
+        end
+        col_class = col_class.next
+      end
+      # rendering first row end
+      
+      no_rightmost_column = no_filter_row = (options[:show_filters] == :no || rendering.no_filter_needed?) ? true: false
+      cycle_class = nil
+      sorting_dependant_row_cycling = options[:sorting_dependant_row_cycling]
+
+      rendering.each_column(:in_html) do |column|
+        unless column.css_class.blank?
+          column.td_html_attrs.add_or_append_class_value(column.css_class)
+        end
+      end
+      
+      # rendering  rows
+      cell_value_of_the_ordered_column = nil
+      previous_cell_value_of_the_ordered_column = nil
+      grid.each do |ar| # rows
+        
+        row_content = ''
+        rendering.each_column(:in_html) do |column|
+          cell_block = column.cell_rendering_block
+
+          opts = column.td_html_attrs.clone
+          column_block_output = if grid.erb_mode?
+            capture(ar, &cell_block)
+          else
+            cell_block.call(ar)
+          end
+          
+          if column_block_output.kind_of?(Array)
+            column_block_output, additional_opts = column_block_output
+            additional_css_class = nil
+            if additional_opts.has_key?(:class)
+              additional_css_class = additional_opts[:class]
+              additional_opts.delete(:class)
+            elsif additional_opts.has_key?('class')
+              additional_css_class = additional_opts['class']
+              additional_opts.delete('class')              
+            end
+            opts.merge!(additional_opts)
+            opts.add_or_append_class_value(additional_css_class) unless additional_css_class.blank?
+          end
+          if sorting_dependant_row_cycling && column.attribute_name && grid.ordered_by?(column)
+            cell_value_of_the_ordered_column = column_block_output
+          end
+          row_content += content_tag(:td, column_block_output, opts)
+        end
+
+        row_attributes = rendering.get_row_attributes(ar)
+
+        if sorting_dependant_row_cycling
+          cycle_class = cycle('odd', 'even', :name => grid.name) if cell_value_of_the_ordered_column != previous_cell_value_of_the_ordered_column
+          previous_cell_value_of_the_ordered_column = cell_value_of_the_ordered_column
+        else
+          cycle_class = cycle('odd', 'even', :name => grid.name)
+        end
+        
+        row_attributes.add_or_append_class_value(cycle_class)
+                
+        content += "<tr #{tag_options(row_attributes)}>#{row_content}"
+        content += content_tag(:td, '') unless no_rightmost_column
+        content += '</tr>'      
+
+      end
+      
+      return content
+    end
+    
 
     def grid_css(grid, rendering) #:nodoc:
 

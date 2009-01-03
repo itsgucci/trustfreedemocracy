@@ -1,4 +1,5 @@
-<%= grid(@articles_grid, :table_html_attrs => { :class => "wice_grid ruler" }) do |g|
+<%- content_only ||= false %>
+<%= grid(@articles_grid, :table_html_attrs => { :id => "target_table", :class => "wice_grid ruler" }, :guts_only => content_only ) do |g|
 	g.row_attributes do |article|
 		{:id => "#{@articles_grid.name}_row_#{article.id}",
 		:onclick => "showArticle(#{article.id}); return false;"}
@@ -6,7 +7,7 @@
 	g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
 		@width = 30; @article = article; render( :partial => 'articles/support_image')
 	end
-	g.column :column_name => 'Number', :attribute_name => 'number' do |article|
+	g.column :column_name => 'Number', :attribute_name => 'number', :class => "larger" do |article|
 		h(article.number)
 	end
 	g.column :column_name => 'Stage', :attribute_name => 'stage', :no_filter => true do |article|

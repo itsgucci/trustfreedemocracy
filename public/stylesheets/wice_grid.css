@@ -17,6 +17,12 @@
 .wice_grid td {
   padding: 0.38em;
 }
+/*.wice_grid tbody {
+  display:block;
+  height:262px;
+  overflow:auto;
+  width:100%;
+}*/
 
 .custom_dropdown_container { position: relative; }
 .toggle_multi_select_icon { position:absolute; top:0; right:0;  }

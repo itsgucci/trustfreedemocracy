@@ -171,7 +171,9 @@ padding:0;
 padding-right:7px;
 color: #000;
 float: right;
-line-height:28px
+line-height:28px;
+height:28px;
+overflow:hidden;
 }
 .flash_container {
 padding: 0.5em;

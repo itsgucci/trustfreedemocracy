@@ -1,4 +1,4 @@
-page.insert_html :before, :bottom_of_list, :partial => 'grid'
+page.insert_html :bottom, :target_table_target, :partial => 'grid', :locals => {:content_only => true}
 if @smaller
   page.select('.col3').each do |e|
     e.hide
