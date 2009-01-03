@@ -31,7 +31,7 @@ class RatingsController < ApplicationController
     
     render :update do |page|  
       page.insert_html :bottom, "comments#{ commentable.id }", :partial => "/comments/comment_and_reply", :locals => { :comment => comment }  
-      page.visual_effect :highlight, "comment#{ comment.id }"  
+      page.visual_effect :blind_down, "comment#{ comment.id }"  
       page.remove "comment_write#{ commentable.id }"
     end
   end

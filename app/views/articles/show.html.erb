@@ -51,7 +51,8 @@
 			<%- end %>
 			
 			<%- if @article.tom_id %>
-			 - Origin: <%= link_to @article.tom_id, @article.tom_id, :popup => true %>
+				<%- words = @article.tom_id.match(/loc\.uscongress/) ? "Thomas" : @article.tom_id %>
+			 - Origin: <%= link_to words, @article.tom_id, :popup => true %>
 			<%- else %>
 			 - Origin: <%= link_to "Democracy Universal", article_url(@article), :onclick => "return false;" %>
 			<%- end %>
@@ -64,9 +65,9 @@
 			["Status", "action", url_for(:controller => 'articles', :action => 'show_action', :id => @article)],
 			["Support", "support", url_for(:controller => 'articles', :action => 'show_support', :id => @article)],
 			["Resources", "discuss", url_for(:controller => 'articles', :action => 'show_discussion', :id => @article)]] %>
+	<%- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
 	<%- tabs += [["Vote", "vote", url_for(:controller => 'articles', :action => 'show_vote', :id => @article)]] %>
 	<%- tabs += [["Prioritize", "focus", url_for(:controller => 'articles', :action => 'show_focus', :id => @article)]] if @article.focus? %>
-	<%- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
 	<%#- tabs += [["Results", "result", url_for(:controller => 'articles', :action => 'show_results', :id => @article)]] %>
 	
 	<%= tabs @article.id.to_s, tabs %>
