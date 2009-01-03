@@ -62,14 +62,16 @@ class Article < ActiveRecord::Base
       article_text_id ? ArticleText.find(article_text_id).text : nil
     end
   end
-  def text=(text, version = nil)
-    current_article_text = if version
-      article_texts.find_by_version(version)
-    else
-      article_text
-    end
+  def text=(text)
+    current_article_text = article_text
     current_article_text ||= article_texts.new #create if not found
     current_article_text.version = version if version && current_article_text.new_record?
+    current_article_text.text = text
+    current_article_text.save
+  end
+  def edit_version(version, text)
+    current_article_text = article_texts.find_by_version(version) || article_texts.new
+    current_article_text.version = version if current_article_text.new_record?
     current_article_text.text = text
     current_article_text.save
   end

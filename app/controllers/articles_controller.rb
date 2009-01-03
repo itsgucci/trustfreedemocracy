@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
   
   def grid
     @articles_grid = initialize_grid(Article, :conditions => ['community_id = ?', current_community.id], :per_page => 26, :include => [:community, :district])
-    @smaller = params[:smaller] == 'shrunk'
+    @smaller = params[:smaller] == 'true'
     render :action => :grid
   end
   

@@ -43,7 +43,11 @@
 			                            ) %>
 				</span>
 			<%- else %>
+				<%- if @article.author && @article.author.facebook_id %>
 				<fb:name uid="<%= @article.author.facebook_id %>" capitalize="true"></fb:name>
+				<%- else %>
+				Unknown
+				<%- end %>
 			<%- end %>
 			
 			<%- if @article.tom_id %>

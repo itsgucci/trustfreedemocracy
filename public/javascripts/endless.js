@@ -4,7 +4,7 @@ var currentPage = 1;
 function checkScroll() {
   if (nearBottomOfPage()) {
     currentPage++;
-    new Ajax.Request('/articles/grid.js?grid[page]=' + currentPage + "&" + Form.serialize('grid_params'), {asynchronous:true, evalScripts:true, method:'get'});
+    new Ajax.Request('/articles/grid.js?grid[page]=' + currentPage + "&smaller=" + smaller + "&" + Form.serialize('grid_params'), {asynchronous:true, evalScripts:true, method:'get'});
   } else {
     setTimeout("checkScroll()", 250);
   }

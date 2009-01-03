@@ -34,7 +34,7 @@ namespace :bootstrap do
 
   desc "Create the default comment"
   task :community_from_input => :environment do
-    name = ask "Default legislature name: "
+    name = ask "Create legislature named: "
     Community.create( :name => name )
   end
   desc "Create the default comment"
@@ -57,7 +57,7 @@ namespace :bootstrap do
     privilege_to_role('edit article', 'article_owner', 'representative', 'clerk')
     privilege_to_role('finalize article', 'article_owner')
     privilege_to_role('kill article', 'article_owner', 'chair', 'representative', 'clerk')
-    privilege_to_role('')
+    #privilege_to_role('')
     puts "Badges created}"
   end
   
