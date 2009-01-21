@@ -1,9 +1,7 @@
 <%- if @district.members.empty? %>
-<p class="larger"><%= @district.name %> has no members</p>
+<p class="larger"><%= @district.name %> has no Representatives</p>
 <%- else %>
-<ul class="orangelist">
 	<%- @district.members.each do |user| %>
-		<li><%= link_to user.name, user %></li>
+		<fb:profile-pic uid="<%= user.facebook_id %>"></fb:profile-pic>
 	<%- end %>
-</ul>
 <%- end %>

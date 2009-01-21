@@ -4,7 +4,7 @@
 		{:id => "#{@articles_grid.name}_row_#{article.id}",
 		:onclick => "showArticle(#{article.id}); return false;"}
 	end
-	g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
+	g.column :column_name => '&nbsp;*', :attribute_name => 'support_count', :no_filter => true do |article|
 		@width = 30; @article = article; render( :partial => 'articles/support_image')
 	end
 	g.column :column_name => 'Number', :attribute_name => 'number', :class => "larger" do |article|

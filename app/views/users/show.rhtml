@@ -13,7 +13,7 @@
 		#	["Certifications", "certs", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]
 			]
 			 %>
-	<%- if logged_in? && (@user == current_user || current_user.has_privilege?('edit users') )%>
+	<%- if false && logged_in? && (@user == current_user || current_user.has_privilege?('edit users') )%>
 	<%- tabs += [["Manage", "manage", url_for(:controller => 'users', :action => 'show_manage', :id => @user)]] %>
 	<%- end %>
 	

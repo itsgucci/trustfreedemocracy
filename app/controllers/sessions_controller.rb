@@ -50,7 +50,11 @@ class SessionsController < ApplicationController
       self.current_district = District.find(params[:id])
       self.current_community = self.current_district.community
     end
-    redirect_to :back
+    begin
+      redirect_to :back
+    rescue
+      redirect_to self.current_community
+    end
   end
   
   def home

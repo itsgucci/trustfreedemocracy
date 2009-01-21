@@ -10,7 +10,7 @@
 <%- end %>
 <table>
 	<thead>
-		<tr><th>Representative</th><th>Region</th><th>Description</th></tr>
+		<tr><th>Regional Coordinator</th><th>Region</th><th>Description</th></tr>
 	</thead>	
 	<%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
 	<%- @community.districts.each do |dist| %>
@@ -18,7 +18,7 @@
 		<td>
 			<%= in_place_select_editor( :content => {
 			       :element => 'span',
-			       :text => dist.representative ? dist.representative.name : "none",
+			       :text => dist.representative ? dist.representative.facebook_id : "none",
 			   	:options => {
 			   		:id => "repselect#{ dist.id }",
 			   		:class => 'editable-content'

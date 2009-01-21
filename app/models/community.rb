@@ -94,6 +94,10 @@ class Community < ActiveRecord::Base
     nil
   end
   
+  def add_member(user)
+    members << user unless member?(user)
+  end
+  
   def member?(user)
     return false if user.nil?
     return false if user == :false

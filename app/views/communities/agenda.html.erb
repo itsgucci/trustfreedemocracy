@@ -9,14 +9,13 @@
 </div>
 <%- end %>
 <div class="box">
-	<h1 class="header">Agenda for <%= @community.name %></h1>
+	<h1 class="header">Priority of <%= @community.name %></h1>
 	<div class="body">
-		<table class="hidden ruler">
-			<thead><tr><th>District</th><th>Affirmers</th><th>Priority</th></tr></thead>
+		<table class=" ruler">
+			<thead><tr><th>District</th><th>Priority</th></tr></thead>
 			<%- @community.districts.all(:include => :top_priority).each do |district| %>
 			<tr style="cursor:pointer" onclick="document.location.href='<%= agenda_district_path(district) %>'">
 				<td><%= h district.name %></td>
-				<td><%= district.top_priority ? district.top_priority.focus_count : "0" %></td>
 				<td class="golden_big"><%= district.top_priority ? link_to( h( district.top_priority.title.blank? ? "Untitled" : district.top_priority.title ), district.top_priority) : "Nothing" %></td>
 			</tr>
 			<%- end %>

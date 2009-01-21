@@ -9,8 +9,9 @@
 <%- end %>
 <%- if current_district %>
 <div class="box rounded summary">
-	<h1 class="header">Suggested Priority for <%= current_district.representative ? h(current_district.representative.name) : "my Representative" %></h1>
+	<h1 class="header">Regional Priority of <%= h current_district.name %></h1>
 	<div class="body">
+		<%- if current_district.top_priority %>
 		<div class="two_columns">
 			<div class="left_column golden_big">
 				<div class="two_columns">
@@ -55,14 +56,17 @@
 				<div class="box">
 					<h2 class="header">Representative Activity</h2>
 					<div class="body">
-						<p><%= link_to h(current_district.representative.name), current_district.representative %> should introduce <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> into legislature next.</p>
+						<p><fb:name uid="<%= current_district.representative.facebook_id %>" capitalize="true"></fb:name> should introduce <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> into legislature next.</p>
 						<p class="smaller dull">* the agenda is determined by constituent's Top Priority and is subject to change at any time.</p>	
 					</div>
 				</div>
 				<%- end %>	
-			</div>	
-			<%= clear_both %>
+			</div>
 		</div>
+		<%= clear_both %>
+		<%- else %>
+		<p class="larger">There is no Priority!</p>
+		<%- end %>
 	</div>
 </div>
 <%- end %>

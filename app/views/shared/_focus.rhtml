@@ -10,9 +10,9 @@
 				</div>
 			</div>
 			<div class="right_column half" style="">
-				<ul id="user_focus_list<%= @article.id %>" class="scrolling_box orangelist">
+				<ul id="user_focus_list<%= @article.id %>" class="scrolling_box invisilist">
 					<%- for user in @article.endorsers %>
-						<li id="user_focuser<%= @article.id.to_s + '_' + user.id.to_s %>"><%= link_to user.name, user %></li>
+						<li id="user_focuser<%= @article.id.to_s + '_' + user.id.to_s %>"><fb:profile-pic uid='<%= user.facebook_id %>'></fb:profile-pic> <fb:name uid='<%= user.facebook_id %>' useyou='false'></fb:name></li>
 					<%- end %>
 				</ul>
 			</div>

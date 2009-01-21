@@ -1,8 +1,8 @@
 <div class="box">
-	<h1 class="header">My Suggested Priority for <%= current_district.representative ? h(current_district.representative.name) : "my Representative" %></h1>
+	<h2 class="header">Choose your most important change</h2>
 	<div class="body">
 		<%- if @list.empty? %>
-		<p class="larger">There are no Motions available to choose from</p>
+		<p class="larger">Sorry! There are no Changes to choose from. Consider <%= link_to "proposing a change", new_article_path %>.</p>
 		<%- else %>
 		<table class="ruler">
 			<thead>

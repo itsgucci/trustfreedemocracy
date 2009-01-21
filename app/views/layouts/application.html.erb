@@ -58,10 +58,10 @@
 			<div id="top_links" class="top_links">
 				<%- if current_district || current_community %>
 				<ul style="" id="site_navigation" class="left_links">
-					<li help="Yes, we can construct our dreams. Click here to Edit and Revise Motions being written by the People of <%= current_name %>. Contribute your strengths"><%= link_to_unless_current "Browse all Laws", {:controller => '/table'} %></li>
-					<li help="Do something about it, now. Click here to create and introduce a new Motion to the People of <%= current_name %>. This is where the process starts"><%= link_to_unless_current "Propose a Change", new_article_path %></li>
-					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?"><%= link_to_unless current_page?( :controller => 'proposals'), "My Rep's Priority", {:controller => '/proposals'} %></li>
-					<li help="Have it our way. Click here to choose your Top Priority and establish the Agenda of <%= current_full_name %>. What is your Priority?"><%= link_to_unless logged_in? && current_page?( user_path(current_user)), "How am I doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
+					<li><%= link_to_unless_current "Surf the Laws", {:controller => '/table'} %></li>
+					<li><%= link_to_unless current_page?( :controller => 'proposals'), "Prioritize Changes", {:controller => '/proposals'} %></li>
+					<li><%= link_to_unless_current "Propose a Change", new_article_path %></li>
+					<li><%= link_to_unless logged_in? && current_page?( user_path(current_user)), "How #{ logged_in? ? 'am I' : 'are we'} doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
 				</ul>
 				<%- end %>
 				<ul class="right_links">
@@ -72,7 +72,7 @@
 					<li>
 						<%- form_tag '/articles', :method => 'get' do %>
 							<%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
-							<%= text_field_tag "search", "Search All Laws", :onblur => "if(this.value == '') this.value = 'Search All Laws';", :onclick => "if(this.value == 'Search All Laws') this.value = '';", :size => "11", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
+							<%= text_field_tag "search", "Search for Laws", :onblur => "if(this.value == '') this.value = 'Search for Laws';", :onclick => "if(this.value == 'Search for Laws') this.value = '';", :size => "12", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
 						<%- end %>
 					</li>
 				</ul>

@@ -22,12 +22,12 @@ class DistrictsController < ApplicationController
   def show
     if params[:id] == "0"
       self.current_district = nil
-      redirect_to self.current_community
     else
       @district = District.find(params[:id])
       self.current_district = @district
       self.current_community = @district.community
     end
+    redirect_to self.current_community
   end
   
   def agenda

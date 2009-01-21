@@ -31,6 +31,12 @@ namespace :bootstrap do
     puts "username: #{username}"
     puts "password: #{password}"
   end
+  
+  task :godmode => [:environment, :default_badges] do
+    user = User.find 1
+    user.grant_role('admin')
+    puts "Godmode given to fbid:#{user.facebook_id}"
+  end
 
   desc "Create the default comment"
   task :community_from_input => :environment do

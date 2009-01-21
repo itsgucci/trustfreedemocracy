@@ -195,7 +195,7 @@ class Article < ActiveRecord::Base
   end
   
   def unendorse(user)
-    if endorsement = Endorsement.first(:conditions => ["user_id = ? AND district_id = ? AND ended_at = ?", user.id, self.district_id, nil])
+    if endorsement = Endorsement.first(:conditions => ["user_id = ? AND district_id = ? AND ended_at IS NULL", user.id, self.district_id])
       Article.transaction do
         endorsement.update_attribute('ended_at', Time.now)
         Article.decrement_counter('focus_count', self.id)
@@ -315,7 +315,7 @@ class Article < ActiveRecord::Base
     stage == 1
   end
   def focus?
-    stage == 2
+    stage <= 2
   end
   def in_comite?
     stage == 3

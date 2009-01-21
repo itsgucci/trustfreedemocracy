@@ -13,6 +13,9 @@ body {
   bottom: 0;
   background: #FF5A00;
 }
+#current_user {
+  display:none;
+}
 #current_user a {
   color: #fff;
 }

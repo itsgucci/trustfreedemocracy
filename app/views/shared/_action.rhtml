@@ -9,7 +9,7 @@
 		<%- for action in actions %>
 		<tr class="action">
 			<td class="dull smaller"><%= action.created_at.strftime("%m/%d/%y") %></td>
-			<td><%= {"DU" => "Democracy Universal", "H" => "House", "S" => "Senate"}[action.house] || "Democracy Universal" %></td>
+			<td><%= {"DU" => "Democracy Universal", "H" => "House", "S" => "Senate"}[action.house] || "N/A" %></td>
 			<td><%= h action.action %></td>
 		</tr>
 		<%- end %>

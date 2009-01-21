@@ -4,10 +4,8 @@
 		<p style="float:right">
 			<%- if @community.certified? current_user %>
 			<span help="This is your present status with this Government. Click here to leave <%= h @community.name %>"><%= link_to "Certified", certify_community_path %></span>
-			<%- elsif @community.member? current_user %>
-			<span help="This is your present status with this Government. Click here to become a certified member or leave <%= h @community.name %>"><%= link_to "Member", certify_community_path %></span>
 			<%- else %>
-				<%= link_to "Non-Member", certify_community_path, :help => "If you constitute #{ h @community.name }, click here to become a member." %>
+				<%#= link_to "Sans Certified", certify_community_path, :help => "If you constitute #{ h @community.name }, click here to become a member." %>
 			<%- end %>
 		</p>
 		<%= clear_both %>
@@ -30,24 +28,28 @@
 			   ) 
 			%> <%= link_to ">", @community.chairperson %>
 				<%- if current_district && current_district.representative %>
-				 - Representative: <%= h current_district.representative.name %>
+				 - Regional Coordinator: <fb:name uid="<%= current_district.representative.facebook_id %>"></fb:name>
+				<%- else %>
+				- <%= @community.districts.count %> Regions 
 				<%- end %>
 			<%- else %>
 			Chairperson: <%= @community.chairperson ? !@community.chairperson.login.blank? ? link_to( h(@community.chairperson.name), @community.chairperson) : @community.chairperson.name : "Unassigned" %>
 				<%- if current_district && current_district.representative %>
-				 - Representative: <%= h current_district.representative.name %>
+				 - Regional Coordinator: <fb:name uid="<%= current_district.representative.facebook_id %>"></fb:name>
+				<%- else %>
+				- <%= @community.districts.count %> Regions 
 				<%- end %>
 			<%- end %>
-			- <%= pluralize( current_district ? current_district.population : @community.population, "Constituent" ) %>
+			- <%= pluralize( current_district ? current_district.population : @community.population, "Representatives" ) %>
 		</h4>
 	</div>
 	<%- tabs = [
 			["Find", "find", render( :partial => 'shared/find' )],
-			["Progress", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
-			["Record", "minutes", url_for(:controller => 'communities', :action => 'show_minutes', :id => @community)],
-			["Budget", "info", url_for(:controller => 'communities', :action => 'show_budget', :id => @community)],
-			["Representatives", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)],
-			["Constituents", "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]
+			["Recent Changes", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
+		#	["Record", "minutes", url_for(:controller => 'communities', :action => 'show_minutes', :id => @community)],
+		#	["Budget", "info", url_for(:controller => 'communities', :action => 'show_budget', :id => @community)],
+			["Regions", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)],
+			["Representatives", "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]
 			#["Charter", "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
 			] %>
 	

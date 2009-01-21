@@ -63,7 +63,7 @@ class ArticlesController < ApplicationController
         article.set_current_version "DU"
         article.text = params[:text]
         article.actions.create(:house => "DU", :action => "#{ article.article_type.name } Created: #{ article.title }", :district_id => article.district_id, :processed => true )
-        flash[:notice] = "<p>This #{ article.article_type.name } is now in the Development stage</p><p>You are the author and may edit this Motion as you see fit</p><p>Share link: #{ article_url(article) }</p>"
+        flash[:notice] = "<p>You have proposed a #{article.article_type.name} in #{article.community.name}.</p><p>You are the author of this Change and responsible for making it happen.</p><p>Share your Change with friends #{ article_url(article) }</p>"
         redirect_to article
       else
         render :action => 'new'
@@ -102,7 +102,7 @@ class ArticlesController < ApplicationController
     if logged_in? && @article.endorse(current_user)
       render :update do |page|
         page.replace_html 'endorsement_area', :partial => 'articles/withdraw_focus'
-        page.insert_html :bottom, "user_focus_list#{ @article.id }", "<li id='user_focuser#{ @article.id.to_s + '_' + current_user.id.to_s }'>#{ link_to current_user.name, current_user }</li>"     
+        page.insert_html :bottom, "user_focus_list#{ @article.id }", "<li id='user_focuser#{ @article.id.to_s + '_' + current_user.id.to_s }'><fb:profile-pic uid='loggedinuser'></fb:profile-pic> <fb:name uid='loggedinuser' useyou='false'></fb:name></li>"     
         page.visual_effect :highlight, "user_focuser#{ @article.id.to_s + '_' + current_user.id.to_s }", :start_color => '"#ff6600"', :end_color => '"#ffffff"'
         page.replace_html "focus_image#{ @article.id }", :partial => 'articles/focus_image'
         page.replace_html "focus_summary#{ @article.id }", :partial => 'articles/focus_summary'
@@ -126,6 +126,11 @@ class ArticlesController < ApplicationController
   
   def add_support
     @article = Article.find( params[:id] )
+    
+    #have user automatically join community and district
+    #@article.community.add_member(current_user) if @article.community && !@article.community.member?(current_user)
+    @article.district.register(current_user, nil, nil) if @article.district && !@article.district.member?(current_user)
+    
     if @article.add_support(current_user)
       render :update do |page|
         page.select(".support_image" + @article.id.to_s).each do |image|

@@ -22,12 +22,13 @@ class ArticleType
     name == "Resolution"
   end
   def concern?
-    name == "Concern"
+    name == "Plan"
   end
   
-  @@list << ArticleType.new(1, "Bill", "Change how your community is spending your tax dollars", "B")
-  @@list << ArticleType.new(2, "Resolution", "Change the laws, not money related", "R")
-  @@list << ArticleType.new(3, "Concern", "Open a topic for discussion, not voted on", "C")
+  @@list << ArticleType.new(1, "Bill", "A potential governing Law", "B")
+  @@list << ArticleType.new(2, "Resolution", "An opportunity for your Democracy to come to an agreement", "R")
+  @@list << ArticleType.new(3, "Plan", "Open a topic for discussion, does not enter legislature", "P")
+  @@list << ArticleType.new(4, "Simple Resolution", "An opportunity for your Region to come to an agreement", "SR")
   
 
 end

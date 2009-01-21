@@ -1,6 +1,6 @@
 <%#= fbsession.auth_promoteSession %>
 <div class="box rounded">
-	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> making laws through facebook</span></h1>
+	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> democracy through facebook</span></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
@@ -15,8 +15,8 @@
 				</div>
 			<%- else %>
 				<div class="box">
-					<p>Join your friends to make the world a better place</p>
-					<p>Take an active role in <%= link_to current_community.name, current_community %> by connecting directly with elected representatives and the people they represent. Enjoy open discussion with peers, protect your rights with accountable voting, and let democracy work for you.</p>
+					<p>Join your <%= image_tag 'facebook/rogo.jpg', :style => "width:75px;vertical-align:middle;" %> friends to make the world a better place</p>
+					<p>Take an active role in <%= link_to current_community.name, current_community %> by connecting directly with elected representatives and the people they represent. Share resources with peers, vote for what you believe in, and let facebook and democracy universal work for you.</p>
 					<p>We encourage people to come together as a community to make laws that make sense, to us, and them. We hope that when the people lead, the leaders will follow. To enable grassroots leadership, we offer a certification program enabling registered voters to validate their voices and cast certified votes.</p>
 					<p>Help unite humanity in consensus with Democracy Universal</p>
 					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
@@ -25,7 +25,7 @@
 			<%- end %>
 			</div>
 			<div class="right_column golden_small">
-				<%- if logged_in? %>
+				<%- if logged_in? && !current_user.district_memberships.empty? %>
 				<div class="box">
 					<h2 class="header">My Democracy</h2>
 					<div class="hidden">
@@ -33,18 +33,14 @@
 						<p>logged in with fbid:<%= facebook_user %></p>
 					</div>
 					<div class="body">
-						<%- if current_user.district_memberships.empty? %>
-						<p class="notice">To get started, select your democracy</p>
-						<%- else %>
 						<ul class="orangelist scroll_box">
 							<%- current_user.district_memberships.each do |district| %>
-							<li><%= link_to( district.full_name, district.community ) %></li>
+							<li><%= link_to( district.full_name, district ) %></li>
 							<%- end %>
 						</ul>
-						<%- end %>
 					</div>
 				</div>
-				<%- else %>
+				<%- elsif !logged_in? %>
 				<%#= render :partial => 'sessions/login' %>
 				<div class="box">
 					<h2 class="header">Get Started</h2>
@@ -56,7 +52,7 @@
 				</div>
 				<%- end %>
 				<div class="box">
-					<h2 class="header">Available Democracy</h2>
+					<h2 class="header">Available Democracies</h2>
 					<div class="body">
 						<ul class="orangelist scroll_box">
 							<%- Community.visible(:order => 'name ASC').each do |community| %>
@@ -66,7 +62,7 @@
 					</div>
 				</div>
 				<div class="box">
-					<h2 class="header">Get Certified</h2>
+					<h2 class="header">Get Certified to Vote</h2>
 					<div class="body pretty_form">
 						<p class=""><%= link_to "Obtain a Certificate", "http://registarr.com", :popup => true, :class => "larger" %><br />or <%= link_to_function "Redeem my Certificate", visual_effect(:toggle_blind, 'cert_form'), :class => "larger" %></p>
 						<% form_tag SSL_ROOT + 'certification/redeem', :id => 'cert_form', :style => "display:none" do %>

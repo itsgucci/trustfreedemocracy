@@ -1,1 +1,2 @@
-<p>Presently this <%= h @article.article_type.name %> is your Top Priority, if this is no longer the case, <%= link_to_remote 'remove your Top Priority', :url => { :controller => 'articles', :action => 'unendorse', :id => @article.id } %>.</p>
+<p>This <%= h @article.article_type.name %> is your most important Change in <%= h @article.community.name %>.</p>
+<p class=""><%= link_to_remote 'Remove your importance', :url => { :controller => 'articles', :action => 'unendorse', :id => @article.id } %>.</p>

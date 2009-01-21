@@ -10,7 +10,7 @@
 <%- end %>
 <%- if current_district %>
 <div class="box rounded summary">
-	<h1 class="header"><%= h current_district.name %>'s Agenda for <%= h current_district.community.name %></h1>
+	<h1 class="header"><%= h current_district.name %>'s Priority for <%= h current_district.community.name %></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
@@ -73,8 +73,8 @@
 				<div class="box">
 					<h2 class="header">Representative Activity</h2>
 					<div class="body">
-						<p><%= h current_district.name %> wants <%= link_to h(current_district.representative.name), current_district.representative %> to sponsor <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> next.</p>
-						<p class="smaller dull">* the agenda is determined by constituent's Top Priority and is subject to change at any time.</p>	
+						<p><%= h current_district.name %> wants <%#= link_to h(current_district.representative.name), current_district.representative %> to sponsor <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> next.</p>
+						<p class="smaller dull">* the regional priority is determined by people choosing the change most important to them.</p>	
 					</div>
 				</div>
 				<%- end %>	
@@ -85,7 +85,7 @@
 </div>
 <%- end %>
 <div class="box">
-	<h2 class="header">Select your Top Priority for <%= current_name %></h2>
+	<h2 class="header">Select the most important change to you <%= current_name %></h2>
 	<div class="body">
 		<%- if @list.empty? %>
 		<p class="larger">There are no Motions available to choose from</p>
