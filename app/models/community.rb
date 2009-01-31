@@ -98,6 +98,10 @@ class Community < ActiveRecord::Base
     members << user unless member?(user)
   end
   
+  def register(user)
+    certifications.create(:user => user, :start_date => Time.now)
+  end
+  
   def member?(user)
     return false if user.nil?
     return false if user == :false

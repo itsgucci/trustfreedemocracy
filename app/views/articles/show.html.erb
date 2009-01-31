@@ -65,7 +65,7 @@
 			["Status", "action", url_for(:controller => 'articles', :action => 'show_action', :id => @article)],
 			["Support", "support", url_for(:controller => 'articles', :action => 'show_support', :id => @article)],
 			["Resources", "discuss", url_for(:controller => 'articles', :action => 'show_discussion', :id => @article)]] %>
-	<%- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
+	<%#- tabs += [["Reports", "report", url_for(:controller => 'articles', :action => 'show_reports', :id => @article)]] if @article.stage > 2 || @article.unknown? %>
 	<%- tabs += [["Vote", "vote", url_for(:controller => 'articles', :action => 'show_vote', :id => @article)]] if !@article.focus? %>
 	<%- tabs += [["Most Important", "focus", url_for(:controller => 'articles', :action => 'show_focus', :id => @article)]] if @article.focus? %>
 	<%#- tabs += [["Results", "result", url_for(:controller => 'articles', :action => 'show_results', :id => @article)]] %>

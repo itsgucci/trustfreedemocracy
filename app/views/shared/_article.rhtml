@@ -54,13 +54,13 @@
 		<div class="box">
 			<h2 class="header">Brief Summary</h2>
 			<div class="body text">
-				<%= textile( @article.summary.blank? ? "No summary available" : @article.summary ) %>
+				<%= textile( @article.summary.blank? ? "No Summary available" : @article.summary ) %>
 			</div>
 		</div>
 		<div class="box">
 			<h2 class="header"><%= @article.article_type.name %></h2>
 			<div class="body text">
-				<%= textile( @article.text.blank? ? "No Law available" : @article.text ) %>
+				<%= textile( @article.text.blank? ? "No Text available" : @article.text ) %>
 			</div>	
 		</div>
 	<%- end %>

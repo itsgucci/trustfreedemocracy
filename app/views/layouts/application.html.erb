@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<link rel="icon" type="image/gif" href="<%= image_path "logo.png" %>" />
-	<title><%= "#{current_community.name}: " if current_community %>There is Hope</title>
+	<title>D U <%= "+ #{current_community.name}" if current_community %></title>
 	<%= stylesheet_link_tag 'basic', 'lightbox' %>
 	<%= stylesheet_link_tag 'wice_grid' %>
 	<%= javascript_include_tag :defaults, 'textile', 'tooltip', 'reflection', 'endless' %>
@@ -50,7 +50,7 @@
 					<%#- current_community.ancestors.reverse.each do |community| %>
 					<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
 					<%#- end %>
-				<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %>: <%= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :help => "This is the district filter, select a district to get more specific results" } ) %>
+				<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %> : <%= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :help => "This is the district filter, select a district to get more specific results" } ) %>
 				<%- if false && current_district %> 
 					<a href="#" onclick="document.location.href='/districts/'+$('interest_id').value" help="Click here to go to <%= current_district.name %>">></a><%- end %></li>
 				<%- end %>

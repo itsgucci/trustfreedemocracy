@@ -1,6 +1,6 @@
 <%#= fbsession.auth_promoteSession %>
 <div class="box rounded">
-	<h1 id="mantra" class="header">Democracy Universal:<span style="font-weight:normal;"> democracy through facebook</span></h1>
+	<h1 id="mantra" class="header">Democracy Universal :<span style="font-weight:normal;"> democracy through facebook</span></h1>
 	<div class="body">
 		<div class="two_columns">
 			<div class="left_column golden_big">
@@ -15,12 +15,12 @@
 				</div>
 			<%- else %>
 				<div class="box">
-					<p>Join your <%= image_tag 'facebook/rogo.jpg', :style => "width:75px;vertical-align:middle;" %> friends to make the world a better place</p>
+					<p>Join your <%= image_tag 'facebook/rogo.jpg', :alt => "facebook", :style => "width:75px;vertical-align:middle;" %> friends to make the world a better place.</p>
+					<p>Help unite humanity in consensus with Democracy Universal.</p>
 					<p>Take an active role in <%= link_to current_community.name, current_community %> by connecting directly with elected representatives and the people they represent. Share resources with peers, vote for what you believe in, and let facebook and democracy universal work for you.</p>
 					<p>We encourage people to come together as a community to make laws that make sense, to us, and them. We hope that when the people lead, the leaders will follow. To enable grassroots leadership, we offer a certification program enabling registered voters to validate their voices and cast certified votes.</p>
-					<p>Help unite humanity in consensus with Democracy Universal</p>
-					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement</p>
-					<p>Find out more <%= link_to "about Democracy Universal", '/about' %></p>
+					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement.</p>
+					<p>Find out more <%= link_to "about Democracy Universal", '/about' %>.</p>
 				</div>
 			<%- end %>
 			</div>
@@ -64,7 +64,7 @@
 				<div class="box">
 					<h2 class="header">Get Certified to Vote</h2>
 					<div class="body pretty_form">
-						<p class=""><%= link_to "Obtain a Certificate", "http://registarr.com", :popup => true, :class => "larger" %><br />or <%= link_to_function "Redeem my Certificate", visual_effect(:toggle_blind, 'cert_form'), :class => "larger" %></p>
+						<p class=""><%= link_to "Obtain a Certificate", "http://registarr.com", :popup => true, :class => "larger" %><br />or <%= link_to_function "Redeem a Certificate", visual_effect(:toggle_blind, 'cert_form'), :class => "larger" %></p>
 						<% form_tag SSL_ROOT + 'certification/redeem', :id => 'cert_form', :style => "display:none" do %>
 						<%# form_tag redeem_certification_url do %>
 							<p><label for="certificate">Certificate:</label><%= text_field_tag :certificate, nil, :size => 7 %></p>

@@ -18,7 +18,7 @@
 		<td>
 			<%= in_place_select_editor( :content => {
 			       :element => 'span',
-			       :text => dist.representative ? dist.representative.facebook_id : "none",
+			       :text => dist.representative ? dist.representative.name : "none",
 			   	:options => {
 			   		:id => "repselect#{ dist.id }",
 			   		:class => 'editable-content'

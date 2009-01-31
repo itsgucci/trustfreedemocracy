@@ -10,7 +10,7 @@ module CommunitiesHelper
   end
   
   def potential_reps_collection
-    @pot_reps ||= ([[nil, "none"]] + User.find(:all).map {|user| [user.id, user.facebook_id] }).to_json
+    @pot_reps ||= ([[nil, "none"]] + User.find(:all).map {|user| [user.id, user.name] }).to_json
   end
   
 end

@@ -130,6 +130,7 @@ class ArticlesController < ApplicationController
     #have user automatically join community and district
     #@article.community.add_member(current_user) if @article.community && !@article.community.member?(current_user)
     @article.district.register(current_user, nil, nil) if @article.district && !@article.district.member?(current_user)
+    @article.community.register(current_user) if @article.community && !@article.community.member?(current_user)
     
     if @article.add_support(current_user)
       render :update do |page|
