@@ -15,7 +15,9 @@ function nearBottomOfPage() {
 }
 
 function scrollDistanceFromBottom(argument) {
-  return Element.cumulativeScrollOffset($('bottom_of_list'))[1] - document.viewport.getScrollOffsets()[1]
+    return Element.cumulativeScrollOffset($('bottom_of_list'))[1] - document.viewport.getScrollOffsets()[1]
 }
 
-document.observe('dom:loaded', checkScroll);
+if ($('bottom_of_list')) {
+  document.observe('dom:loaded', checkScroll);  
+}
