@@ -10,7 +10,7 @@
 		<%- @users.each do |user| %>
 			<tr style="cursor:pointer" onclick="document.location.href='<%= url_for user %>'">
 				<td class="dull smaller"><%= user.created_at.strftime("%D") %></td>
-				<td><fb:profile-pic uid="<%= user.facebook_id %>"></fb:profile-pic><fb:name uid="<%= user.facebook_id %>" capitalize="true"></fb:name></td>
+				<td><%= picture_and_name(current_user) %></td>
 				<td class="dull golden_big"><%= number_to_percentage user.total_representation, :precision => 2 %></td>
 				<td class="dull golden_big hidden"><%= user.community_memberships.map(&:name).to_sentence %></td>
 			</tr>

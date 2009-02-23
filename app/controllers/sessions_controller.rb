@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
       respond_to do |format|
         format.html do |html|
           flash[:notice] = "<p>Aloha, #{ self.current_user.name }</p>"
-          redirect_back_or_default :back
+          redirect_back_or_default '/'
         end
         format.js { render :text => "accountability established" }
       end

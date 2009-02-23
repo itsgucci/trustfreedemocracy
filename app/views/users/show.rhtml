@@ -1,5 +1,5 @@
 <div class="box rounded about">
-	<h1 class="header"><fb:name uid="<%= @user.facebook_id %>" linked="false" possessive="true"></fb:name></h1>
+	<h1 class="header"><%= picture_and_name(@user) %></h1>
 	
 	<%- tabs = [
 			["Representation", "rep", render(:partial => 'representation')],
@@ -13,7 +13,7 @@
 		#	["Certifications", "certs", url_for(:controller => 'users', :action => 'show_memberships', :id => @user)]
 			]
 			 %>
-	<%- if false && logged_in? && (@user == current_user || current_user.has_privilege?('edit users') )%>
+	<%- if logged_in? && (@user == current_user || current_user.has_privilege?('edit users') )%>
 	<%- tabs += [["Manage", "manage", url_for(:controller => 'users', :action => 'show_manage', :id => @user)]] %>
 	<%- end %>
 	

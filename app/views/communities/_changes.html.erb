@@ -1,0 +1,12 @@
+<h3>Drafts</h3>
+<%- @community.articles.drafts.each do |article| %>
+<p><%= h article.title %></p>
+<%- end %>
+<h3>Most Important</h3>
+<%- @community.articles.focuses.each do |article| %>
+<p><%= h article.title %></p>
+<%- end %>
+<h3>Most Supported</h3>
+<%- @community.articles.most_supported(10).each do |article| %>
+<p><%= h article.title %></p>
+<%- end %>

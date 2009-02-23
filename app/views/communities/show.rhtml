@@ -1,13 +1,14 @@
 <div class="box">
 	<div class="header">
-		<h1 style="float:left"><%= h( @community.name ) %>: <%= current_district ? current_district.name : "All Regions" %></h1>
-		<p style="float:right">
+		<h1 style="float:left"><%= h( @community.name ) %>: </h1>
+		<%= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :style => "font-size:29px"} ) %>
 			<%- if @community.certified? current_user %>
+		<p style="float:right">
 			<span help="This is your present status with this Government. Click here to leave <%= h @community.name %>"><%= link_to "Certified", certify_community_path %></span>
+		</p>
 			<%- else %>
 				<%#= link_to "Sans Certified", certify_community_path, :help => "If you constitute #{ h @community.name }, click here to become a member." %>
 			<%- end %>
-		</p>
 		<%= clear_both %>
 		<h4 class="dull">
 			<%- if logged_in? && current_user.has_privilege?('manage communities') %>
@@ -28,30 +29,26 @@
 			   ) 
 			%> <%= link_to ">", @community.chairperson %>
 				<%- if current_district && current_district.representative %>
-				 - Regional Coordinator: <fb:name uid="<%= current_district.representative.facebook_id %>"></fb:name>
-				<%- else %>
-				- <%= @community.districts.count %> Regions 
-				<%- end %>
-			<%- else %>
-			Chairperson: <%= @community.chairperson ? !@community.chairperson.login.blank? ? link_to( h(@community.chairperson.name), @community.chairperson) : @community.chairperson.name : "Unassigned" %>
-				<%- if current_district && current_district.representative %>
-				 - Regional Coordinator: <fb:name uid="<%= current_district.representative.facebook_id %>"></fb:name>
 				<%- else %>
 				- <%= @community.districts.count %> Regions 
 				<%- end %>
 			<%- end %>
-			- <%= pluralize( current_district ? current_district.population : @community.population, "Representatives" ) %>
 		</h4>
 	</div>
 	<%- tabs = [
-			["Find", "find", render( :partial => 'shared/find' )],
-			["Recent Changes", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
+		#	["Laws", "find", render( :partial => 'shared/find' )],
+		#	["News", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
+			["News", "action", render(:partial => 'shared/action_paginated', :locals => {:actions => @actions})],
+			["Changes", "change", url_for(:controller => 'communities', :action => 'show_changes', :id => @community)],
+			["Laws", "law", url_for(:controller => 'communities', :action => 'show_laws', :id => @community)],
+			
+			[name(@community.chairperson), "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
 		#	["Record", "minutes", url_for(:controller => 'communities', :action => 'show_minutes', :id => @community)],
 		#	["Budget", "info", url_for(:controller => 'communities', :action => 'show_budget', :id => @community)],
-			["Regions", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)],
-			["Representatives", "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]
-			#["Charter", "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
-			] %>
+		] %>
+		<%- tabs += [[pluralize( @community.districts.count, "Coordinator"), "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] unless current_district %>
+		<%- tabs += [[name(current_district.representative), "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] if current_district %>
+		<%- tabs +=	[[pluralize( current_district ? current_district.population : @community.population, "Representative" ), "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]] %>
 	
 	<%= tabs @community.id.to_s, tabs %>
 </div>

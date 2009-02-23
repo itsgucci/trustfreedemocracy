@@ -50,7 +50,8 @@ input[type="button"]:hover,input[type="submit"]:hover {
 
 a {
 /*color: #164aba;*/
-color: #ff9400;
+/*color: #ff9400; */
+color: #0064FF;
 text-decoration: none;
 }
 a:hover {
@@ -186,6 +187,7 @@ clear: both;
 width: 100%;
 position: fixed;
 top: 0;
+display:none;
 }
 
 #site_navigation {
@@ -225,7 +227,7 @@ color: #333;
 
 #content {
 margin-bottom: 3em;
-margin-top: 4.5em;
+/*margin-top: 4.5em;*/
 min-height: 420px;
 }
 #content > .box, #content > .container {

@@ -29,18 +29,16 @@
 				</div>
 			</div>
 			<div class="right_column golden_small">
+				<%- if logged_in? && current_user.focus(current_district) %>
 				<div class="box">
-					<h2 class="header">My Suggested Priority</h2>
+					<h2 class="header">Most Important Change</h2>
 					<div class="body">
-						<%- if logged_in? && current_user.focus(current_district) %>
 						<%- @article = current_user.focus(current_district) %>
 						<%= render :partial => 'articles/focus_image' %>
 						<p>Your top priority is <%= link_to (current_user.focus(current_district).article.number + " - " + current_user.focus(current_district).article.title), current_user.focus(current_district).article %></p>
-						<%- else %>
-						<p>Choose your Top Priority from the available priorities.</p>
-						<%- end %>		
 					</div>
 				</div>
+				<%- end %>		
 				<%- if logged_in? && current_user.has_privilege?('move into session', current_district) %>
 				<div class="box">
 					<h2 class="header">Move to Session</h2>
@@ -54,10 +52,9 @@
 				</div>
 				<%- elsif current_district.representative %>
 				<div class="box">
-					<h2 class="header">Representative Activity</h2>
+					<h2 class="header">Coordinator Activity</h2>
 					<div class="body">
-						<p><fb:name uid="<%= current_district.representative.facebook_id %>" capitalize="true"></fb:name> should introduce <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> into legislature next.</p>
-						<p class="smaller dull">* the agenda is determined by constituent's Top Priority and is subject to change at any time.</p>	
+						<p><%= name(current_district.representative) %> should introduce <%= current_district.top_priority ? link_to( h( current_district.top_priority.title.blank? ? "Untitled" : current_district.top_priority.title ), current_district.top_priority) : "Nothing" %><span class="smaller dull">*</span> into legislature next.</p>
 					</div>
 				</div>
 				<%- end %>	

@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<link rel="icon" type="image/gif" href="<%= image_path "logo.png" %>" />
-	<title>D U <%= "+ #{current_community.name}" if current_community %></title>
+	<title>DU<%= "+ #{current_community.name}" if current_community %></title>
 	<%= stylesheet_link_tag 'basic', 'lightbox' %>
 	<%= stylesheet_link_tag 'wice_grid' %>
 	<%= javascript_include_tag :defaults, 'textile', 'tooltip', 'reflection', 'endless' %>
@@ -30,18 +30,16 @@
 		document.write('<%= stylesheet_link_tag 'facebook' %>');
 	}
 	</script>
+	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
 </head>
 <body id="trustfreedemocracy">
-	<script type="text/javascript" src="http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php"></script>
 	<div id="padding">
 		<div id="navigation">
 			<div id="current_user">
 				<%- if logged_in? %>
-				<div style="float: right; padding-left: 7px"><%= link_to_function image_tag("facebook/logout_medium.gif", :alt => "logout"), 'FB.Connect.logoutAndRedirect("/logout")' %></div>
-				<fb:profile-pic uid="loggedinuser" width="25px" height="25px" facebook-logo="true"></fb:profile-pic>
-				<fb:name uid="loggedinuser" useyou="false"></fb:name>
+				<div style="display:none;float: right; padding-left: 7px"><%= link_to_function image_tag("facebook/logout_medium.gif", :alt => "logout"), 'FB.Connect.logoutAndRedirect("/logout")' %></div><%= picture_and_name(current_user) %>
 				<%- else  %>
-				<div style="position:relative; top: 2px; padding-left: 7px"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();"></fb:login-button></div>
+				<%= link_to "login", '/login' %><div style="position:relative; top: 2px; padding-left: 7px"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();"></fb:login-button></div>
 				<%- end  %>
 			</div>
 			<ul class="horizontal district larger">
@@ -50,7 +48,7 @@
 					<%#- current_community.ancestors.reverse.each do |community| %>
 					<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
 					<%#- end %>
-				<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %> : <%= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :help => "This is the district filter, select a district to get more specific results" } ) %>
+				<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %> : <%#= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :help => "This is the district filter, select a district to get more specific results" } ) %>
 				<%- if false && current_district %> 
 					<a href="#" onclick="document.location.href='/districts/'+$('interest_id').value" help="Click here to go to <%= current_district.name %>">></a><%- end %></li>
 				<%- end %>
@@ -58,10 +56,10 @@
 			<div id="top_links" class="top_links">
 				<%- if current_district || current_community %>
 				<ul style="" id="site_navigation" class="left_links">
-					<li><%= link_to_unless_current "Surf the Laws", {:controller => '/table'} %></li>
-					<li><%= link_to_unless current_page?( :controller => 'proposals'), "Prioritize Changes", {:controller => '/proposals'} %></li>
-					<li><%= link_to_unless_current "Propose a Change", new_article_path %></li>
-					<li><%= link_to_unless logged_in? && current_page?( user_path(current_user)), "How #{ logged_in? ? 'am I' : 'are we'} doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
+					<li><%#= link_to_unless_current "Surf the Laws", {:controller => '/table'} %></li>
+					<li><%#= link_to_unless current_page?( :controller => 'proposals'), "Prioritize Changes", {:controller => '/proposals'} %></li>
+					<li><%#= link_to_unless_current "Propose a Change", new_article_path %></li>
+					<li><%#= link_to_unless logged_in? && current_page?( user_path(current_user)), "How #{ logged_in? ? 'am I' : 'are we'} doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
 				</ul>
 				<%- end %>
 				<ul class="right_links">
@@ -153,7 +151,7 @@
 	<!-- magic little lightbox code for login -->
 	<div id="overlay" onclick="hideBox()" style="display:none"></div>
 	<!-- click outside to exit, desired><div id="overlay" style="display:none"></div><-->
-	<%- unless true || logged_in? %>
+	<%- unless logged_in? %>
 	<div class="lightbox" id="login_required" style="display:none">
 	    <img class="close" src="/images/close.gif" onclick="hideBox()" alt="Close" title="Cancel my participation" style="width: 36px; height: 36px;" />
 		<iframe src="<%= SSL_ROOT + 'sessions/login_iframe' %>" width="100%" height="265px"></iframe>

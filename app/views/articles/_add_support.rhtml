@@ -1,6 +1,7 @@
 <% form_remote_tag :url => { :controller => 'articles', :action => 'add_support', :id => @article.id }, :complete => "FB.XFBML.Host.parseDomTree()" do %>
 	<div>
-		<fb:profile-pic uid="loggedinuser"></fb:profile-pic> <fb:name uid="loggedinuser" useyou="false"></fb:name>
+		<%= picture_and_name(current_user) %>
 	</div>
 	<%= accountable_submit_tag "Support this #{ @article.article_type.name }" %>
+	<%#= submit_tag "Support this #{ @article.article_type.name }" %>
 <% end %>

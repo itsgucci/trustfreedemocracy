@@ -56,9 +56,13 @@ class User < ActiveRecord::Base
     index :name
   end
   
-  def district_memberships
-    certifications.active(:include => :district).map {|cert| cert.district }
+  def profile_img
+    "default.png"
   end
+  
+  #def district_memberships
+  #  certifications.active(:include => :district).map {|cert| cert.district }
+  #end
   def certified_district_memberships
     certifications.active.certified(:include => :district).map {|cert| cert.district }
   end

@@ -2,6 +2,6 @@
 <p class="larger"><%= @district.name %> has no Representatives</p>
 <%- else %>
 	<%- @district.members.each do |user| %>
-		<fb:profile-pic uid="<%= user.facebook_id %>"></fb:profile-pic>
+		<%= picture_and_name user %>
 	<%- end %>
 <%- end %>

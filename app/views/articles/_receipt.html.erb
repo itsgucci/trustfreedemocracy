@@ -1,6 +1,6 @@
 <%- if vote %>
 <div class="notice">
-	<fb:profile-pic uid="loggedinuser" linked="false"></fb:profile-pic><fb:name uid="loggedinuser" useyou="false" linked="false"></fb:name>
+	<p><%= picture_and_name(current_user) %></p>
 	<p><%= vote_in_english vote %></p>
 	<p>Ballot #<%= vote.id %> cast <%= vote.updated_on.strftime('%D') %> on <%= Article.find(vote.voteable_id).number %></p>
 </div>

@@ -6,9 +6,14 @@ class CommunitiesController < ApplicationController
     @communities = Community.all
   end
   
+  def new
+    @community = Community.new
+  end
+  
   def show
     @community = Community.find(params[:id])
     self.current_community = @community
+    @actions = Community.find(params[:id]).actions.paginate(:page => params[:page], :per_page => 13)
   end
   
   def agenda
@@ -188,6 +193,14 @@ class CommunitiesController < ApplicationController
   def show_actions
     actions = Community.find(params[:id]).actions.paginate(:page => params[:page], :per_page => 13)
     render :partial => 'shared/action_paginated', :locals => { :actions => actions }
+  end
+  def show_changes
+    @community = Community.find(params[:id])
+    render :partial => 'changes'
+  end
+  def show_laws
+    @community = Community.find(params[:id])
+    render :partial => 'laws'
   end
   def show_info
     @community = Community.find(params[:id])

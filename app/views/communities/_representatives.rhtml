@@ -10,7 +10,7 @@
 <%- end %>
 <table>
 	<thead>
-		<tr><th>Regional Coordinator</th><th>Region</th><th>Description</th></tr>
+		<tr><th>Coordinator</th><th>Region</th><th>Description</th><th>Sponsored</th></tr>
 	</thead>	
 	<%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
 	<%- @community.districts.each do |dist| %>
@@ -75,7 +75,7 @@
 	<%- else %>
 	<%- @community.districts.each do |dist| %>
 	<tr>
-		<td><%= dist.representative ? link_to( dist.representative.name, dist.representative ) : "unknown" %></td>
+		<td><%= dist.representative ? link_to( name(dist.representative), dist.representative ) : "unknown" %></td>
 		<td class=""><%= link_to dist.name, dist %></td>
 		<td class="golden_big"><%= dist.description.blank? ? "No Description" : h(dist.description) %></td>
 	</tr>

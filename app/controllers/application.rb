@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   include SslRequirement  
   include AuthenticatedSystem
   
+  helper :users
+  
   def district_membership_required
     unless current_district
       flash[:error] = "Fatal Error: No government selected"

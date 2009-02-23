@@ -13,7 +13,7 @@
 				<% form_remote_tag :url => { :controller => 'ratings', :action => 'comment', :id => thread_id, :rateable_type => "Article" } do %>
 					<%= hidden_field_tag 'category', category %>
 					<%= render :partial => "comments/comment" %>
-					<%= accountable_submit_tag "Add" %>	
+					<p><%= accountable_submit_tag "Share this Resource" %></p>
 			
 				<% end %>	
 			</div>

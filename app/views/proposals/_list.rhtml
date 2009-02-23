@@ -2,7 +2,7 @@
 	<h2 class="header">Choose your most important change</h2>
 	<div class="body">
 		<%- if @list.empty? %>
-		<p class="larger">Sorry! There are no Changes to choose from. Consider <%= link_to "proposing a change", new_article_path %>.</p>
+		<p class="larger"> <%= link_to "Propose change", new_article_path %> to <%= h current_community.name %> with the help of <%= h current_district.name %></p>
 		<%- else %>
 		<table class="ruler">
 			<thead>

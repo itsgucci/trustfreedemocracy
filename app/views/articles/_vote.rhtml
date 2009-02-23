@@ -29,10 +29,10 @@
 		<%= render :partial => 'tally' %>
 	</div>
 	<div class="box">
-		<h3 class="header">Official Vote</h3>
+		<h3 class="header">Regional Coordinator's Vote</h3>
 		<div class="body">
 			<%- if @article.rolls.empty? %>
-			<p class="larger"><%= current_district.representative.name if current_district && current_district.representative %> Your representative has not voted on this <%= @article.article_type.name %></p>
+			<p class="larger">No official votes on this <%= @article.article_type.name %></p>
 			<%- else %>
 				<%- @article.rolls.each do |roll| %>
 					<h3 style="margin-top:0.78em"><span class="dull"><%= roll.created_at.strftime("%B %d, %Y") %></span> Roll <%= h roll.number %></h3>
