@@ -37,7 +37,6 @@ class User < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
-  validates_acceptance_of   :awareness, :on => :create, :message => "must occur"
   validates_presence_of     :email, :name
   validates_presence_of     :password,                   :if => :password_required?
   validates_length_of       :password, :within => 4..40, :if => :password_required?
