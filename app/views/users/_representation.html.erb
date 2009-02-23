@@ -1,20 +1,24 @@
 <p class="enourmous">Represented <%= number_to_percentage @user.total_representation, :precision => 2 %></p>
-<%- if @user.districts.empty? %>
-<p class="larger"><%= @user.name %> does not belong to any districts</p>
-<%- else %>
-<ul class="orangelist">
-	<%- for district in @user.district_memberships %>
-	<p><%= link_to h(district.full_name), district %> 100% by <%= h( district.representative.name ) if district.representative %></p>
-	<%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
-		<%= vote.voteable_id %>
+<p>This number is actually random right now, but the idea is to corollate your voting record with your district coordinators voting choices and tell you how often you are truly represented along with what other individuals had in mind</p>
+<div class="hidden">
+	<%- if @user.districts.empty? %>
+	<p class="larger"><%= @user.name %> does not belong to any districts</p>
+	<%- else %>
+	<ul class="orangelist">
+		<%- for district in @user.district_memberships %>
+		<p><%= link_to h(district.full_name), district %> 100% by <%= h( district.representative.name ) if district.representative %></p>
+		<%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
+			<%= vote.voteable_id %>
+		<%- end %>
+		<%- end %>
+	</ul>
 	<%- end %>
-	<%- end %>
-</ul>
-<%- end %>
 
-<%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
-	<%- article = Article.find(vote.voteable_id) %>
-	<%= article.number %>: <%= article.title %>
-	<%= vote_in_english vote %>
-	<%= article.represented?(current_user, current_district.representative) if current_district && current_district.representative %>
-<%- end %>
+	<%- @user.votes.all(:conditions => {:voteable_type => 'Article' }).each do |vote| %>
+		<%- article = Article.find(vote.voteable_id) %>
+		<%= article.number %>: <%= article.title %>
+		<%= vote_in_english vote %>
+		<%= article.represented?(current_user, current_district.representative) if current_district && current_district.representative %>
+	<%- end %>
+	
+</div>

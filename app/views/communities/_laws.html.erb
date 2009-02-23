@@ -1,3 +1,24 @@
-<h3>Enforceable</h3>
-<h3>Plans</h3>
-<p>Sorted by most supported</p>
+<%= grid(@laws_grid, :table_html_attrs => { :id => "target_table", :class => "wice_grid ruler" } ) do |g|
+	g.row_attributes do |article|
+		{:id => "#{@laws_grid.name}_row_#{article.id}",
+		:onclick => "showArticle(#{article.id}); return false;"}
+	end
+	g.column :column_name => '&nbsp;*', :attribute_name => 'support_count', :no_filter => true do |article|
+		@width = 30; @article = article; render( :partial => 'articles/support_image')
+	end
+	g.column :column_name => 'Number', :attribute_name => 'number', :class => "larger" do |article|
+		h(article.number)
+	end
+	g.column :column_name => 'Stage', :attribute_name => 'stage', :no_filter => true do |article|
+		article.stage_name
+	end
+	g.column :column_name => 'Title', :attribute_name => 'title' do |article|
+		truncate(article.title, 200)
+	end
+	# g.column :column_name => 'Vote', :attribute_name => 'vote', :no_filter => true do |article|
+	# 	article.vote(current_user)
+	# end
+	# g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
+	# 	article.support_count
+	# end
+end -%>

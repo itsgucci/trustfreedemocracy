@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       # welcome the user via a notification.
       @user.notifications << Notification.new(:message => "Welcome to Democracy Universal.", :from_user_id => 1)
 
-      flash[:notice] = "<p>You have created and logged into your Account with Democracy Universal.</p><p>Welcome #{@user.name}</p>"
+      flash[:notice] = "<p>Aloha and welcome to Democracy Universal.</p><p>Get started by choosing an Available Democracy</p>"
       self.current_user = @user
       redirect_back_or_default "/" #suggest_districts_path
     else

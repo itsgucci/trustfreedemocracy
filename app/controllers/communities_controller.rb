@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController  
   
-  before_filter :login_required, :except => [:index, :show, :agenda, :show_actions, :show_info, :show_members, :show_reps, :show_calendar, :show_minutes, :show_charter, :show_budget]
+  before_filter :login_required, :except => [:index, :show, :agenda, :show_actions, :show_info, :show_members, :show_reps, :show_calendar, :show_minutes, :show_charter, :show_budget, :show_laws, :show_changes]
   
   def index
     @communities = Community.all
@@ -200,6 +200,7 @@ class CommunitiesController < ApplicationController
   end
   def show_laws
     @community = Community.find(params[:id])
+    @laws_grid = initialize_grid(Article, :conditions => ['community_id = ?', @community.id], :per_page => 26, :include => [:community, :district])
     render :partial => 'laws'
   end
   def show_info

@@ -496,6 +496,10 @@ padding: 0;
 }
 /* note to self. if it looks like a bug, it probably is one. */
 
+.header .user_name {
+  margin-left: 0.38em;
+}
+
 .red {
 background-color: #ff0064;
 }

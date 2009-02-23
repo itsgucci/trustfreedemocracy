@@ -39,7 +39,7 @@
 		#	["Laws", "find", render( :partial => 'shared/find' )],
 		#	["News", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
 			["News", "action", render(:partial => 'shared/action_paginated', :locals => {:actions => @actions})],
-			["Changes", "change", url_for(:controller => 'communities', :action => 'show_changes', :id => @community)],
+		#	["Changes", "change", url_for(:controller => 'communities', :action => 'show_changes', :id => @community)],
 			["Laws", "law", url_for(:controller => 'communities', :action => 'show_laws', :id => @community)],
 			
 			[name(@community.chairperson), "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]

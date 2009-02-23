@@ -1,6 +1,6 @@
 <h3>Regional Priority</h3>
 <%- if @user.top_priorities.empty? %>
-<p><fb:name uid="<%= @user.facebook_id %>"></fb:name> does not have Regional Priorities</p>
+<p><%= name @user %> does not have Regional Priorities</p>
 <%- else %>
 <ul class="orangelist">
 	<%- for item in @user.top_priorities %>
@@ -10,7 +10,7 @@
 <%- end %>
 <h3>Supported Laws</h3>
 <%- if @user.supported_articles.empty? %>
-<p><fb:name uid="<%= @user.facebook_id %>"></fb:name> does not support any Laws.</p>
+<p><%= name(@user) %> does not support any Laws.</p>
 <%- else %>
 <ul class="orangelist">
 	<%- for item in @user.supported_articles %>

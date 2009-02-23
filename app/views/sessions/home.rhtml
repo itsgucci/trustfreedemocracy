@@ -16,9 +16,9 @@
 			<%- else %>
 				<div class="box">
 					<p style="display:none">Join your <%= image_tag 'facebook/rogo.jpg', :alt => "facebook", :style => "width:75px;vertical-align:middle;" %> friends to make the world a better place.</p>
-					<p>Help unite humanity in consensus with Democracy Universal.</p>
+					<p>Get in touch with Democracy Universal</p>
 					<p>Take an active role in <%= link_to current_community.name, current_community %> by connecting virtually with elected representatives and the people they represent. Share links and videos with friends, get the scoop on the issues, and vote for what you think is sensible.</p>
-					<p>We encourage people to come together as a community to make laws that make sense, to us, and them. We hope that when the people lead, the leaders will follow. To enable grassroots leadership, we offer a certification program enabling registered voters to validate their voices and cast certified votes.</p>
+					<p>Come together as a community to make laws that make sense to you. When the people lead, the leaders will follow. To enable grassroots leadership, we offer a certification program enabling registered voters to validate their voices and cast certified votes.</p>
 					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement.</p>
 					<p>Find out more <%= link_to "about Democracy Universal", '/about' %>.</p>
 				</div>
@@ -81,12 +81,14 @@
 						<% end %>
 					</div>
 				</div>
+				<%- if logged_in? %>
 				<div class="box">
 					<h2 class="header">Create a Democracy</h2>
 					<div class="body">
 						<p class="larger"><%= link_to "Start a new Democracy", new_community_path %></p>
 					</div>
 				</div>
+				<%- end %>
 			</div>
 			<%= clear_both %>
 		</div>

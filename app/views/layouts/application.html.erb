@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 	<link rel="icon" type="image/gif" href="<%= image_path "logo.png" %>" />
-	<title>DU<%= "+ #{current_community.name}" if current_community %></title>
+	<title>DU <%= "#{current_community.name}" if current_community %></title>
 	<%= stylesheet_link_tag 'basic', 'lightbox' %>
 	<%= stylesheet_link_tag 'wice_grid' %>
 	<%= javascript_include_tag :defaults, 'textile', 'tooltip', 'reflection', 'endless' %>
@@ -121,6 +121,10 @@
 			<%= clear_both %>
 		</div>
 		<div id="footer">
+			<%- unless current_page?('/') %>
+			<%= image_tag 'home.gif', :style => "float:left; height: 26px; margin-top:3px" %>
+			<h1 style="float:left; font-size:26px"><%= link_to "Democracy Universal", '/', :style => "color:white" %></h1>
+			<%- end %>
 			<p class="larger the_truth">The people were in fact, the fountain of all power, and by resorting to them, all difficulties were got over. -James Madison</p>
 			<p class="the_truth">Your liberty is the state of being free within society from oppressive restrictions imposed by authority on your way of life, behavior, or political views</p>
 			<h1 id="strength" class="hidden"><%= link_to "#{User.authenticated_users.size} Strong", users_path, :style => "color: inherit; text-decoration: none" %></h1>
@@ -142,9 +146,17 @@
 				<li style="display:none"><%= toggle_certified_link %></li>
 				<li style="display:none"><%= toggle_help_link %></li>
 				<li style=""><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
-				<li><a href="/options" >options </a></li>
+				<li style="display:none"><a href="/options" >options </a></li>
 				<li><a href="/about" help="Find out about this website">about</a></li>
 				<li style="display:none"><a href="/why">why</a></li>
+				<li>-</li>
+				<li>
+					<%- if logged_in? %>
+					<%= link_to name(current_user), current_user %><%= link_to "logout", '/logout' %>
+					<%- else %>
+					<%= link_to "login", "/login" %> or <%= link_to "signup", "/signup" %>
+					<%- end %>
+				</li>
 			</ul>
 		</div>
 	</div>
