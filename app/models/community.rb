@@ -39,7 +39,10 @@ class Community < ActiveRecord::Base
     end
   end
   def charter_page
-    pages.at 2
+    pages.at 2 || Page.create(:title => "Charter")
+  end
+  def charter_page=(page)
+    pages << page
   end
   
   def minutes

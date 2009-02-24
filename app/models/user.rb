@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   
   badges_authorized_user
   
+  has_attached_file :profile_pic, :styles => { :thumb=> "25x25#", :regular  => "150x150>" }
+  
   acts_as_commentable
   
   has_many :articles
@@ -53,10 +55,6 @@ class User < ActiveRecord::Base
   
   define_index do
     index :name
-  end
-  
-  def profile_img
-    "default.png"
   end
   
   #def district_memberships

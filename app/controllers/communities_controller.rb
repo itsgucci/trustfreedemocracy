@@ -10,6 +10,15 @@ class CommunitiesController < ApplicationController
     @community = Community.new
   end
   
+  def create
+    @community = Community.new(params[:community])
+    Community.transaction do
+      @community.save
+      @community.chairperson = current_user
+    end
+    redirect_to @community
+  end
+  
   def show
     @community = Community.find(params[:id])
     self.current_community = @community
@@ -190,6 +199,17 @@ class CommunitiesController < ApplicationController
     end
   end
   
+  def update_charter
+    community = Community.find(params[:id])
+    page = community.charter_page
+    if current_user.has_privilege?('manage community', community)
+      page.content = params[:page][:content]
+      page.save
+      page.reload
+      render :text => textile(page.content)
+    end
+  end
+  
   def show_actions
     actions = Community.find(params[:id]).actions.paginate(:page => params[:page], :per_page => 13)
     render :partial => 'shared/action_paginated', :locals => { :actions => actions }
@@ -226,6 +246,7 @@ class CommunitiesController < ApplicationController
   end
   def show_charter
     @community = Community.find(params[:id])
+    @community.charter_page
     render :partial => 'charter'
   end
   

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090102082119) do
+ActiveRecord::Schema.define(:version => 20090224102621) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(:version => 20090102082119) do
 
   create_table "certifications", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "district_id",                         :null => false
+    t.integer  "district_id"
     t.string   "certification_number", :limit => 200
     t.string   "certification_pin"
     t.string   "certified_name",       :limit => 155
@@ -270,9 +270,9 @@ ActiveRecord::Schema.define(:version => 20090102082119) do
     t.datetime "created_on",  :null => false
   end
 
+  add_index "representative_votes", ["article_id", "district_id"], :name => "art_dist", :unique => true
   add_index "representative_votes", ["article_id"], :name => "article"
   add_index "representative_votes", ["district_id", "article_id"], :name => "district_article"
-  add_index "representative_votes", ["article_id", "district_id"], :name => "art_dist", :unique => true
 
   create_table "roll_votes", :force => true do |t|
     t.integer  "roll_id"
@@ -342,6 +342,9 @@ ActiveRecord::Schema.define(:version => 20090102082119) do
     t.string   "zip",                       :limit => 20, :default => "", :null => false
     t.string   "facebook_id"
     t.string   "name"
+    t.string   "profile_pic_file_name"
+    t.string   "profile_pic_content_type"
+    t.integer  "profile_pic_file_size"
   end
 
   add_index "users", ["login"], :name => "login"

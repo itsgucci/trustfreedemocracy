@@ -1,1 +1,10 @@
-<%= @community.charter_page %>
+<h2><%= name(@community.chairperson) %>'s Vision for <%= h @community.name %></h2>
+<%- if logged_in? && current_user.has_privilege?('manage community', @community)%>
+<%- remote_form_for :page, @community.charter_page, :url => {:controller => :communities, :action => :update_charter, :id => @community}, :update => 'charter', :complete => visual_effect(:slide_down, 'charter') do |f| %>
+<%= f.label :content %><%= f.text_area :content, :rows => "9" %>
+<p><%= submit_tag "Update the Vision" %></p>
+<%- end %>
+<%- end %>
+<div id="charter">	
+	<%= textile @community.charter_page.content %>
+</div>

@@ -62,6 +62,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def update
+    current_user.update_attribute('profile_pic', params[:user][:profile_pic])
+    redirect_to user_path current_user
+  end
+  
   def hide_notification
     note = Notification.find(params[:id])
     # todo consider whether this should be done with permissions or not

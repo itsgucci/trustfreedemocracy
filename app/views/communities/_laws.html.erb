@@ -1,7 +1,9 @@
+<h3><%= link_to "Insert a Law", new_article_path %></h3>
+
 <%= grid(@laws_grid, :table_html_attrs => { :id => "target_table", :class => "wice_grid ruler" } ) do |g|
 	g.row_attributes do |article|
 		{:id => "#{@laws_grid.name}_row_#{article.id}",
-		:onclick => "showArticle(#{article.id}); return false;"}
+		:onclick => "document.location = '/a/#{article.id}'"}
 	end
 	g.column :column_name => '&nbsp;*', :attribute_name => 'support_count', :no_filter => true do |article|
 		@width = 30; @article = article; render( :partial => 'articles/support_image')

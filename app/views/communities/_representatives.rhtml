@@ -1,12 +1,14 @@
 <%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
 <div>
+	<h3>Create New Region</h3>
 	<%- form_for District.new(:community_id => current_community.id) do |f| %>
-	<p>district: <%= f.text_field 'name' %></p>
-	<p>description: <%= f.text_field 'description' %></p>
+	<p><%= f.label :name, "Region Name" %> <%= f.text_field :name %></p>
+	<p><%= f.label :description %> <%= f.text_field 'description' %></p>
 	<%= f.hidden_field 'community_id' %>
 	<p><%= submit_tag "New" %></p>
 	<%- end %>
 </div>
+<hr />
 <%- end %>
 <table>
 	<thead>

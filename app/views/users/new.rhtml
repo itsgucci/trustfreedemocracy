@@ -20,11 +20,12 @@
 			<div class="box">
 				<h2 class="header hidden">Apply for an Account</h2>
 				<div class="body">
-				<% form_for @user do |f| -%>
+				<% form_for @user, :html => {:multipart => true} do |f| -%>
 					<%= error_messages_for 'user' %>
 					<!--[form:user]-->
 					<p id="name"><label for="user_name">First and Last Name</label><br /><%= f.text_field 'name', :size => 15  %></p>
 					<p id="user_info"><label for="user_email">Email</label><br /><%= f.text_field :email, :size => "15" %></p>
+					<p><%= f.label :profile_pic, "Picture" %> <br/><%= f.file_field :profile_pic, :size => 13 %>
 					<p id="login_info"><label for="user_password">Password</label><br /><%= f.password_field 'password', :size => 13  %></p>
 					<p><span class="dull">Yes!</span> <%= submit_tag "Create My Account :)" %></p>
 				<% end %>
