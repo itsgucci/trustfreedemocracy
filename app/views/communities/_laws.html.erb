@@ -1,4 +1,6 @@
+<%- if logged_in? && current_user.has_privilege?('clerk', @community) %>
 <h3><%= link_to "Insert a Law", new_article_path %></h3>
+<%- end %>
 
 <%= grid(@laws_grid, :table_html_attrs => { :id => "target_table", :class => "wice_grid ruler" } ) do |g|
 	g.row_attributes do |article|
