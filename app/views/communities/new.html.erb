@@ -4,12 +4,13 @@
 		<div class="left_column golden_big">
 			<h2>Democracy Anywhere</h2>
 			<p>Democracy Universal can mirror almost any existing representative legislature, board of directors or formal rule making body. Add transparency and individual accountability to any democratic process in seconds.</p>
-			<p>When you create a democracy, you will become the chairperson. The chairperson is responsible for configuring and overseeing the democracy. From setting up regions to synchronizing legislative content, the chairperson is basically the executive of a democracy.</p>
+			<p>When you create a democracy, you will become the chairperson responsible for configuring and ensuring the democracy. From setting up regions to synchronizing legislative content, the chairperson is basically the executive of a democracy.</p>
 		</div>
 		<div class="right_column golden_small">
 			<%- form_for @community do |f| %>
 			<p><%= f.label :name, "Name of Democracy" %> <%= f.text_field :name, :style => "width: 94%" %></p>
-			<p><%= f.label :tax_population, "Certificates" %> <%= f.text_field :tax_population, :size => 7 %>
+			<p><%= f.label :tax_population, "Certificates" %> <%= f.text_field :tax_population, :size => 7 %></p>
+			<p><label for="regions">Regions</label> <%= text_field_tag :regions, "1", :size => 4 %>
 			<p><%= submit_tag "Create" %></p>
 			<%- end %>
 		</div>

@@ -1,5 +1,5 @@
 <%- if logged_in? && current_user.has_privilege?('manage community', @community) %>
-<div>
+<div class="left_column half">
 	<h3>Create New Region</h3>
 	<%- form_for District.new(:community_id => current_community.id) do |f| %>
 	<p><%= f.label :name, "Region Name" %> <%= f.text_field :name %></p>
@@ -8,6 +8,26 @@
 	<p><%= submit_tag "New" %></p>
 	<%- end %>
 </div>
+<div class="right_column half">
+	<h3>Manage Clerks</h3>
+	<div class="p_padding">
+		<%- form_tag :action => 'toggle_clerk', :id => @community do %>
+			<%= text_field_tag 'clerk', "Clerk's email" %>
+			<%= submit_tag 'toggle' %>
+		<%- end %>
+	</div>
+	<p style="float:left">Clerks:</p>
+	<%- if @community.clerks.empty? %>
+	<p>None</p>
+	<%- else %>
+	<ul id="clerks" style="list-style:none;">
+		<%- @community.clerks.each do |clerk| %>
+		<li><%= link_to h( clerk.name ), clerk %></li>
+		<%- end %>
+	</ul>
+	<%- end %>
+</div>
+<%= clear_both %>
 <hr />
 <%- end %>
 <table>

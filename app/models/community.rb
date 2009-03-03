@@ -31,6 +31,10 @@ class Community < ActiveRecord::Base
     
   attr_accessor :style
   
+  def current_session
+    111
+  end
+  
   def calendar_page
     if page = pages.first
       return page
@@ -39,7 +43,10 @@ class Community < ActiveRecord::Base
     end
   end
   def charter_page
-    pages.at 2 || Page.create(:title => "Charter")
+    until page = pages.at(2) do
+      pages.create
+    end
+    return page
   end
   def charter_page=(page)
     pages << page
@@ -126,7 +133,8 @@ class Community < ActiveRecord::Base
   end
   
   def clerks
-    clerk_role = Badges::Role.find_by_name('Clerk')
+    clerk_role = Badges::Role.find_by_name('clerk')
+    return [] unless clerk_role
     badges = Badges::UserRole.all( :conditions => { :role_id => clerk_role.id, :authorizable_type => 'Community', :authorizable_id => id } )
     User.find badges.map(&:user_id)
   end

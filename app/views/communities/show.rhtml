@@ -42,12 +42,12 @@
 		#	["Changes", "change", url_for(:controller => 'communities', :action => 'show_changes', :id => @community)],
 			["Laws", "law", url_for(:controller => 'communities', :action => 'show_laws', :id => @community)],
 			
-			[name(@community.chairperson), "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
+			[name(@community.chairperson) + "'s Vision", "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
 		#	["Record", "minutes", url_for(:controller => 'communities', :action => 'show_minutes', :id => @community)],
 		#	["Budget", "info", url_for(:controller => 'communities', :action => 'show_budget', :id => @community)],
 		] %>
 		<%- tabs += [[pluralize( @community.districts.count, "Coordinator"), "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] unless current_district %>
-		<%- tabs += [[name(current_district.representative), "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] if current_district %>
+		<%- tabs += [[name(current_district.representative) + "'s Plan", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] if current_district %>
 		<%- tabs +=	[[pluralize( current_district ? current_district.population : @community.population, "Representative" ), "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]] %>
 	
 	<%= tabs @community.id.to_s, tabs %>

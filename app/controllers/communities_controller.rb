@@ -60,16 +60,18 @@ class CommunitiesController < ApplicationController
   
   def toggle_clerk
     @community = Community.find(params[:id])
-    if current_user.has_privilege?('manage clerks', @community)
-      clerk = User.find(params[:clerk])
+    if current_user.has_privilege?('manage community', @community)
+      clerk = User.find_by_login(params[:clerk])
       if @community.clerks.include? clerk
         @community.remove_clerk clerk
+        action = "removed"
       else
         @community.add_clerk clerk
+        action = "added"
       end
     end
-    flash[:notice] = "<p>all you will ever be is annoying</p>"
-    redirect_to :back
+    flash[:notice] = "<p>#{ clerk.name } has been #{ action } as a Clerk</p>"
+    redirect_to @community
   end
   
   def adjust_budget
@@ -220,7 +222,7 @@ class CommunitiesController < ApplicationController
   end
   def show_laws
     @community = Community.find(params[:id])
-    @laws_grid = initialize_grid(Article, :conditions => ['community_id = ?', @community.id], :per_page => 26, :include => [:community, :district])
+    @laws_grid = initialize_grid(Article, :conditions => ['community_id = ? AND session = ?', @community.id, @community.current_session], :per_page => 26, :include => [:community, :district])
     render :partial => 'laws'
   end
   def show_info

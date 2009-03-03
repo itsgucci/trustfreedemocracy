@@ -1,11 +1,11 @@
 <div class="box rounded">
-<% form_remote_tag :url => '/sessions/create', :success => "try{ window.parent.accountable_form.onsubmit(); } catch(e){ window.parent.accountable_form.submit(); } finally{ window.parent.hideBox(); }", :failure => "$('ajax_login_result').innerHTML = 'error'" do %>
+<% form_remote_tag :url => '/sessions/create', :complete => "hideBox();", :success => "try{ window.parent.accountable_form.onsubmit(); } catch(e){ window.parent.accountable_form.submit(); } finally{ hideBox(); }", :failure => "document.location='/login'" do %>
 	<div class="header">
 		<h2>Login to Democracy Universal</h2>
 	</div>
 	<div class="body">
 		<div class="pretty_form">
-			<p><%= link_to_function "Create an account", 'window.parent.location="' + new_user_path + '"; this.window.close()' %> or </p>
+			<h2 style="text-align:center"><%= link_to_function "Create an Account Here", 'window.parent.location="' + new_user_path + '"; this.window.close()', :style => "color:#f60" %> or </h2>
 			<p><label for="user_login" help="This is the login name provided to you, typically your email address. If you do not have a login, click Sign Up below">Email</label><%= text_field_tag :login, nil, :size => 14 %></p>
 			<p><label for="user_password" help="This is your password. If you forgot your password, email democracy@hungrychild.org">Password</label><%= password_field_tag 'password', nil, :size => 14  %></p>
 		</div>

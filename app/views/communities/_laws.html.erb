@@ -25,4 +25,9 @@
 	# g.column :column_name => 'Support', :attribute_name => 'support_count', :no_filter => true do |article|
 	# 	article.support_count
 	# end
-end -%>
+end -%>	
+	<%- form_tag('', :method => :get, :id => 'grid_params') do %>
+		<%= dump_filter_parameters_as_hidden_fields(@laws_grid) %>
+	<%- end %>
+	<div id="bottom_of_list">Loading more Laws <%= image_tag 'indicator.gif', :alt => 'working...' %></div>
+	<script>checkScroll();</script>

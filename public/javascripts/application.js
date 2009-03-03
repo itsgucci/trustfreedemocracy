@@ -229,3 +229,7 @@ function facebook_connected() {
   //document.location = '/facebook';
   //FB.Facebook.get_sessionState().waitUntilReady(function() { document.location = '/facebook'; }); 
 }
+
+function footerPosition() {
+  
+}

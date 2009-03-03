@@ -2,7 +2,7 @@
 var currentPage = 1;
 
 function checkScroll() {
-  if (nearBottomOfPage()) {
+  if ($('bottom_of_list') && nearBottomOfPage()) {
     currentPage++;
     new Ajax.Request('/articles/grid.js?grid[page]=' + currentPage + "&smaller=" + smaller + "&" + Form.serialize('grid_params'), {asynchronous:true, evalScripts:true, method:'get'});
   } else {
@@ -18,6 +18,4 @@ function scrollDistanceFromBottom(argument) {
     return Element.cumulativeScrollOffset($('bottom_of_list'))[1] - document.viewport.getScrollOffsets()[1]
 }
 
-if ($('bottom_of_list')) {
-  document.observe('dom:loaded', checkScroll);  
-}
+document.observe('dom:loaded', checkScroll);  

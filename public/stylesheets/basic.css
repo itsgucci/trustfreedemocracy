@@ -990,7 +990,8 @@ padding: 0 5px;
   margin: 0;
   padding: 1% 2%;
   min-height: 240px;
-  overflow: hidden;
+  max-height: 466px;
+  overflow: auto;
 }
 .pane-selected {
   list-style-type: none;

@@ -2,7 +2,7 @@ module UsersHelper
   
   def picture_and_name(user, size = 25)
     if user.nil? || user == :false
-		  image_tag('p/default.png', :width => size) + name(user)
+		  image_tag('/profile_pics/original/missing.png', :width => size) + name(user)
     elsif user.name
       image_tag(user.profile_pic.url, :width => size ) + name(user)
     elsif user.facebook_id
@@ -22,7 +22,7 @@ module UsersHelper
   
   def picture(user, size = 25)
     if user.nil? || user == :false
-      image_tag('p/default.png', :width => size)
+      image_tag('/profile_pics/original/missing.png', :width => size)
     elsif user.name
       image_tag(user.profile_pic.url, :width => size)
     elsif user.facebook_id
