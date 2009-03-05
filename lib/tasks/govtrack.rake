@@ -45,6 +45,20 @@ namespace :govtrack do
     govtrack_import_bill(GOVTRACK_PATH + 'bills/' + number + '.xml')
   end
   
+  desc "finds out how your legislator gambled"
+  task :import_rolls => :environment do
+    #duplicates = ask "Include duplicates? [t/f] "
+    puts "importing rolls from #{GOVTRACK_PATH}"
+    Dir[GOVTRACK_PATH + 'rolls/*.xml'].each do |path|
+      #begin
+        govtrack_import_roll( path )
+      #rescue
+      #  puts "fail #{path}"
+      #end
+    end
+    puts "Finished updating all rolls"
+  end
+  
 
   desc "Run all bootstrapping tasks"
   task :all => [:default_user, :default_community]
@@ -131,7 +145,7 @@ namespace :govtrack do
     puts "imported " + @article.tom_id
   end
   
-  def import_roll(xml_link)
+  def govtrack_import_roll(xml_link)
     xml = REXML::Document.new( open( xml_link ))
     
     roll_xml = xml.elements["//roll"]

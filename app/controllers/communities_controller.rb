@@ -22,6 +22,7 @@ class CommunitiesController < ApplicationController
   def show
     @community = Community.find(params[:id])
     self.current_community = @community
+    self.current_district = nil unless @community.districts.include? current_district
     @actions = Community.find(params[:id]).actions.paginate(:page => params[:page], :per_page => 13)
   end
   
@@ -230,8 +231,11 @@ class CommunitiesController < ApplicationController
     render :partial => 'info'
   end
   def show_members
-    # hack, because the template is set up for district variable, but we want to pass it a community. duck typing at its worst.
-    @district = Community.find(params[:id])
+    @district = if current_district.nil?
+      Community.find(params[:id])
+    else
+      current_district
+    end
     render :partial => 'districts/members'
   end
   def show_reps

@@ -1,16 +1,16 @@
 <div class="box">
-	<h1 class="header">Create a Democracy</h1>
+	<h1 class="header">Democracy Universal = Democracy Anywhere</h1>
 	<div class="body">
 		<div class="left_column golden_big">
-			<h2>Democracy Anywhere</h2>
-			<p>Democracy Universal can mirror almost any existing representative legislature, board of directors or formal rule making body. Add transparency and individual accountability to any democratic process in seconds.</p>
-			<p>When you create a democracy, you will become the chairperson responsible for configuring and ensuring the democracy. From setting up regions to synchronizing legislative content, the chairperson is basically the executive of a democracy.</p>
+			<h2>Start a Democracy</h2>
+			<p>Democracy Universal will mirror most representative legislatures. Add transparency and individual accountability to any democratic process in seconds.</p>
+			<p>When you create a new democracy, you become the chairperson responsible for synchronizing the laws and the management of the democracy. This task may be delegated out to clerk and coordinator positions, or completely automated using our integration API. </p>
 		</div>
 		<div class="right_column golden_small">
+			<h2>New Democracy</h2>
 			<%- form_for @community do |f| %>
-			<p><%= f.label :name, "Name of Democracy" %> <%= f.text_field :name, :style => "width: 94%" %></p>
-			<p><%= f.label :tax_population, "Certificates" %> <%= f.text_field :tax_population, :size => 7 %></p>
-			<p><label for="regions">Regions</label> <%= text_field_tag :regions, "1", :size => 4 %>
+			<p><%= f.label :name, "Name" %> <%= f.text_field :name, :style => "width: 94%" %></p>
+			<p>with <%= f.text_field :tax_population, :size => 4 %> <%= f.label :tax_population, "Registered voters" %></p>
 			<p><%= submit_tag "Create" %></p>
 			<%- end %>
 		</div>

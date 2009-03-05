@@ -34,55 +34,7 @@
 </head>
 <body id="trustfreedemocracy">
 	<div id="padding">
-		<div id="navigation">
-			<div id="current_user">
-				<%- if logged_in? %>
-				<div style="display:none;float: right; padding-left: 7px"><%= link_to_function image_tag("facebook/logout_medium.gif", :alt => "logout"), 'FB.Connect.logoutAndRedirect("/logout")' %></div><%= picture_and_name(current_user) %>
-				<%- else  %>
-				<%= link_to "login", '/login' %><div style="position:relative; top: 2px; padding-left: 7px"><fb:login-button size="medium" background="white" length="short" onlogin="facebook_connected();"></fb:login-button></div>
-				<%- end  %>
-			</div>
-			<ul class="horizontal district larger">
-				<li <%= current_page?('/') ? 'class="active" style="background:#FF5A00;cursor:pointer" ' : 'style="cursor:pointer" OnMouseOut="$(\'home_icon_img\').src = \'/images/logo.png\'"' %> onclick="document.location.href='/'" id="home_icon" OnMouseOver="$('home_icon_img').src = '/images/home.gif'" help="Click here to go to the TrustFreeDemocracy Home page"><%= current_page?('/') ? image_tag("home.gif", :id => 'home_icon_img') : image_tag("logo.png", :id => 'home_icon_img') %>
-				<%- if current_community %>
-					<%#- current_community.ancestors.reverse.each do |community| %>
-					<!-- ><li><%#= link_to( h(community.name), community, :help => "Click here to begin interacting with #{ h community.name }" ) %></li>< -->
-					<%#- end %>
-				<li class="active"><%=  link_to h(current_community.name), current_community, :help => "#{ h current_community.name } is your currently selected Community. Click here to view the Community Summary." %> : <%#= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :help => "This is the district filter, select a district to get more specific results" } ) %>
-				<%- if false && current_district %> 
-					<a href="#" onclick="document.location.href='/districts/'+$('interest_id').value" help="Click here to go to <%= current_district.name %>">></a><%- end %></li>
-				<%- end %>
-			</ul>
-			<div id="top_links" class="top_links">
-				<%- if current_district || current_community %>
-				<ul style="" id="site_navigation" class="left_links">
-					<li><%#= link_to_unless_current "Surf the Laws", {:controller => '/table'} %></li>
-					<li><%#= link_to_unless current_page?( :controller => 'proposals'), "Prioritize Changes", {:controller => '/proposals'} %></li>
-					<li><%#= link_to_unless_current "Propose a Change", new_article_path %></li>
-					<li><%#= link_to_unless logged_in? && current_page?( user_path(current_user)), "How #{ logged_in? ? 'am I' : 'are we'} doing?", {:controller => "/users/#{current_user.id if logged_in?}"} %></li>
-				</ul>
-				<%- end %>
-				<ul class="right_links">
-					<li style="display:none"><%= link_to_function "help", visual_effect(:grow, :helpbar, :direction => 'top-right') %></li>
-					<%- if logged_in? %>
-					<li style="display:none"><%= link_to_function 'filters', visual_effect(:toggle_blind, :filter_header) %></li>
-					<%- end %>
-					<li>
-						<%- form_tag '/articles', :method => 'get' do %>
-							<%= image_tag "indicator.gif", :id => "search_indicator", :style => "display:none"  %>
-							<%= text_field_tag "search", "Search for Laws", :onblur => "if(this.value == '') this.value = 'Search for Laws';", :onclick => "if(this.value == 'Search for Laws') this.value = '';", :size => "12", :style => "font-size: inherit; background: url('/images/fff-84.png'); padding: 1px 0.38em" %>					
-						<%- end %>
-					</li>
-				</ul>
-			</div>
-		</div>
 		<div id="filter_header" style="display:none" class="">
-			<p>I would like to see <%= toggle_certified_link %> Motions</p>
-			<ul class="horizontal">
-			<%- sieve.tags.each do |tag| %>
-				<li><%= tag.name %></li>
-			<%- end %>
-			</ul>
 		</div>
 		<div id="content_header" class="content_header">
 			<%= yield :content_header %>
@@ -127,17 +79,12 @@
 			<%- end %>
 			<p class="larger the_truth">The people were in fact, the fountain of all power, and by resorting to them, all difficulties were got over. -James Madison</p>
 			<p class="the_truth">Your liberty is the state of being free within society from oppressive restrictions imposed by authority on your way of life, behavior, or political views</p>
-			<h1 id="strength" class="hidden"><%= link_to "#{User.authenticated_users.size} Strong", users_path, :style => "color: inherit; text-decoration: none" %></h1>
 			<ul class="top_links">
 				<%- if logged_in? && current_user.has_privilege?('certify users', current_community) %>
 				<li><%= link_to "manage certifications", manage_certification_community_path(current_community) %></li>
 				<%- end %>
 				<%- if logged_in? && current_user.has_privilege?('set author') %>
 				<li><%= link_to "New Motion", new_article_path, :help => "Click here to create a new User" %></li>
-				<%- end %>
-				<%- if logged_in? && current_user.has_privilege?('manage communities') %>
-				<li><%= link_to "all accounts", '/users/?all=true'%>
-				<li><%= link_to "communities", { :controller => 'admin/districts', :action => 'show' }, :help => "Click here to set up Communities" %></li>
 				<%- end %>
 				<%- if logged_in? && current_user.has_privilege?('manage badges') %>
 				<li><%= link_to "Badges", { :controller => '/badges', :action => 'admin' }, :help => "Click here to manage Badges within TrustFreeDemocracy." %></li>
@@ -148,7 +95,6 @@
 				<li style=""><a href="/sponsor" help="Your contributions keep TrustFreeDemocracy live">sponsor</a></li>
 				<li style="display:none"><a href="/options" >options </a></li>
 				<li><a href="/about" help="Find out about this website">about</a></li>
-				<li style="display:none"><a href="/why">why</a></li>
 				<li>+</li>
 				<li>
 					<%- if logged_in? %>

@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
   end
   
   def grid
-    @articles_grid = initialize_grid(Article, :conditions => ['community_id = ?', current_community.id], :per_page => 26, :include => [:community, :district])
+    @articles_grid = initialize_grid(Article, :conditions => ['community_id = ? AND session = ?', current_community.id, current_community.current_session], :per_page => 26, :include => [:community, :district])
     @smaller = params[:smaller] == 'true'
   end
   

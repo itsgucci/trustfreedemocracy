@@ -1,7 +1,7 @@
 <div class="box">
 	<div class="header">
-		<h1 style="float:left"><%= h( @community.name ) %>: </h1>
-		<%= select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :style => "font-size:29px"} ) %>
+		<h1 style="float:left"><%= h( @community.name ) %> </h1>
+		<%= ": " + select_tag("interest_id", options_for_select( [["All Regions", 0]] + current_community.districts.all.collect {|district| [ district.name + (district.description.blank? ? "" : " -  #{district.description}"), district.id ] }, current_district.nil? ? nil : current_district.id),  { :onchange => "document.location.href='/sessions/set_district/'+$('interest_id').value", :style => "font-size:29px"} ) if @community.districts.count > 0 %>
 			<%- if @community.certified? current_user %>
 		<p style="float:right">
 			<span help="This is your present status with this Government. Click here to leave <%= h @community.name %>"><%= link_to "Certified", certify_community_path %></span>
@@ -35,6 +35,7 @@
 			<%- end %>
 		</h4>
 	</div>
+	<%= link_to 'propose a law', new_article_path, :style => "float:right; color: #fff; margin-right:7px;" %>
 	<%- tabs = [
 		#	["Laws", "find", render( :partial => 'shared/find' )],
 		#	["News", "action", url_for(:controller => 'communities', :action => 'show_actions', :id => @community)],
@@ -42,12 +43,17 @@
 		#	["Changes", "change", url_for(:controller => 'communities', :action => 'show_changes', :id => @community)],
 			["Laws", "law", url_for(:controller => 'communities', :action => 'show_laws', :id => @community)],
 			
-			[name(@community.chairperson) + "'s Vision", "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
+			["Chairperson's Vision", "charter", url_for(:controller => 'communities', :action => 'show_charter', :id => @community)]
 		#	["Record", "minutes", url_for(:controller => 'communities', :action => 'show_minutes', :id => @community)],
 		#	["Budget", "info", url_for(:controller => 'communities', :action => 'show_budget', :id => @community)],
 		] %>
-		<%- tabs += [[pluralize( @community.districts.count, "Coordinator"), "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] unless current_district %>
-		<%- tabs += [[name(current_district.representative) + "'s Plan", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]] if current_district %>
+		<%- if @community.districts.count > 0 || (logged_in? && current_user.has_privilege?('manage community', @community))
+				if current_district.nil?
+					tabs += [[pluralize( @community.districts.count, "Coordinator"), "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]]
+				else 
+					tabs += [["Coordinator's Plan", "reps", url_for(:controller => 'communities', :action => 'show_reps', :id => @community)]]
+				end
+			end %>
 		<%- tabs +=	[[pluralize( current_district ? current_district.population : @community.population, "Representative" ), "people", url_for(:controller => 'communities', :action => 'show_members', :id => @community)]] %>
 	
 	<%= tabs @community.id.to_s, tabs %>

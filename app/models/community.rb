@@ -31,10 +31,6 @@ class Community < ActiveRecord::Base
     
   attr_accessor :style
   
-  def current_session
-    111
-  end
-  
   def calendar_page
     if page = pages.first
       return page

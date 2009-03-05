@@ -17,8 +17,8 @@
 				<div class="box">
 					<p style="display:none">Join your <%= image_tag 'facebook/rogo.jpg', :alt => "facebook", :style => "width:75px;vertical-align:middle;" %> friends to make the world a better place.</p>
 					<p>Get what you want with Democracy Universal</p>
-					<p>Now you can get involved in <%= link_to current_community.name, current_community %> with the click of a button. Take an active role in democracy by connecting with regional coordinators and representatives. Get the real scoop on the issues, share important links and videos with our community, and vote for what you know is sensible.</p>
-					<p>When the people lead, the leaders will follow. Our mission is to make democracy accessible to every interested individual. We enable grassroots leadership by offering a certification program which enables registered voters to validate their voices and cast certified votes.</p>
+					<p>Now you can get involved in <%= link_to current_community.name, current_community %> with the click of a button. Take an active role in democracy by connecting with regional coordinators and representatives. Get the real scoop on the issues, share important links and videos with our community, and vote for what you know to be sensible.</p>
+					<p>When the people lead, the leaders will follow. Our mission is to make democracy accessible to every interested individual. We enable grassroots leadership by empowering any body to get their democracy online in seconds. Registered voters can cast certified votes and get realtime access to democracy.</p>
 					<p class="hidden">TrustFreeDemocracy provides all a simple way to concatenate diverse individual concerns into a single representative consensus congruently eluding personal compromise and magnifying community involvement.</p>
 					<p>Find out more <%= link_to "about Democracy Universal", '/about' %>.</p>
 				</div>
@@ -70,7 +70,7 @@
 					</div>
 				</div>
 				<div class="box">
-					<h2 class="header">Get Certified to Vote</h2>
+					<h2 class="header">Get Registered to Vote</h2>
 					<div class="body pretty_form">
 						<p class=""><%#= link_to "Obtain a Certificate", "http://registarr.com", :popup => true, :class => "larger" %><%= link_to_function "Redeem a Certificate", visual_effect(:toggle_blind, 'cert_form'), :class => "larger" %></p>
 						<% form_tag SSL_ROOT + 'certification/redeem', :id => 'cert_form', :style => "display:none" do %>

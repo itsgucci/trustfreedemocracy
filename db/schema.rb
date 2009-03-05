@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090224102621) do
+ActiveRecord::Schema.define(:version => 20090225074733) do
 
   create_table "actions", :force => true do |t|
     t.integer  "district_id"
@@ -169,14 +169,15 @@ ActiveRecord::Schema.define(:version => 20090224102621) do
   add_index "comments", ["created_at"], :name => "created"
 
   create_table "communities", :force => true do |t|
-    t.integer  "parent_id",      :default => 0,    :null => false
-    t.string   "name",           :default => "",   :null => false
-    t.integer  "tax_population", :default => 1,    :null => false
+    t.integer  "parent_id",       :default => 0,    :null => false
+    t.string   "name",            :default => "",   :null => false
+    t.integer  "tax_population",  :default => 1,    :null => false
     t.integer  "user_id"
     t.string   "community_url"
-    t.integer  "session",        :default => 1
-    t.boolean  "visible",        :default => true
+    t.integer  "session",         :default => 1
+    t.boolean  "visible",         :default => true
     t.datetime "sync_date"
+    t.integer  "current_session"
   end
 
   add_index "communities", ["name"], :name => "name"

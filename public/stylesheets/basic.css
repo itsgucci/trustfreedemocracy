@@ -210,6 +210,10 @@ margin: 3px 0;
 background: url(/images/fff-62.png);
 }
 
+.page_header {
+background: url(/images/fff-62.png);
+}
+
 #bookmark_container {
 position: fixed;
 right: 0;

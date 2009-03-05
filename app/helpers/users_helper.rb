@@ -6,7 +6,7 @@ module UsersHelper
     elsif user.name
       image_tag(user.profile_pic.url, :width => size ) + name(user)
     elsif user.facebook_id
-  		'<fb:profile-pic uid="' + user.facebook_id + '" width="25px" height="25px" facebook-logo="true"></fb:profile-pic>' + name(user)
+  		'<fb:profile-pic uid="' + user.facebook_id + '" width="25px" height="25px" facebook-logo="true"></fb:profile-pic> ' + name(user)
   	end
   end
   
@@ -16,7 +16,7 @@ module UsersHelper
     elsif user.name
       "<span class='user_name'>" + h(user.name) + "</span>"
     elsif user.facebook_id
-		  '<fb:name uid="' + user.facebook_id + '" capitalize="true"></fb:name>'
+		  '<fb:name uid="' + user.facebook_id + '" capitalize="true" useyou="false"></fb:name>'
 		end
   end
   
